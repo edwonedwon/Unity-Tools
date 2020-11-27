@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using DG.Tweening;
 
 namespace Edwon.UnityTools 
 {
@@ -28,12 +27,15 @@ namespace Edwon.UnityTools
 
         public void ShowAfter(float delay)
         {
-            if(canvasGroup == null)
-                canvasGroup = GetComponent<CanvasGroup>();
-            
-            Sequence s = DOTween.Sequence();
-            s.SetDelay(delay);
-            s.AppendCallback(()=> Utils.ShowCanvasGroup(canvasGroup, true, setActive));
+            Debug.Log("reimplment without dg.tween")       
+
+            // if(canvasGroup == null)
+            //     canvasGroup = GetComponent<CanvasGroup>();
+
+
+            // Sequence s = DOTween.Sequence();
+            // s.SetDelay(delay);
+            // s.AppendCallback(()=> Utils.ShowCanvasGroup(canvasGroup, true, setActive));
         }
 
         [InspectorButton("Hide")]
@@ -47,12 +49,14 @@ namespace Edwon.UnityTools
 
         public void HideAfter(float delay)
         {
-            if(canvasGroup == null)
-                canvasGroup = GetComponent<CanvasGroup>();
+            Debug.Log("reimplment without dg.tween")       
+
+            // if(canvasGroup == null)
+            //     canvasGroup = GetComponent<CanvasGroup>();
             
-            Sequence s = DOTween.Sequence();
-            s.SetDelay(delay);
-            s.AppendCallback(()=> Utils.ShowCanvasGroup(canvasGroup, false, setActive));
+            // Sequence s = DOTween.Sequence();
+            // s.SetDelay(delay);
+            // s.AppendCallback(()=> Utils.ShowCanvasGroup(canvasGroup, false, setActive));
         }
 
         public void Toggle(bool toggle)
