@@ -1,0 +1,17 @@
+{
+  "name": "com.edwon.unitytools",
+  "version": "1.0.0",
+  "displayName": "Unity Tools",
+  "description": "tools and utilities for Unity",
+  "unity": "2019.2",
+  "unityRelease": "0f1",
+  "keywords": [],
+  "author": {
+    "name": "Edwon",
+    "email": "edwon@edwon.tv",
+    "url": "https://www.edwon.tv"
+  },
+  "type": "tool",
+  "dependencies": {
+  }
+}
