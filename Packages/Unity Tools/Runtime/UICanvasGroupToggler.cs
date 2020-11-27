@@ -27,7 +27,7 @@ namespace Edwon.UnityTools
 
         public void ShowAfter(float delay)
         {
-            Debug.Log("reimplment without dg.tween")       
+            Debug.Log("reimplment without dg.tween");     
 
             // if(canvasGroup == null)
             //     canvasGroup = GetComponent<CanvasGroup>();
@@ -49,7 +49,7 @@ namespace Edwon.UnityTools
 
         public void HideAfter(float delay)
         {
-            Debug.Log("reimplment without dg.tween")       
+            Debug.Log("reimplment without dg.tween");  
 
             // if(canvasGroup == null)
             //     canvasGroup = GetComponent<CanvasGroup>();
