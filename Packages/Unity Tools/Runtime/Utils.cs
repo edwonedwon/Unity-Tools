@@ -27,7 +27,6 @@ namespace Edwon.UnityTools
         static IEnumerator DoAfterCoroutine(this MonoBehaviour mb, float delay, System.Action a)
         {
             yield return new WaitForSeconds(delay);
-            Debug.Log("did after: " + delay);
             a();
         }
 
