@@ -6,6 +6,8 @@ namespace Edwon.UnityTools
 {
     public class HoldableRigidbody : MonoBehaviour, IHoldable
     {
+        #pragma warning disable 0414
+
         public bool debugLog = false;
         [ReadOnly]
         [SerializeField]
