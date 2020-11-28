@@ -19,6 +19,17 @@ namespace Edwon.UnityTools
             string uid = currentEpochTime + ":" + z1 + ":" + z2;
             return uid;
         }
+        public static Coroutine DoAfter(this MonoBehaviour mb, float delay, System.Action a)
+        {
+            return mb.StartCoroutine(mb.DoAfterCoroutine(delay, a));
+        }
+
+        static IEnumerator DoAfterCoroutine(this MonoBehaviour mb, float delay, System.Action a)
+        {
+            yield return new WaitForSeconds(delay);
+            Debug.Log("did after: " + delay);
+            a();
+        }
 
         public static string RemoveParenthesisAndInside(string toRemoveFrom)
         {

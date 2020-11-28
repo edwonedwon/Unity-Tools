@@ -73,10 +73,7 @@ namespace Edwon.UnityTools
 
         public void SpawnAndHoldDuplicateAfter(float delay)
         {
-            Debug.Log("reimplment this without using DG.TWEEN");
-            // Sequence s = DOTween.Sequence();
-            // s.SetDelay(delay);
-            // s.AppendCallback(()=> SpawnAndHoldDuplicate());
+            Utils.DoAfter(this, delay, ()=> SpawnAndHoldDuplicate());
         }
 
         GameObject Spawn(GameObject toSpawn)
