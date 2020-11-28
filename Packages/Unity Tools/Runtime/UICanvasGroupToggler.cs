@@ -30,7 +30,7 @@ namespace Edwon.UnityTools
             if(canvasGroup == null)
                 canvasGroup = GetComponent<CanvasGroup>();
 
-            Utils.DoAfter(this, delay, ()=> Utils.ShowCanvasGroup(canvasGroup, true, setActive));
+            StaticCoroutine.DoAfter(delay, ()=> Utils.ShowCanvasGroup(canvasGroup, true, setActive));
         }
 
         [InspectorButton("Hide")]
@@ -47,7 +47,7 @@ namespace Edwon.UnityTools
             if(canvasGroup == null)
                 canvasGroup = GetComponent<CanvasGroup>();
 
-            Utils.DoAfter(this, delay, ()=> Utils.ShowCanvasGroup(canvasGroup, false, setActive));
+            StaticCoroutine.DoAfter(delay, ()=> Utils.ShowCanvasGroup(canvasGroup, false, setActive));
         }
 
         public void Toggle(bool toggle)

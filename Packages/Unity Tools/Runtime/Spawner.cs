@@ -73,7 +73,7 @@ namespace Edwon.UnityTools
 
         public void SpawnAndHoldDuplicateAfter(float delay)
         {
-            Utils.DoAfter(this, delay, ()=> SpawnAndHoldDuplicate());
+            StaticCoroutine.DoAfter(delay, ()=> SpawnAndHoldDuplicate());
         }
 
         GameObject Spawn(GameObject toSpawn)
