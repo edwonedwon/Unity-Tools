@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Edwon.UnityTools 
+namespace Edwon.Tools 
 {
     [RequireComponent(typeof(CanvasGroup))]
     public class UICanvasGroupToggler : MonoBehaviour

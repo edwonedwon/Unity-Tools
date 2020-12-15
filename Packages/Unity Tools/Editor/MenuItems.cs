@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-namespace Edwon.UnityTools 
+namespace Edwon.Tools 
 {
     public class MenuItems
     {

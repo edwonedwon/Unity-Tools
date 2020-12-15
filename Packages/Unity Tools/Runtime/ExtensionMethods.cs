@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Edwon.UnityTools 
+namespace Edwon.Tools 
 {
     public static class ExtensionMethods
     {

@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EditorTestObject : MonoBehaviour
+namespace  Edwon.Tools
 {
-    void Awake()
+    public class EditorTestObject : MonoBehaviour
     {
-        #if !UNITY_EDITOR
-        gameObject.SetActive(false);
-        #endif
+        void Awake()
+        {
+            #if !UNITY_EDITOR
+            gameObject.SetActive(false);
+            #endif
+        }
     }
 }

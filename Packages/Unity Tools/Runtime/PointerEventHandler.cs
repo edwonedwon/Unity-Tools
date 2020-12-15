@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.Events;
 using System;
 
-namespace Edwon.UnityTools 
+namespace Edwon.Tools 
 {
     public class PointerEventHandler : MonoBehaviour, IPointerClickHandler, IPointerDownHandler, IPointerUpHandler, IDragHandler, IScrollHandler
     {

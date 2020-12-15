@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Edwon.UnityTools 
+namespace Edwon.Tools 
 {
     public class UIImageSetter : MonoBehaviour
     {

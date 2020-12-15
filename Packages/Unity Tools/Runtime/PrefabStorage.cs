@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Edwon.UnityTools 
+namespace Edwon.Tools 
 {
     [CreateAssetMenu(fileName = "Prefab Storage", menuName = "ScriptableObjects/Prefab Storage")]
     public class PrefabStorage : ScriptableObject

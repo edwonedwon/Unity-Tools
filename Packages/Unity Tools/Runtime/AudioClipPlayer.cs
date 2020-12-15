@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Edwon.UnityTools 
+namespace Edwon.Tools 
 {
     public class AudioClipPlayer : MonoBehaviour
     {

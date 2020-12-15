@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
  
-namespace Edwon.UnityTools
+namespace Edwon.Tools
 {
     public class StaticCoroutine : MonoBehaviour 
     {

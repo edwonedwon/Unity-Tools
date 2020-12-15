@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Edwon.UnityTools 
+namespace Edwon.Tools 
 {
     [System.Serializable]
     public class OnSliderValueChangedUnityEvent : UnityEvent<float> { }

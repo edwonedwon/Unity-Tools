@@ -5,11 +5,79 @@ using UnityEngine;
 using System;
 using UnityEngine.Video;
 using System.Linq;
+using UnityEngine.Events;
 
-namespace Edwon.UnityTools 
+namespace Edwon.Tools 
 {
+    [System.Serializable]
+    public class UnityEventInt : UnityEvent<int>{}
+    [System.Serializable]
+    public class UnityEventFloat : UnityEvent<float>{}
+    [System.Serializable]
+    public class UnityEventString : UnityEvent<string>{}
+    [System.Serializable]
+    public class UnityEventVector3 : UnityEvent<Vector3>{}
+
     public static class Utils
     {
+        public static Vector3 QuickVector(float setAllDimensionsTo)
+        {
+            return new Vector3(setAllDimensionsTo, setAllDimensionsTo, setAllDimensionsTo);
+        }
+
+        private static double Distance(Vector3 p1, Vector3 p2)
+        {
+            return Mathf.Sqrt(
+                Mathf.Pow(p2.x - p1.x, 2) + 
+                Mathf.Pow(p2.y - p1.y, 2) + 
+                Mathf.Pow(p2.z - p1.z, 2));
+        }
+
+        private static double DistanceQuick(Vector3 p1, Vector3 p2)
+        {
+            // distance will this or less
+            double deltaX = Mathf.Abs(p2.x - p1.x);
+            double deltaY = Mathf.Abs(p2.y - p1.y);
+            double deltaZ = Mathf.Abs(p2.z - p1.z);
+
+            double deltaToReturn = 0;
+            if (deltaX > deltaY)
+                deltaToReturn = deltaX;
+            else
+                deltaToReturn = deltaY;
+
+            return deltaToReturn;
+        }  
+
+        public static List<Vector3> OrderByDistance(List<Vector3> pointList)
+        {
+            var orderedList = new List<Vector3>();
+            var currentPoint = pointList[0];
+            while (pointList.Count > 1)
+            {
+                orderedList.Add(currentPoint);
+                pointList.RemoveAt(pointList.IndexOf(currentPoint));
+                var closestPointIndex = 0;
+                var closestDistance = double.MaxValue;
+                for (var i = 0; i < pointList.Count; i++)
+                {
+                    var distanceQuick = DistanceQuick(currentPoint, pointList[i]);
+                    if(distanceQuick > closestDistance)
+                        continue;
+                    var distance = Distance(currentPoint, pointList[i]);
+                    if (distance < closestDistance)
+                    {
+                        closestPointIndex = i;
+                        closestDistance = distance;
+                    }
+                }    
+                currentPoint = pointList[closestPointIndex];
+            }
+            // Add the last point.
+            orderedList.Add(currentPoint);
+            return orderedList;
+        }  
+
         public static string UniqueID()
         {
             DateTime epochStart = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);

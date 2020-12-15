@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Edwon.UnityTools;
+using Edwon.Tools;
 
 public class RemapTest : MonoBehaviour
 {
