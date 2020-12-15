@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "com.edwon.tools": "1.0.12",
+    "com.edwon.tools": "1.1.1",
     "com.unity.ide.vscode": "1.0.7",
     "com.unity.package-manager-ui": "2.2.0",
     "com.unity.ugui": "1.0.0",
