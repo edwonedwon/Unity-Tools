@@ -14,5 +14,17 @@
   "type": "tool",
   "dependencies": {
     "com.unity.ugui": "1.0.0"
-  }
+  },
+  "samples": [
+    {
+      "displayName": "UI Panel Pop Out",
+      "description": "sample of the UI panel pop out script",
+      "path": "Samples/UI Panel Pop Out"
+    },
+    {
+      "displayName": "UI Shapes",
+      "description": "standard simple shape textures for UI",
+      "path": "Samples/UI Shapes"
+    }
+  ]
 }

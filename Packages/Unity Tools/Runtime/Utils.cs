@@ -158,5 +158,13 @@ namespace Edwon.UnityTools
                 c.enabled = toggle;
             }
         }
+
+        public static void UnfoldInEditorHierarchy(Transform transformParentToUnfold)
+        {
+            #if UNITY_EDITOR
+            if (transformParentToUnfold.childCount > 0)
+                UnityEditor.EditorGUIUtility.PingObject(transformParentToUnfold.GetChild(0));
+            #endif
+        }
     }
 }
