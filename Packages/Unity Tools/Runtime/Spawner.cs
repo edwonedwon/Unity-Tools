@@ -8,19 +8,22 @@ namespace Edwon.Tools
     {
         public bool debugLog;
         public bool spawnOnAwake = false;
+        [Header("used to filter events from SpawnEventSender")]
+        public new string name;
         [Header("set spawn point here")]
         public Transform spawnPoint;
-        [Header("or find by name")]
-        public string spawnPointName;
         [Header("if null can be passed in by event")]
         public GameObject prefabToSpawn;
         [Header("prefab storage is how SpawnDuplicate() finds the same prefab as this")]
-        public PrefabStorage prefabStorageToSearch;
+        public PrefabStorageStorage prefabStorageToSearch;
 
         void Awake()
         {
+            if (name == null)
+                name = gameObject.name;
+
             if (spawnPoint == null)
-                spawnPoint = GameObject.Find(spawnPointName).transform;
+                spawnPoint = transform;
             
             if (spawnOnAwake)
                 SpawnSet();
@@ -84,6 +87,24 @@ namespace Edwon.Tools
             int totalObjectsWithSameName = 1 + Utils.HowManyOtherGameObjectsWithSameName(name, true);
             spawned.name = nameStripped + " (" + totalObjectsWithSameName + ")";
             return spawned;
+        }
+
+        void OnSpawnEvent(string spawnerName, GameObject prefabToSpawn)
+        {
+            if (name == spawnerName)
+            {
+                Spawn(prefabToSpawn);
+            }
+        }
+
+        void OnEnable() 
+        {
+            SpawnEventSender.spawnEvent += OnSpawnEvent;
+        }
+
+        void OnDisable()
+        {
+            SpawnEventSender.spawnEvent -= OnSpawnEvent;
         }
     }
 }
