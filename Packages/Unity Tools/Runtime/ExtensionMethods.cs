@@ -183,5 +183,17 @@ namespace Edwon.Tools
             return strings.All(x => value.Contains(x));
         }
 
+        public static bool IsWhiteSpaceOnly(this string value)
+        {
+            bool isWhiteSpaceOnly = true;
+            foreach(Char c in value)
+            {
+                if (Char.IsWhiteSpace(c) == false)
+                {
+                    isWhiteSpaceOnly = false;
+                }
+            }
+            return isWhiteSpaceOnly;
+        }
     }
 }

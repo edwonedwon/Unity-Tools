@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 namespace Edwon.Tools
 {
@@ -19,7 +20,7 @@ namespace Edwon.Tools
 
         void Awake()
         {
-            if (name == null)
+            if (name.IsWhiteSpaceOnly())
                 name = gameObject.name;
 
             if (spawnPoint == null)
