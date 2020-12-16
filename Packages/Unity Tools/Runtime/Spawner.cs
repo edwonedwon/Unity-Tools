@@ -84,19 +84,26 @@ namespace Edwon.Tools
         void OnSpawnEvent(string spawnerName, GameObject prefabToSpawn)
         {
             if (name == spawnerName)
-            {
                 Spawn(prefabToSpawn);
-            }
         }
+
+        void OnSpawnAndHoldEvent(string spawnerName, GameObject prefabToSpawn)
+        {
+            if (name == spawnerName)
+                SpawnAndHold(prefabToSpawn);
+        }
+
 
         void OnEnable() 
         {
             SpawnEventSender.spawnEvent += OnSpawnEvent;
+            SpawnEventSender.spawnAndHoldEvent += OnSpawnAndHoldEvent;
         }
 
         void OnDisable()
         {
             SpawnEventSender.spawnEvent -= OnSpawnEvent;
+            SpawnEventSender.spawnAndHoldEvent -= OnSpawnAndHoldEvent;
         }
     }
 }
