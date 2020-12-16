@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2052635976596982191}
   - component: {fileID: 1487166528554115672}
   - component: {fileID: 7717236047900239916}
+  - component: {fileID: 41618426167308366}
   m_Layer: 0
   m_Name: Prefab To Spawn
   m_TagString: Untagged
@@ -141,5 +142,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabToSpawn: {fileID: 8547040595131411941}
-  spawnerName: Spawner
+  spawnerName: Spawner Holder
   sendSpawnEvent: 0
+  sendSpawnAndHoldEvent: 0
+  sendSpawnAndHoldDuplicateEvent: 0
+--- !u!114 &41618426167308366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8547040595131411941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d06b4350ca86948ad865cb01b19426f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 8547040595131411941}
+  getPrefabReference: 0

@@ -93,7 +93,6 @@ namespace Edwon.Tools
                 SpawnAndHold(prefabToSpawn);
         }
 
-
         void OnEnable() 
         {
             SpawnEventSender.spawnEvent += OnSpawnEvent;
