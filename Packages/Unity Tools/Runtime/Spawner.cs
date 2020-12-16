@@ -8,7 +8,8 @@ namespace Edwon.Tools
     public class Spawner : MonoBehaviour
     {
         public bool debugLog;
-        public bool spawnOnAwake = false;
+        public enum SpawnOnAwakeOption { Dont, Spawn, SpawnAndHold };
+        public SpawnOnAwakeOption spawnOnAwake = SpawnOnAwakeOption.Dont;
         [Header("used to filter events from SpawnEventSender")]
         public new string name;
         [Header("set spawn point here")]
@@ -17,67 +18,29 @@ namespace Edwon.Tools
         public GameObject prefabToSpawn;
         [Header("prefab storage is how SpawnDuplicate() finds the same prefab as this")]
         public PrefabStorageStorage prefabStorageToSearch;
+        [Header("only needed if SpawnAndHold is called")]
+        public Holder holder;
 
         void Awake()
         {
             if (name.IsWhiteSpaceOnly())
                 name = gameObject.name;
 
+            if (holder == null)
+                holder = GetComponent<Holder>();
+
             if (spawnPoint == null)
                 spawnPoint = transform;
             
-            if (spawnOnAwake)
-                SpawnSet();
-        }
-
-        public GameObject SpawnGiven(GameObject toSpawn)
-        {
-            if (debugLog)
-                Debug.Log("SpawnGiven: " + toSpawn.name);
-            return Spawn(toSpawn);
-        }
-
-        public void SpawnSet()
-        {
-            if (debugLog)
-                Debug.Log("SpawnSet: " + prefabToSpawn.name);
-            Spawn(prefabToSpawn);
-        }
-
-        public void SpawnDuplicate()
-        {
-            string prefabName = Utils.RemoveParenthesisAndInside(gameObject.name);
-            GameObject prefabFromStorage = prefabStorageToSearch.GetPrefab(prefabName);
-            if (prefabFromStorage != null)
+            switch (spawnOnAwake)
             {
-                if (debugLog)
-                    Debug.Log("SpawnDuplicate: " + prefabFromStorage.name);
-                Spawn(prefabFromStorage);        
+                case SpawnOnAwakeOption.Spawn:
+                    SpawnSet();
+                    break;
+                case SpawnOnAwakeOption.SpawnAndHold:
+                    SpawnAndHoldSet();
+                    break;
             }
-        }
-
-        public void SpawnAndHoldDuplicate()
-        {
-            string prefabName = Utils.RemoveParenthesisAndInside(gameObject.name);
-            GameObject prefabFromStorage = prefabStorageToSearch.GetPrefab(prefabName);
-            if (prefabFromStorage != null)
-            {
-                GameObject spawned = Spawn(prefabFromStorage);
-                IHoldable toHold = spawned.GetComponent<IHoldable>();
-                Holder holder = spawnPoint.GetComponent<Holder>();
-                holder.Hold(toHold);
-                if (debugLog)
-                    Debug.Log("SpawnAndHoldDuplicate: " + prefabFromStorage.name);
-            }
-            else
-            {
-                Debug.LogWarning("couldn't find prefab in storage with name " + prefabName);
-            }
-        }
-
-        public void SpawnAndHoldDuplicateAfter(float delay)
-        {
-            StaticCoroutine.DoAfter(delay, ()=> SpawnAndHoldDuplicate());
         }
 
         GameObject Spawn(GameObject toSpawn)
@@ -90,6 +53,34 @@ namespace Edwon.Tools
             return spawned;
         }
 
+        public void SpawnSet()
+        {
+            if (debugLog)
+                Debug.Log("SpawnSet: " + prefabToSpawn.name);
+            Spawn(prefabToSpawn);
+        }
+
+        public GameObject SpawnGiven(GameObject toSpawn)
+        {
+            if (debugLog)
+                Debug.Log("SpawnGiven: " + toSpawn.name);
+            return Spawn(toSpawn);
+        }
+
+        public void SpawnAndHoldSet()
+        {
+            SpawnAndHold(prefabToSpawn);
+        }
+
+        // requires holder to be set
+        public void SpawnAndHold(GameObject holdableToSpawn)
+        {
+            if (holder == null) { Debug.LogWarning("holder is not set on Spawner " + name); return; }
+
+            GameObject spawned = SpawnGiven(holdableToSpawn);
+            holder.ReleaseAndHold(spawned);
+        }
+        
         void OnSpawnEvent(string spawnerName, GameObject prefabToSpawn)
         {
             if (name == spawnerName)

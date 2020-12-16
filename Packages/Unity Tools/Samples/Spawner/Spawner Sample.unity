@@ -129,9 +129,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1244515359}
+  - component: {fileID: 1244515360}
   - component: {fileID: 1244515358}
   m_Layer: 0
-  m_Name: Spawner
+  m_Name: Spawner Holder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -151,7 +152,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debugLog: 0
   spawnOnAwake: 0
-  name: Spawner
+  name: 
   spawnPoint: {fileID: 0}
   prefabToSpawn: {fileID: 0}
   prefabStorageToSearch: {fileID: 0}
@@ -169,6 +170,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1244515360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1244515357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2df85c8276538489983f51c96dea8bbc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  heldNameDebug: 
+  heldLastNameDebug: 
+  spawner: {fileID: 0}
+  spawnAndHoldOnAwake: 0
+  spawnAndHoldOnAwakePrefab: {fileID: 0}
+  allPrefabs: {fileID: 0}
+  spawnAndHoldLastHeld: 0
+  destroyHeld: 0
 --- !u!1 &1704002551
 GameObject:
   m_ObjectHideFlags: 0
@@ -200,7 +221,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabToSpawn: {fileID: 8547040595131411941, guid: f1d9f73e90e4c4c38b7d7772d964d887,
     type: 3}
-  spawnerName: Spawner
+  spawnerName: Spawner Holder
   sendSpawnEvent: 0
 --- !u!4 &1704002553
 Transform:

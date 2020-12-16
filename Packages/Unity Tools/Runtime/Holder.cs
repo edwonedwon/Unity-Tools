@@ -25,15 +25,8 @@ namespace Edwon.Tools
         [SerializeField]
         string heldLastNameDebug;
         public Spawner spawner;
-        public bool spawnAndHoldOnAwake;
         public GameObject spawnAndHoldOnAwakePrefab;
         public PrefabStorageStorage allPrefabs;
-
-        void Awake()
-        {
-            if (spawnAndHoldOnAwake)
-                SpawnAndHold(spawnAndHoldOnAwakePrefab);
-        }
 
         void Update()
         {
@@ -53,32 +46,9 @@ namespace Edwon.Tools
                 heldLastNameDebug = "";
         }
 
-        public void SpawnAndHold(GameObject holdableToSpawn)
+        public void Hold(GameObject toHoldGO)
         {
-            if (held != null)
-            {
-                held.Release(true); // release and destroy
-            }
-            GameObject spawned = spawner.SpawnGiven(holdableToSpawn);
-            IHoldable spawnedHoldable = spawned.GetComponent<IHoldable>();
-            Hold(spawnedHoldable);
-        }
-
-        [InspectorButton("SpawnAndHoldLastHeld")]
-        public bool spawnAndHoldLastHeld;
-        public void SpawnAndHoldLastHeld()
-        {
-            if (heldLast == null)
-                return; 
-                
-            string lastHeldPrefabName = Utils.RemoveParenthesisAndInside(heldLast.gameObjectName);
-            GameObject lastHeldPrefab = allPrefabs.GetPrefab(lastHeldPrefabName);
-            SpawnAndHold(lastHeldPrefab);
-        }
-
-        public void Hold(GameObject toHoldGameObject)
-        {
-            IHoldable toHold = toHoldGameObject.GetComponent<IHoldable>();
+            IHoldable toHold = toHoldGO.GetComponent<IHoldable>();
             Hold(toHold);
         }
 
@@ -88,7 +58,21 @@ namespace Edwon.Tools
             held = toHold;
             toHold.OnHold(this);
         }
+        
+        public void ReleaseAndHold(GameObject toHoldGO)
+        {
+            Release();
+            Hold(toHoldGO);
+        }
 
+        public void ReleaseAndHold(IHoldable toHold)
+        {
+            Release();
+            Hold(toHold);
+        }
+
+        [InspectorButton("Release")]
+        public bool release;
         public void Release()
         {
             if (held == null)
