@@ -16,8 +16,6 @@ namespace Edwon.Tools
         public Transform spawnPoint;
         [Header("if null can be passed in by event")]
         public GameObject prefabToSpawn;
-        [Header("prefab storage is how SpawnDuplicate() finds the same prefab as this")]
-        public PrefabStorageStorage prefabStorageToSearch;
         [Header("only needed if SpawnAndHold is called")]
         public Holder holder;
 
