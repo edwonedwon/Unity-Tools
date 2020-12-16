@@ -25,6 +25,11 @@
       "displayName": "UI Shapes",
       "description": "standard simple shape textures for UI",
       "path": "Samples/UI Shapes"
+    },
+    {
+      "displayName": "Spawner",
+      "description": " ",
+      "path": "Samples/Spawner"
     }
   ]
 }
