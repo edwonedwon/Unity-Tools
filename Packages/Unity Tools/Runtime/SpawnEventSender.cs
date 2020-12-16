@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 namespace Edwon.Tools
 {
@@ -52,6 +53,18 @@ namespace Edwon.Tools
                 Debug.Log("PrefabReference component is missing, cannot spawn duplicate");
             else
                 spawnAndHoldEvent(spawnerName, prefabReference.Prefab);
+        }
+
+        public void SendSpawnAndHoldDuplicateEventAfterDelay(float delay = 1f)
+        {
+            if (spawnAndHoldEvent == null)
+                Debug.Log("spawnEvent is null, no listeners subscribed");
+            else if (prefabReference == null)
+                Debug.Log("PrefabReference component is missing, cannot spawn duplicate");
+            else
+            {
+                DOVirtual.DelayedCall(delay, ()=> spawnAndHoldEvent(spawnerName, prefabReference.Prefab) );
+            }
         }
     }
 }
