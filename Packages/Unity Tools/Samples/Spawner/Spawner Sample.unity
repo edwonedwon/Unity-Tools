@@ -151,11 +151,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugLog: 0
-  spawnOnAwake: 0
+  spawnOnAwake: 2
   name: 
   spawnPoint: {fileID: 0}
-  prefabToSpawn: {fileID: 0}
+  prefabToSpawn: {fileID: 8547040595131411941, guid: f1d9f73e90e4c4c38b7d7772d964d887,
+    type: 3}
   prefabStorageToSearch: {fileID: 0}
+  holder: {fileID: 0}
 --- !u!4 &1244515359
 Transform:
   m_ObjectHideFlags: 0
@@ -185,10 +187,9 @@ MonoBehaviour:
   heldNameDebug: 
   heldLastNameDebug: 
   spawner: {fileID: 0}
-  spawnAndHoldOnAwake: 0
   spawnAndHoldOnAwakePrefab: {fileID: 0}
   allPrefabs: {fileID: 0}
-  spawnAndHoldLastHeld: 0
+  release: 0
   destroyHeld: 0
 --- !u!1 &1704002551
 GameObject:
@@ -223,6 +224,8 @@ MonoBehaviour:
     type: 3}
   spawnerName: Spawner Holder
   sendSpawnEvent: 0
+  sendSpawnAndHoldEvent: 0
+  sendSpawnAndHoldDuplicateEvent: 0
 --- !u!4 &1704002553
 Transform:
   m_ObjectHideFlags: 0
