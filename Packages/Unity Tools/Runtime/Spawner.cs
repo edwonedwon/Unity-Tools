@@ -14,10 +14,12 @@ namespace Edwon.Tools
         public new string name;
         [Header("set spawn point here")]
         public Transform spawnPoint;
-        [Header("if null can be passed in by event")]
-        public GameObject prefabToSpawn;
         [Header("only needed if SpawnAndHold is called")]
         public Holder holder;
+        [Header("if null can be passed in by event")]
+        public GameObject prefabToSpawn;
+        [Header("prefab storage with all game prefabs")]
+        public PrefabStorageStorage allPrefabs;
 
         void Awake()
         {
@@ -70,10 +72,17 @@ namespace Edwon.Tools
             SpawnAndHold(prefabToSpawn);
         }
 
-        // requires holder to be set
+        public void SpawnAndHoldPrefab(string itemName)
+        {
+            Debug.Log("spawn and hold " + itemName);
+            GameObject prefab = allPrefabs.GetPrefab(itemName);
+            if (holder == null) { Debug.Log("prefab with name: " + itemName + " is not in given prefab storage"); return; }
+            SpawnAndHold(prefab);            
+        }
+
         public void SpawnAndHold(GameObject holdableToSpawn)
         {
-            if (holder == null) { Debug.LogWarning("holder is not set on Spawner " + name); return; }
+            if (holder == null) { Debug.Log("holder is not set on Spawner " + name); return; }
 
             GameObject spawned = SpawnGiven(holdableToSpawn);
             holder.ReleaseAndHold(spawned);

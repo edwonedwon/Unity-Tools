@@ -15,13 +15,6 @@ namespace Edwon.Tools
         // public static SpawnAndHoldDuplicateEvent spawnAndHoldDuplicateEvent;
         public GameObject prefabToSpawn;
         public string spawnerName;
-        PrefabReference prefabReference;
-
-        void Awake()
-        {
-            if (prefabReference == null)
-                prefabReference = GetComponent<PrefabReference>();
-        }
 
         [InspectorButton("SendSpawnEvent")]
         public bool sendSpawnEvent;
@@ -41,30 +34,6 @@ namespace Edwon.Tools
                 Debug.Log("spawnEvent is null, no listeners subscribed");
             else
                 spawnAndHoldEvent(spawnerName, prefabToSpawn);
-        }
-
-        [InspectorButton("SendSpawnAndHoldDuplicateEvent")]
-        public bool sendSpawnAndHoldDuplicateEvent;
-        public void SendSpawnAndHoldDuplicateEvent()
-        {
-            if (spawnAndHoldEvent == null)
-                Debug.Log("spawnEvent is null, no listeners subscribed");
-            else if (prefabReference == null)
-                Debug.Log("PrefabReference component is missing, cannot spawn duplicate");
-            else
-                spawnAndHoldEvent(spawnerName, prefabReference.Prefab);
-        }
-
-        public void SendSpawnAndHoldDuplicateEventAfterDelay(float delay = 1f)
-        {
-            if (spawnAndHoldEvent == null)
-                Debug.Log("spawnEvent is null, no listeners subscribed");
-            else if (prefabReference == null)
-                Debug.Log("PrefabReference component is missing, cannot spawn duplicate");
-            else
-            {
-                DOVirtual.DelayedCall(delay, ()=> spawnAndHoldEvent(spawnerName, prefabReference.Prefab) );
-            }
         }
     }
 }

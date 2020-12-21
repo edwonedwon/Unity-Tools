@@ -4,19 +4,26 @@ using UnityEngine;
 
 namespace Edwon.Tools 
 {
+    [System.Serializable]
+    public class PrefabSlot
+    {
+        public string itemName;
+        public GameObject gameObject;
+    }
+
     [CreateAssetMenu(fileName = "Prefab Storage", menuName = "ScriptableObjects/Prefab Storage")]
     public class PrefabStorage : ScriptableObject
     {
-        public GameObject[] prefabs;
+        public PrefabSlot[] prefabs;
 
-        public GameObject GetPrefab(string prefabName)
+        public GameObject GetPrefab(string itemName)
         {
-            foreach (GameObject prefab in prefabs)
+            foreach (PrefabSlot prefab in prefabs)
             {
-                if (prefab.name == prefabName)
-                    return prefab;
+                if (prefab.itemName == itemName)
+                    return prefab.gameObject;
             }
-            Debug.LogWarning("Prefab with name " + prefabName + " was not found in storage");
+            Debug.LogWarning("Prefab with itemName " + itemName + " was not found in storage");
             return null;
         }
     }

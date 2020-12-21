@@ -9,17 +9,17 @@ namespace Edwon.Tools
     {
         public PrefabStorage[] prefabStorages;
 
-        public GameObject GetPrefab(string prefabName)
+        public GameObject GetPrefab(string itemName)
         {
             foreach(PrefabStorage prefabStorage in prefabStorages)
             {
-                foreach (GameObject prefab in prefabStorage.prefabs)
+                foreach (PrefabSlot prefab in prefabStorage.prefabs)
                 {
-                    if (prefab.name == prefabName)
-                        return prefab;
+                    if (prefab.itemName == itemName)
+                        return prefab.gameObject;
                 }
             }
-            Debug.LogWarning("Prefab with name " + prefabName + " was not found in storage storage");
+            Debug.LogWarning("Prefab with itemName " + itemName + " was not found in storage storage");
             return null;
         }
     }
