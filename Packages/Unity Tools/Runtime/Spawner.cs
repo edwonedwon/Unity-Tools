@@ -87,7 +87,16 @@ namespace Edwon.Tools
             GameObject spawned = SpawnGiven(holdableToSpawn);
             holder.ReleaseAndHold(spawned);
         }
-        
+
+        public void SpawnAndHoldAndDestroyHeld(GameObject holdableToSpawn)
+        {
+            if (holder == null) { Debug.Log("holder is not set on Spawner " + name); return; }
+
+            holder.DestroyHeld();
+            GameObject spawned = SpawnGiven(holdableToSpawn);
+            holder.ReleaseAndHold(spawned);
+        }
+
         void OnSpawnEvent(string spawnerName, GameObject prefabToSpawn)
         {
             if (name == spawnerName)
