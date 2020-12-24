@@ -7,7 +7,7 @@ namespace Edwon.Tools
     [System.Serializable]
     public class PrefabSlot
     {
-        public string itemName;
+        public string prefabName;
         public GameObject gameObject;
     }
 
@@ -20,7 +20,7 @@ namespace Edwon.Tools
         {
             foreach (PrefabSlot prefab in prefabs)
             {
-                if (prefab.itemName == itemName)
+                if (prefab.prefabName == itemName)
                     return prefab.gameObject;
             }
             Debug.LogWarning("Prefab with itemName " + itemName + " was not found in storage");

@@ -68,11 +68,12 @@ namespace Edwon.Tools
             SpawnAndHold(prefabToSpawn);
         }
 
-        public void SpawnAndHoldPrefab(string itemName)
+        public void SpawnAndHoldPrefab(string prefabName)
         {
-            Debug.Log("spawn and hold " + itemName);
-            GameObject prefab = allPrefabs.GetPrefab(itemName);
-            if (holder == null) { Debug.Log("prefab with name: " + itemName + " is not in given prefab storage"); return; }
+            if (debugLog)
+                Debug.Log("spawn and hold " + prefabName);
+            GameObject prefab = allPrefabs.GetPrefab(prefabName);
+            if (holder == null) { Debug.Log("prefab with name: " + prefabName + " is not in given prefab storage"); return; }
             SpawnAndHold(prefab);            
         }
 
