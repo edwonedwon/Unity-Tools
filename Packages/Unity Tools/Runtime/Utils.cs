@@ -17,6 +17,8 @@ namespace Edwon.Tools
     public class UnityEventString : UnityEvent<string>{}
     [System.Serializable]
     public class UnityEventVector3 : UnityEvent<Vector3>{}
+    [System.Serializable]
+    public class UnityEventGameObject : UnityEvent<GameObject>{}
 
     public static class Utils
     {

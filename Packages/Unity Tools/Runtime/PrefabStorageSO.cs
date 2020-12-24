@@ -11,8 +11,8 @@ namespace Edwon.Tools
         public GameObject gameObject;
     }
 
-    [CreateAssetMenu(fileName = "Prefab Storage", menuName = "ScriptableObjects/Prefab Storage")]
-    public class PrefabStorage : ScriptableObject
+    [CreateAssetMenu(fileName = "Prefab Storage", menuName = "Scriptables/Prefab Storage")]
+    public class PrefabStorageSO : ScriptableObject
     {
         public PrefabSlot[] prefabs;
 

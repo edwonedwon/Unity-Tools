@@ -19,7 +19,7 @@ namespace Edwon.Tools
         [Header("if null can be passed in by event")]
         public GameObject prefabToSpawn;
         [Header("prefab storage with all game prefabs")]
-        public PrefabStorageStorage allPrefabs;
+        public PrefabStorageStorageSO allPrefabs;
 
         void Awake()
         {

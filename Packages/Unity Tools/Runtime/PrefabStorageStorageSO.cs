@@ -4,14 +4,14 @@ using UnityEngine;
 
 namespace Edwon.Tools 
 {
-    [CreateAssetMenu(fileName = "Prefab Storage Storage", menuName = "ScriptableObjects/Prefab Storage Storage")]
-    public class PrefabStorageStorage : ScriptableObject
+    [CreateAssetMenu(fileName = "Prefab Storage Storage", menuName = "Scriptables/Prefab Storage Storage")]
+    public class PrefabStorageStorageSO : ScriptableObject
     {
-        public PrefabStorage[] prefabStorages;
+        public PrefabStorageSO[] prefabStorages;
 
         public GameObject GetPrefab(string itemName)
         {
-            foreach(PrefabStorage prefabStorage in prefabStorages)
+            foreach(PrefabStorageSO prefabStorage in prefabStorages)
             {
                 foreach (PrefabSlot prefab in prefabStorage.prefabs)
                 {
