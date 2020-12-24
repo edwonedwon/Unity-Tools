@@ -9,16 +9,18 @@ using UnityEngine.Events;
 
 namespace Edwon.Tools 
 {
+    public class UnityEventEdwonBase<T> : UnityEvent<T>{}
+
     [System.Serializable]
-    public class UnityEventInt : UnityEvent<int>{}
+    public class UnityEventInt : UnityEventEdwonBase<int>{}
     [System.Serializable]
-    public class UnityEventFloat : UnityEvent<float>{}
+    public class UnityEventFloat : UnityEventEdwonBase<float>{}
     [System.Serializable]
-    public class UnityEventString : UnityEvent<string>{}
+    public class UnityEventString : UnityEventEdwonBase<string>{}
     [System.Serializable]
-    public class UnityEventVector3 : UnityEvent<Vector3>{}
+    public class UnityEventVector3 : UnityEventEdwonBase<Vector3>{}
     [System.Serializable]
-    public class UnityEventGameObject : UnityEvent<GameObject>{}
+    public class UnityEventGameObject : UnityEventEdwonBase<GameObject>{}
 
     public static class Utils
     {
