@@ -4,15 +4,15 @@ using UnityEngine;
 
 namespace Edwon.Tools
 {
-    public class FloatVariableListener : MonoBehaviour 
+    public class FloatVariableSOListener : MonoBehaviour 
     {
         public FloatVariableSO variableSO;
         public UnityEventFloat onVariableChanged;
-        VariableListener<FloatVariableSO, float, UnityEventFloat> listener;
+        VariableSOListener<FloatVariableSO, float, UnityEventFloat> listener;
 
         private void Awake() 
         {
-            listener = new VariableListener<FloatVariableSO, float, UnityEventFloat>(variableSO, onVariableChanged);
+            listener = new VariableSOListener<FloatVariableSO, float, UnityEventFloat>(variableSO, onVariableChanged);
         }
 
         private void Update() 

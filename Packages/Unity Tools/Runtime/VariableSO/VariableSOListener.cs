@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 namespace Edwon.Tools
 {
-    public class VariableListener<VariableSOType, VariableType, UnityEventType> 
+    public class VariableSOListener<VariableSOType, VariableType, UnityEventType> 
     where VariableSOType: VariableSO<VariableType>
     where UnityEventType : UnityEventEdwonBase<VariableType>
     {
@@ -13,7 +13,7 @@ namespace Edwon.Tools
         VariableType variableLast;
         public UnityEventType onVariableChanged;
 
-        public VariableListener(VariableSOType variableSO, UnityEventType onVariableChanged)
+        public VariableSOListener(VariableSOType variableSO, UnityEventType onVariableChanged)
         {
             this.variableSO = variableSO;
             this.onVariableChanged = onVariableChanged;
@@ -21,10 +21,10 @@ namespace Edwon.Tools
 
         public void Update() 
         {
-            if (variableSO.runtimeValue.Equals(variableLast))
-                onVariableChanged.Invoke(variableSO.runtimeValue);
+            if (variableSO.RuntimeValue.Equals(variableLast))
+                onVariableChanged.Invoke(variableSO.RuntimeValue);
 
-            variableLast = variableSO.runtimeValue;
+            variableLast = variableSO.RuntimeValue;
         }
     }
 }
