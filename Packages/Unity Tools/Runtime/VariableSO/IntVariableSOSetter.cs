@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Edwon.Tools
 {
     public class IntVariableSOSetter : MonoBehaviour
     {
         public IntVariableSO intVariableSO;
+        public UnityEventInt onValueChangeSuccess;
+        public UnityEventInt onValueChangedStillAboveZero;
+        public UnityEventInt onValueChangeFail;
 
         public void SetTo(int value)
         {
@@ -24,7 +28,17 @@ namespace Edwon.Tools
         public bool minusOne;
         public void MinusOne()
         {
+            int beforeValue = intVariableSO.runtimeValue;
             intVariableSO.runtimeValue -= 1;
+            int newValue = intVariableSO.runtimeValue;
+            if (newValue != beforeValue)
+            {
+                onValueChangeSuccess.Invoke(newValue);             
+                if (newValue > 0)
+                    onValueChangedStillAboveZero.Invoke(newValue);
+            }
+            else
+                onValueChangeFail.Invoke(newValue);
         }
 
         [InspectorButton("DebugSetTo")]
