@@ -46,10 +46,6 @@ namespace Edwon.Tools
         GameObject Spawn(GameObject toSpawn)
         {
             GameObject spawned = GameObject.Instantiate(toSpawn, spawnPoint.position, spawnPoint.rotation);
-            string name = toSpawn.name;
-            string nameStripped = Utils.RemoveParenthesisAndInside(name);
-            int totalObjectsWithSameName = 1 + Utils.HowManyOtherGameObjectsWithSameName(name, true);
-            spawned.name = nameStripped + " (" + totalObjectsWithSameName + ")";
             return spawned;
         }
 
