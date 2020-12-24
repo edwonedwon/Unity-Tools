@@ -21,10 +21,10 @@ namespace Edwon.Tools
 
         public void Update() 
         {
-            if (variableSO.RuntimeValue.Equals(variableLast))
-                onVariableChanged.Invoke(variableSO.RuntimeValue);
+            if (variableSO.runtimeValue.Equals(variableLast))
+                onVariableChanged.Invoke(variableSO.runtimeValue);
 
-            variableLast = variableSO.RuntimeValue;
+            variableLast = variableSO.runtimeValue;
         }
     }
 }

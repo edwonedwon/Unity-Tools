@@ -7,11 +7,11 @@ namespace  Edwon.Tools
     public class IntVariableSO : VariableSO<int>, ISerializationCallbackReceiver 
     {
         public bool alwaysPositive;
-        public int RuntimeValue 
+        new public int runtimeValue 
         {
             get
             {
-                return base.RuntimeValue;
+                return base.runtimeValue;
             }
             set
             {
@@ -19,7 +19,7 @@ namespace  Edwon.Tools
                     if (value < 0)
                         return;
 
-                base.RuntimeValue = value;
+                base.runtimeValue = value;
             }
         }
     }

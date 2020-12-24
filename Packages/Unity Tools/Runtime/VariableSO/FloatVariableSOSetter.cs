@@ -4,27 +4,27 @@ using UnityEngine;
 
 namespace Edwon.Tools
 {
-    public class IntVariableSOSetter : MonoBehaviour
+    public class FloatVariableSOSetter : MonoBehaviour
     {
-        public IntVariableSO intVariableSO;
+        public FloatVariableSO floatVariableSO;
 
-        public void SetTo(int value)
+        public void SetTo(float value)
         {
-            intVariableSO.runtimeValue = value;
+            floatVariableSO.runtimeValue = value;
         }
 
         [InspectorButton("PlusOne")]
         public bool plusOne;
         public void PlusOne()
         {
-            intVariableSO.runtimeValue += 1;
+            floatVariableSO.runtimeValue += 1;
         }
 
         [InspectorButton("MinusOne")]
         public bool minusOne;
         public void MinusOne()
         {
-            intVariableSO.runtimeValue -= 1;
+            floatVariableSO.runtimeValue -= 1;
         }
 
         [InspectorButton("DebugSetTo")]
@@ -33,7 +33,7 @@ namespace Edwon.Tools
         {
             SetTo(debugSetToValue);
         }
-        public int debugSetToValue;
+        public float debugSetToValue;
 
     }
 }

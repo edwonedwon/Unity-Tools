@@ -8,11 +8,11 @@ namespace  Edwon.Tools
         public T initialValue;
 
         [NonSerialized]
-        public T RuntimeValue;
+        public T runtimeValue;
 
         public void OnAfterDeserialize()
         {
-            RuntimeValue = initialValue;
+            runtimeValue = initialValue;
         }
 
         public void OnBeforeSerialize() {}
