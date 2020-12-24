@@ -21,7 +21,7 @@ namespace Edwon.Tools
 
         public void Update() 
         {
-            if (variableSO.runtimeValue.Equals(variableLast))
+            if (!variableSO.runtimeValue.Equals(variableLast))
                 onVariableChanged.Invoke(variableSO.runtimeValue);
 
             variableLast = variableSO.runtimeValue;
