@@ -10,8 +10,13 @@ namespace Edwon.Tools
     where UnityEventType : UnityEventEdwonBase<VariableType>
     {
         public VariableSOType variableSO;
-        VariableType variableLast;
+        public VariableType variableLast;
         public UnityEventType onVariableChanged;
+
+        public void Awake() 
+        {
+            onVariableChanged.Invoke(variableSO.runtimeValue);
+        }
 
         public VariableSOListener(VariableSOType variableSO, UnityEventType onVariableChanged)
         {
