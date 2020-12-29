@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 namespace Edwon.Tools
 {
@@ -9,7 +10,7 @@ namespace Edwon.Tools
     {
         public IntVariableSO variableSO;
         public UnityEventInt onVariableChanged;
-        public UnityEventInt onVariableAboveZero;
+        public UnityEventInt onVariableChangedAboveZero;
         public UnityEvent onVariableZero;
         VariableSOListener<IntVariableSO, int, UnityEventInt> listener;
 
@@ -28,7 +29,7 @@ namespace Edwon.Tools
                 if (variableSO.runtimeValue == 0) 
                     onVariableZero.Invoke();
                 if (variableSO.runtimeValue > 0)
-                    onVariableAboveZero.Invoke(variableSO.runtimeValue);
+                    onVariableChangedAboveZero.Invoke(variableSO.runtimeValue);
             }
         }
     }
