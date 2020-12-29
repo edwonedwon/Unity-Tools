@@ -9,7 +9,7 @@ namespace Edwon.Tools
     {
         public IntVariableSO intVariableSO;
         public UnityEventInt onValueChangeSuccess;
-        public UnityEventInt onValueChangedAboveZero;
+        public UnityEventInt onValueChangeSuccessAboveZero;
         public UnityEventInt onValueChangeFail;
 
         public void SetTo(int value)
@@ -35,7 +35,7 @@ namespace Edwon.Tools
             {
                 onValueChangeSuccess.Invoke(newValue);             
                 if (newValue > 0)
-                    onValueChangedAboveZero.Invoke(newValue);
+                    onValueChangeSuccessAboveZero.Invoke(newValue);
             }
             else
                 onValueChangeFail.Invoke(newValue);
