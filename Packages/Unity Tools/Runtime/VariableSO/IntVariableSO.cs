@@ -3,8 +3,9 @@ using System;
 
 namespace  Edwon.Tools
 {
+    [Serializable]
     [CreateAssetMenu(fileName = "Int Variable", menuName = "Scriptables/Int Variable")]
-    public class IntVariableSO : VariableSO<int>, ISerializationCallbackReceiver 
+    public class IntVariableSO : VariableSO<int>
     {
         public bool alwaysPositive;
         new public int runtimeValue 
