@@ -15,6 +15,9 @@ namespace Edwon.Tools
 
         public void Awake() 
         {
+            if (variableSO == null)
+                Debug.Log("variableSO on VariableSOListener is null");
+                
             onVariableChanged.Invoke(variableSO.runtimeValue);
         }
 
