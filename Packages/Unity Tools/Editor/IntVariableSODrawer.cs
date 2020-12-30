@@ -14,28 +14,33 @@ namespace Edwon.Tools
         const float foldoutX = 10f;
         const float foldoutRightX = 100f;
         float lineHeight;
+        const float previewPadding = 60f;
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             lineHeight = EditorGUIUtility.singleLineHeight;
-            Rect line1 = new Rect(position.x, position.y, position.width, lineHeight);
-            EditorGUI.BeginProperty (line1, label, property);
-			EditorGUI.PropertyField(line1, property, label);	
-			EditorGUI.EndProperty();
+            Rect mainPropertyRect = new Rect(position.x, position.y, position.width - previewPadding, lineHeight);
+			EditorGUI.PropertyField(mainPropertyRect, property, label);
             
-    		var foldoutButtonRect = new Rect(position.x, position.y, EditorGUIUtility.labelWidth, EditorGUIUtility.singleLineHeight);
-            var foldoutGuiContent = new GUIContent(property.displayName);
+            IntVariableSO intVariableSO = null;
 
-            // don't render the foldout of the scriptable object isn't set yet
             if (property.objectReferenceValue != null)
             {
+                intVariableSO = EditorUtils.GetTargetObjectOfProperty(property) as IntVariableSO;
+                if (intVariableSO != null)
+                {
+                    float previewX = position.x + position.width - previewPadding;
+                    Rect previewRect = new Rect(previewX, position.y, previewPadding, lineHeight);
+                    EditorGUI.LabelField(previewRect, intVariableSO.runtimeValue.ToString());
+                }
+                var foldoutButtonRect = new Rect(position.x, position.y, EditorGUIUtility.labelWidth, EditorGUIUtility.singleLineHeight);
+                var foldoutGuiContent = new GUIContent(property.displayName);
                 property.isExpanded = EditorGUI.Foldout(foldoutButtonRect, property.isExpanded, foldoutGuiContent, true);
             }
 
             // Foldout
             if (property.isExpanded)
             {
-                IntVariableSO intVariableSO = EditorUtils.GetTargetObjectOfProperty(property) as IntVariableSO;
                 Rect foldoutRect = new Rect(position.x + foldoutX, position.y + lineHeight, position.width, lineHeight);
 
                 EditorGUI.indentLevel = 1;
