@@ -1,7 +1,9 @@
 {
     "name": "edwon.tools.editor",
+    "rootNamespace": "",
     "references": [
-        "GUID:2bafac87e7f4b9b418d9448d219b01ab"
+        "GUID:2bafac87e7f4b9b418d9448d219b01ab",
+        "GUID:37304346b391343f2aff74fdaa3c395d"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
@@ -10,5 +12,6 @@
     "precompiledReferences": [],
     "autoReferenced": true,
     "defineConstraints": [],
-    "versionDefines": []
+    "versionDefines": [],
+    "noEngineReferences": false
 }
