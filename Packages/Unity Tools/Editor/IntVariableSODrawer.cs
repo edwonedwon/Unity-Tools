@@ -14,8 +14,6 @@ namespace Edwon.Tools
         const float foldoutX = 10f;
         const float foldoutRightX = 100f;
         float lineHeight;
-        bool showFoldout = false;
-        bool foldoutOpen = false;
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
@@ -25,27 +23,24 @@ namespace Edwon.Tools
 			EditorGUI.PropertyField(line1, property, label);	
 			EditorGUI.EndProperty();
             
+    		var foldoutButtonRect = new Rect(position.x, position.y, EditorGUIUtility.labelWidth, EditorGUIUtility.singleLineHeight);
+            var foldoutGuiContent = new GUIContent(property.displayName);
+
             // don't render the foldout of the scriptable object isn't set yet
-            if (property.objectReferenceValue == null)
+            if (property.objectReferenceValue != null)
             {
-                showFoldout = false;
-                return;
-            }
-            else
-            {
-                showFoldout = true;
+                property.isExpanded = EditorGUI.Foldout(foldoutButtonRect, property.isExpanded, foldoutGuiContent, true);
             }
 
             // Foldout
-            IntVariableSO intVariableSO = EditorUtils.GetTargetObjectOfProperty(property) as IntVariableSO;
-            Rect foldoutRect = new Rect(position.x + foldoutX, position.y + lineHeight, position.width, lineHeight);
-            foldoutOpen = EditorGUI.Foldout(foldoutRect, this.foldoutOpen, "Int SO Settings");
-            if (foldoutOpen)
+            if (property.isExpanded)
             {
+                IntVariableSO intVariableSO = EditorUtils.GetTargetObjectOfProperty(property) as IntVariableSO;
+                Rect foldoutRect = new Rect(position.x + foldoutX, position.y + lineHeight, position.width, lineHeight);
+
                 EditorGUI.indentLevel = 1;
 
                 // runtime value
-                foldoutRect.y += lineHeight;
                 EditorGUI.PrefixLabel(foldoutRect, new GUIContent("Runtime Value"));
                 foldoutRect.x += foldoutRightX;
                 EditorGUI.LabelField(foldoutRect, intVariableSO.runtimeValue.ToString());
@@ -72,16 +67,11 @@ namespace Edwon.Tools
             lineHeight = EditorGUIUtility.singleLineHeight;
             float nonFoldoutHeight = lineHeight * lineCount + EditorGUIUtility.standardVerticalSpacing * (lineCount-1);
             float foldoutHeight = lineHeight * lineCountFoldout + EditorGUIUtility.standardVerticalSpacing * (lineCountFoldout-1);
-            if (foldoutOpen)
+            if (property.isExpanded)
             {
                 height = nonFoldoutHeight + foldoutHeight;
             }
             else
-            {
-                height = nonFoldoutHeight;
-            }
-            
-            if (!showFoldout)
             {
                 height = EditorGUIUtility.singleLineHeight;
             }
