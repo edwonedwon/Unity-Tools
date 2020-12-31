@@ -13,11 +13,11 @@ namespace Edwon.Tools
         public VariableType variableLast;
         public UnityEventType onVariableChanged;
 
-        public void Awake() 
+        public void Awake()
         {
             if (variableSO == null)
                 Debug.Log("variableSO on VariableSOListener is null");
-                
+            
             onVariableChanged.Invoke(variableSO.runtimeValue);
         }
 
