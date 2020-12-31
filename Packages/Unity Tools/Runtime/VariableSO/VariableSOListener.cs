@@ -18,11 +18,12 @@ namespace Edwon.Tools
             if (variableSO == null)
                 Debug.Log("variableSO on VariableSOListener is null");
             
-            onVariableChanged.Invoke(variableSO.runtimeValue);
+            variableLast = variableSO.runtimeValue;
         }
 
         public VariableSOListener(VariableSOType variableSO, UnityEventType onVariableChanged)
         {
+            variableLast = variableSO.runtimeValue;
             this.variableSO = variableSO;
             this.onVariableChanged = onVariableChanged;
         }
