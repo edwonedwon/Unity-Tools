@@ -18,6 +18,8 @@ namespace Edwon.Tools
         {
             listener = new VariableSOListener<IntVariableSO, int, UnityEventInt>(variableSO, onVariableChanged);
             listener.Awake();
+
+            ZeroOrNotZeroEvents();
         }
 
         private void Update() 
@@ -26,11 +28,16 @@ namespace Edwon.Tools
             
             if (variableSO.runtimeValue != listener.variableLast)
             {
-                if (variableSO.runtimeValue == 0) 
-                    onVariableZero.Invoke();
-                if (variableSO.runtimeValue > 0)
-                    onVariableChangedAboveZero.Invoke(variableSO.runtimeValue);
+                ZeroOrNotZeroEvents();
             }
+        }
+
+        void ZeroOrNotZeroEvents()
+        {
+            if (variableSO.runtimeValue == 0) 
+                onVariableZero.Invoke();
+            if (variableSO.runtimeValue > 0)
+                onVariableChangedAboveZero.Invoke(variableSO.runtimeValue);
         }
     }
 }
