@@ -7,11 +7,11 @@ namespace Edwon.Tools
 {
     public class UIImageSetter : MonoBehaviour
     {
-        public Image image;
+        public Image imageToSet;
 
         public void SetImageSprite(Sprite sprite)
         {
-            image.sprite = sprite;
+            imageToSet.sprite = sprite;
         }
     }
 }
