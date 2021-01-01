@@ -10,15 +10,9 @@ namespace Edwon.Tools
         public bool debugLog;
         public enum SpawnOnAwakeOption { Dont, Spawn, SpawnAndHold };
         public SpawnOnAwakeOption spawnOnAwake = SpawnOnAwakeOption.Dont;
-        [Header("used to filter events from SpawnEventSender")]
-        public new string name;
-        [Header("set spawn point here")]
-        public Transform spawnPoint;
-        [Header("only needed if SpawnAndHold is called")]
-        public Holder holder;
-        [Header("if null can be passed in by event")]
+        public Transform spawnTransform;
+        public Holder holder; // only needed of spawn and hold is called
         public GameObject prefabToSpawn;
-        [Header("prefab storage with all game prefabs")]
         public PrefabStorageStorageSO allPrefabs;
 
         void Awake()
@@ -29,8 +23,8 @@ namespace Edwon.Tools
             if (holder == null)
                 holder = GetComponent<Holder>();
 
-            if (spawnPoint == null)
-                spawnPoint = transform;
+            if (spawnTransform == null)
+                spawnTransform = transform;
             
             switch (spawnOnAwake)
             {
@@ -45,7 +39,7 @@ namespace Edwon.Tools
 
         GameObject Spawn(GameObject toSpawn)
         {
-            GameObject spawned = GameObject.Instantiate(toSpawn, spawnPoint.position, spawnPoint.rotation);
+            GameObject spawned = GameObject.Instantiate(toSpawn, spawnTransform.position, spawnTransform.rotation);
             return spawned;
         }
 
@@ -92,30 +86,6 @@ namespace Edwon.Tools
             holder.DestroyHeld();
             GameObject spawned = SpawnGiven(holdableToSpawn);
             holder.ReleaseAndHold(spawned);
-        }
-
-        void OnSpawnEvent(string spawnerName, GameObject prefabToSpawn)
-        {
-            if (name == spawnerName)
-                Spawn(prefabToSpawn);
-        }
-
-        void OnSpawnAndHoldEvent(string spawnerName, GameObject prefabToSpawn)
-        {
-            if (name == spawnerName)
-                SpawnAndHold(prefabToSpawn);
-        }
-
-        void OnEnable() 
-        {
-            SpawnEventSender.spawnEvent += OnSpawnEvent;
-            SpawnEventSender.spawnAndHoldEvent += OnSpawnAndHoldEvent;
-        }
-
-        void OnDisable()
-        {
-            SpawnEventSender.spawnEvent -= OnSpawnEvent;
-            SpawnEventSender.spawnAndHoldEvent -= OnSpawnAndHoldEvent;
         }
     }
 }
