@@ -1,3 +1,5 @@
+#if UNITY_EDITOR
+
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
@@ -83,5 +85,6 @@ namespace Edwon.Tools
             return height;
         }
     }
-
 }
+
+#endif

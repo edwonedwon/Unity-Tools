@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿#if UNITY_EDITOR
+
+using UnityEngine;
 using UnityEditor;
 
 public class ForceSaveSceneAndProject : MonoBehaviour
@@ -18,3 +20,5 @@ public class ForceSaveSceneAndProject : MonoBehaviour
         Debug.Log("Saved scene and project");
     }
 }
+
+#endif
