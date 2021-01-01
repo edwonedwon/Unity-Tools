@@ -3,9 +3,13 @@ using System.Collections.Generic;
 
 namespace Edwon.Tools
 {
+    [System.Serializable]
     [CreateAssetMenu(fileName = "Game Event", menuName = "Scriptables/Game Event")]
     public class GameEventChannelSO : ScriptableObject
     {
+        public enum GameEventParameterType { None, String, GameObject }
+        public GameEventParameterType parameterType;
+
         private List<GameEventListener> listeners = new List<GameEventListener>();
 
         public void Raise()

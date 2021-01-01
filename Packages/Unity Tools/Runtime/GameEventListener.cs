@@ -4,6 +4,7 @@ using Edwon.Tools;
 
 namespace Edwon.Tools
 {
+    
     public class GameEventListener : MonoBehaviour
     {
         public GameEventChannelSO gameEvent;
