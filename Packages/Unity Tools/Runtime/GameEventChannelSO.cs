@@ -10,7 +10,7 @@ namespace Edwon.Tools
         public enum GameEventParameterType { None, String, GameObject }
         public GameEventParameterType parameterType;
 
-        private List<GameEventListener> listeners = new List<GameEventListener>();
+        private List<IGameEventListener> listeners = new List<IGameEventListener>();
 
         public void Raise()
         {
@@ -30,12 +30,12 @@ namespace Edwon.Tools
                 listeners[i].OnEventRaised(gameObject);
         }
 
-        public void RegisterListener(GameEventListener listener)
+        public void RegisterListener(IGameEventListener listener)
         { 
             listeners.Add(listener); 
         }
 
-        public void UnregisterListener(GameEventListener listener)
+        public void UnregisterListener(IGameEventListener listener)
         { 
             listeners.Remove(listener); 
         }

@@ -4,8 +4,14 @@ using Edwon.Tools;
 
 namespace Edwon.Tools
 {
-    
-    public class GameEventListener : MonoBehaviour
+    public interface IGameEventListener
+    {
+        void OnEventRaised();
+        void OnEventRaised(string s);
+        void OnEventRaised(GameObject go);
+    }
+
+    public class GameEventListener : MonoBehaviour, IGameEventListener
     {
         public GameEventChannelSO gameEvent;
         public UnityEvent response;
