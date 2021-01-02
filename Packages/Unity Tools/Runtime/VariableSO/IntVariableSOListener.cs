@@ -10,6 +10,7 @@ namespace Edwon.Tools
     {
         public IntVariableSO variableSO;
         public UnityEventInt onVariableChanged;
+        public UnityEventInt onVariableIncreased;
         public UnityEventInt onVariableChangedAboveZero;
         public UnityEvent onVariableZero;
         VariableSOListener<IntVariableSO, int, UnityEventInt> listener;
@@ -24,16 +25,26 @@ namespace Edwon.Tools
 
         private void Update() 
         {
+            if (variableSO == null)
+                return;
+                
             listener.Update();   
             
             if (variableSO.runtimeValue != listener.variableLast)
             {
                 ZeroOrNotZeroEvents();
             }
+            else if (variableSO.runtimeValue > listener.variableLast)
+            {
+                onVariableIncreased.Invoke(variableSO.runtimeValue);
+            }
         }
 
-        void ZeroOrNotZeroEvents()
+        public void ZeroOrNotZeroEvents()
         {
+            if (variableSO == null)
+                return;
+
             if (variableSO.runtimeValue == 0) 
                 onVariableZero.Invoke();
             if (variableSO.runtimeValue > 0)
