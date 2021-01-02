@@ -27,19 +27,25 @@ namespace Edwon.Tools
             IntVariableSO intVariableSO = null;
 
             if (property.objectReferenceValue != null)
-            {
                 intVariableSO = EditorUtils.GetTargetObjectOfProperty(property) as IntVariableSO;
-                if (intVariableSO != null)
-                {
-                    float previewX = position.x + position.width - previewPadding;
-                    Rect previewRect = new Rect(previewX, position.y, previewPadding, lineHeight);
-                    EditorGUI.LabelField(previewRect, intVariableSO.runtimeValue.ToString());
-                }
-                var foldoutButtonRect = new Rect(position.x, position.y, EditorGUIUtility.labelWidth, EditorGUIUtility.singleLineHeight);
-                var foldoutGuiContent = new GUIContent(property.displayName);
-                property.isExpanded = EditorGUI.Foldout(foldoutButtonRect, property.isExpanded, foldoutGuiContent, true);
+            
+            if (intVariableSO == null)
+            {
+                property.isExpanded = false;
+                return;
             }
+            
+            if (intVariableSO != null)
+            {
+                float previewX = position.x + position.width - previewPadding;
+                Rect previewRect = new Rect(previewX, position.y, previewPadding, lineHeight);
+                EditorGUI.LabelField(previewRect, intVariableSO.runtimeValue.ToString());
+            }
+            var foldoutButtonRect = new Rect(position.x, position.y, EditorGUIUtility.labelWidth, EditorGUIUtility.singleLineHeight);
+            var foldoutGuiContent = new GUIContent(property.displayName);
+            property.isExpanded = EditorGUI.Foldout(foldoutButtonRect, property.isExpanded, foldoutGuiContent, true);
 
+                
             // Foldout
             if (property.isExpanded)
             {
