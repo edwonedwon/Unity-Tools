@@ -8,6 +8,7 @@ namespace Edwon.Tools
     {
         string gameObjectName {get; set;}
         Holder holder {get; set;}
+        Holder holderLast {get; set;}
         void Release(bool andDestroy = false);
         void OnHold(Holder holder);
         void OnRelease();
@@ -80,6 +81,7 @@ namespace Edwon.Tools
             
             held.OnRelease();
             held.holder = null;
+            held.holderLast = this;
             heldLast = held;
             held = null;
         }

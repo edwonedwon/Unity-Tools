@@ -14,6 +14,8 @@ namespace Edwon.Tools
         bool isHeld;
         public string gameObjectName {get;set;}
         public Holder holder {get; set;}
+        [HideInInspector]
+        public Holder holderLast {get; set;}
         public Rigidbody rigidbodyToHold;
         Collider[] colliders;
         public bool setChildrenIsKinematicWhileHeld = false;
