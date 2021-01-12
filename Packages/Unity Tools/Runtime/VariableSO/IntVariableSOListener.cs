@@ -33,10 +33,10 @@ namespace Edwon.Tools
             if (variableSO.runtimeValue != listener.variableLast)
             {
                 ZeroOrNotZeroEvents();
-            }
-            else if (variableSO.runtimeValue > listener.variableLast)
-            {
-                onVariableIncreased.Invoke(variableSO.runtimeValue);
+                if (variableSO.runtimeValue > listener.variableLast)
+                {
+                    onVariableIncreased.Invoke(variableSO.runtimeValue);
+                }
             }
         }
 

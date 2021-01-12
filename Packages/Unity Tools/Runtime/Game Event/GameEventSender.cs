@@ -6,21 +6,11 @@ namespace Edwon.Tools
 {
     public class GameEventSender : MonoBehaviour
     {
-        public GameEventChannelSO gameEvent;
+        public GameEvent gameEvent;
         
         public void Raise()
         {
             gameEvent.Raise();
-        }
-
-        public void Raise(string s)
-        {
-            gameEvent.Raise(s);
-        }
-        
-        public void Raise(GameObject _gameObject)
-        {
-            gameEvent.Raise(_gameObject);
         }
     }
 }
