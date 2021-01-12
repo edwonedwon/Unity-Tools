@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Edwon.Tools
 {
     [System.Serializable]
-    [CreateAssetMenu(fileName = "Game Event Game Object", menuName = "Scriptables/Game Event Game Object")]
+    [CreateAssetMenu(fileName = "Game Event String", menuName = "Scriptables/Game Event String")]
     public class GameEventString: ScriptableObject
     {
         private List<IGameEventStringListener> listeners = new List<IGameEventStringListener>();
