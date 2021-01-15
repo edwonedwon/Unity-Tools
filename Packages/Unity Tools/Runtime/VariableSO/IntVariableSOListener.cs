@@ -8,7 +8,9 @@ namespace Edwon.Tools
 {
     public class IntVariableSOListener : MonoBehaviour
     {
-        public IntVariableSO variableSO;
+        [SerializeField]
+        [ReadOnly]
+        IntVariableSO variableSO;
         public UnityEventInt onVariableChanged;
         public UnityEventInt onVariableIncreased;
         public UnityEventInt onVariableChangedAboveZero;
@@ -38,6 +40,13 @@ namespace Edwon.Tools
                     onVariableIncreased.Invoke(variableSO.runtimeValue);
                 }
             }
+        }
+
+        public void SetVariableSO(IntVariableSO variableSo)
+        {
+            this.variableSO = variableSo;
+            listener = new VariableSOListener<IntVariableSO, int, UnityEventInt>(variableSO, onVariableChanged);
+            ZeroOrNotZeroEvents();
         }
 
         public void ZeroOrNotZeroEvents()
