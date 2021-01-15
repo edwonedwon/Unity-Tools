@@ -16,18 +16,25 @@ namespace Edwon.Tools
         public UnityEventInt onVariableChangedAboveZero;
         public UnityEvent onVariableZero;
         IntVariableSOListenerClass listener;
+        public bool debugLog = false;
 
         private void Awake() 
         {
             if (variableSO == null)
                 return;
                 
+            InitListener();
+        }
+
+        void InitListener()
+        {
             listener = new IntVariableSOListenerClass(
                 variableSO, 
-                onVariableChanged, 
-                onVariableIncreased, 
-                onVariableChangedAboveZero, 
-                onVariableZero);
+                ref onVariableChanged, 
+                ref onVariableIncreased, 
+                ref onVariableChangedAboveZero, 
+                ref onVariableZero);
+            listener.debugLog = debugLog;
         }
 
         private void Update() 
@@ -41,12 +48,7 @@ namespace Edwon.Tools
         public void SetVariableSO(IntVariableSO variableSo)
         {
             this.variableSO = variableSo;
-            listener = new IntVariableSOListenerClass(
-                variableSO, 
-                onVariableChanged, 
-                onVariableIncreased, 
-                onVariableChangedAboveZero, 
-                onVariableZero);
+            InitListener();
         }
 
 

@@ -17,10 +17,10 @@ namespace Edwon.Tools
 
         public IntVariableSOListenerClass(
             IntVariableSO variableSO, 
-            UnityEventInt onVariableChanged,
-            UnityEventInt onVariableIncreased,
-            UnityEventInt onVariableChangedAboveZero,
-            UnityEvent onVariableZero)
+            ref UnityEventInt onVariableChanged,
+            ref UnityEventInt onVariableIncreased,
+            ref UnityEventInt onVariableChangedAboveZero,
+            ref UnityEvent onVariableZero)
         {
             if (variableSO == null)
                 return;
@@ -33,22 +33,12 @@ namespace Edwon.Tools
             Init();
         }
 
-        public IntVariableSOListenerClass(IntVariableSO variableSO, UnityEventInt onVariableChangedAboveZero)
-        {
-            this.variableSO = variableSO;
-            this.onVariableChangedAboveZero = onVariableChangedAboveZero;
-            Init();
-        }
-
         void Init()
         {
             variableLast = variableSO.runtimeValue;
-            if (onVariableChanged != null)
-            {
-                onVariableChanged.Invoke(variableSO.runtimeValue);
-                if (debugLog)
-                    Debug.Log("INIT variabled changed to " + variableSO.runtimeValue);
-            }
+            onVariableChanged.Invoke(variableSO.runtimeValue);
+            if (debugLog)
+                Debug.Log("INIT variabled changed to " + variableSO.runtimeValue);
             ZeroOrNotZeroEvents();
         }
 
@@ -57,23 +47,21 @@ namespace Edwon.Tools
             if (variableSO == null)
                 return;
                 
-            if (onVariableChanged != null)
-                if (!variableSO.runtimeValue.Equals(variableLast))
+            if (!variableSO.runtimeValue.Equals(variableLast))
+            {
+                if (debugLog)
+                    Debug.Log("variabled changed to " + variableSO.runtimeValue);
+                onVariableChanged.Invoke(variableSO.runtimeValue);
+                ZeroOrNotZeroEvents();
+                if (variableSO.runtimeValue > variableLast)
                 {
                     if (debugLog)
                         Debug.Log("variabled changed to " + variableSO.runtimeValue);
-                    onVariableChanged.Invoke(variableSO.runtimeValue);
+                    onVariableIncreased.Invoke(variableSO.runtimeValue);
                 }
+            }
 
             variableLast = variableSO.runtimeValue;
-
-            if (variableSO.runtimeValue != variableLast)
-            {
-                ZeroOrNotZeroEvents();
-                if (onVariableIncreased != null)
-                    if (variableSO.runtimeValue > variableLast)
-                        onVariableIncreased.Invoke(variableSO.runtimeValue);
-            }
         }
         
         public void ZeroOrNotZeroEvents()
@@ -81,13 +69,11 @@ namespace Edwon.Tools
             if (variableSO == null)
                 return;
 
-            if (onVariableZero != null)
-                if (variableSO.runtimeValue == 0) 
-                    onVariableZero.Invoke();
+            if (variableSO.runtimeValue == 0) 
+                onVariableZero.Invoke();
 
-            if (onVariableChangedAboveZero != null)
-                if (variableSO.runtimeValue > 0)
-                    onVariableChangedAboveZero.Invoke(variableSO.runtimeValue);
+            if (variableSO.runtimeValue > 0)
+                onVariableChangedAboveZero.Invoke(variableSO.runtimeValue);
         }
     }
 }
