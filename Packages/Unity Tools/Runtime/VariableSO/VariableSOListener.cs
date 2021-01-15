@@ -13,17 +13,6 @@ namespace Edwon.Tools
         public VariableType variableLast;
         public UnityEventType onVariableChanged;
 
-        public void Awake()
-        {
-            if (variableSO == null)
-            {
-                return;
-            }
-            
-            variableLast = variableSO.runtimeValue;
-            onVariableChanged.Invoke(variableSO.runtimeValue);
-        }
-
         public VariableSOListener(VariableSOType variableSO, UnityEventType onVariableChanged)
         {
             if (variableSO == null)
@@ -32,6 +21,7 @@ namespace Edwon.Tools
             variableLast = variableSO.runtimeValue;
             this.variableSO = variableSO;
             this.onVariableChanged = onVariableChanged;
+            onVariableChanged.Invoke(variableSO.runtimeValue);
         }
 
         public void Update() 

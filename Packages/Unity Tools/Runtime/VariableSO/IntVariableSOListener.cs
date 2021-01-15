@@ -20,7 +20,6 @@ namespace Edwon.Tools
         private void Awake() 
         {
             listener = new VariableSOListener<IntVariableSO, int, UnityEventInt>(variableSO, onVariableChanged);
-            listener.Awake();
 
             ZeroOrNotZeroEvents();
         }
