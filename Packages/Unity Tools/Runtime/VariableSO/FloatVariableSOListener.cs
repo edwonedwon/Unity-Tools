@@ -8,11 +8,11 @@ namespace Edwon.Tools
     {
         public FloatVariableSO variableSO;
         public UnityEventFloat onVariableChanged;
-        VariableSOListener<FloatVariableSO, float, UnityEventFloat> listener;
+        VariableSOListenerClass<FloatVariableSO, float, UnityEventFloat> listener;
 
         private void Awake() 
         {
-            listener = new VariableSOListener<FloatVariableSO, float, UnityEventFloat>(variableSO, onVariableChanged);
+            listener = new VariableSOListenerClass<FloatVariableSO, float, UnityEventFloat>(variableSO, onVariableChanged);
         }
 
         private void Update() 

@@ -15,13 +15,19 @@ namespace Edwon.Tools
         public UnityEventInt onVariableIncreased;
         public UnityEventInt onVariableChangedAboveZero;
         public UnityEvent onVariableZero;
-        VariableSOListener<IntVariableSO, int, UnityEventInt> listener;
+        IntVariableSOListenerClass listener;
 
         private void Awake() 
         {
-            listener = new VariableSOListener<IntVariableSO, int, UnityEventInt>(variableSO, onVariableChanged);
-
-            ZeroOrNotZeroEvents();
+            if (variableSO == null)
+                return;
+                
+            listener = new IntVariableSOListenerClass(
+                variableSO, 
+                onVariableChanged, 
+                onVariableIncreased, 
+                onVariableChangedAboveZero, 
+                onVariableZero);
         }
 
         private void Update() 
@@ -30,33 +36,19 @@ namespace Edwon.Tools
                 return;
                 
             listener.Update();   
-            
-            if (variableSO.runtimeValue != listener.variableLast)
-            {
-                ZeroOrNotZeroEvents();
-                if (variableSO.runtimeValue > listener.variableLast)
-                {
-                    onVariableIncreased.Invoke(variableSO.runtimeValue);
-                }
-            }
         }
 
         public void SetVariableSO(IntVariableSO variableSo)
         {
             this.variableSO = variableSo;
-            listener = new VariableSOListener<IntVariableSO, int, UnityEventInt>(variableSO, onVariableChanged);
-            ZeroOrNotZeroEvents();
+            listener = new IntVariableSOListenerClass(
+                variableSO, 
+                onVariableChanged, 
+                onVariableIncreased, 
+                onVariableChangedAboveZero, 
+                onVariableZero);
         }
 
-        public void ZeroOrNotZeroEvents()
-        {
-            if (variableSO == null)
-                return;
 
-            if (variableSO.runtimeValue == 0) 
-                onVariableZero.Invoke();
-            if (variableSO.runtimeValue > 0)
-                onVariableChangedAboveZero.Invoke(variableSO.runtimeValue);
-        }
     }
 }

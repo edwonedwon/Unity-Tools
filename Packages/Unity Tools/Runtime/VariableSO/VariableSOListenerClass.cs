@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 namespace Edwon.Tools
 {
-    public class VariableSOListener<VariableSOType, VariableType, UnityEventType> 
+    public class VariableSOListenerClass<VariableSOType, VariableType, UnityEventType> 
     where VariableSOType: VariableSO<VariableType>
     where UnityEventType : UnityEventEdwonBase<VariableType>
     {
@@ -13,7 +13,7 @@ namespace Edwon.Tools
         public VariableType variableLast;
         public UnityEventType onVariableChanged;
 
-        public VariableSOListener(VariableSOType variableSO, UnityEventType onVariableChanged)
+        public VariableSOListenerClass(VariableSOType variableSO, UnityEventType onVariableChanged)
         {
             if (variableSO == null)
                 return;
