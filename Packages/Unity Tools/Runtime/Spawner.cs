@@ -78,6 +78,12 @@ namespace Edwon.Tools
             GameObject spawned = SpawnGiven(holdableToSpawn);
             holder.ReleaseAndHold(spawned);
         }
+        
+        public void SpawnAndHoldAndDestroyHeld(string prefabName)
+        {
+            GameObject prefab = allPrefabs.GetPrefab(prefabName);
+            SpawnAndHoldAndDestroyHeld(prefab);
+        }
 
         public void SpawnAndHoldAndDestroyHeld(GameObject holdableToSpawn)
         {
@@ -87,5 +93,6 @@ namespace Edwon.Tools
             GameObject spawned = SpawnGiven(holdableToSpawn);
             holder.ReleaseAndHold(spawned);
         }
+
     }
 }
