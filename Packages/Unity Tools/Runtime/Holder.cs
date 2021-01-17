@@ -89,7 +89,6 @@ namespace Edwon.Tools
         public bool destroyHeld;
         public void DestroyHeld()
         {
-            Debug.Log("Destroy Held is called (maybe not destroying)");
             if (held != null)
             {
                 heldLast = held;

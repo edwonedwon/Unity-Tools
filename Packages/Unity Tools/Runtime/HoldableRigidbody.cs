@@ -20,9 +20,11 @@ namespace Edwon.Tools
         Collider[] colliders;
         public bool setChildrenIsKinematicWhileHeld = false;
         public bool disableCollidersWhileHeld = false;
+        public IDestroyable destroyable;
         
         void Awake()
         {
+            destroyable = GetComponent<IDestroyable>();
             colliders = GetComponentsInChildren<Collider>();
             
             if (rigidbodyToHold == null)
@@ -52,7 +54,9 @@ namespace Edwon.Tools
             if (holder != null)
                 holder.Release();
             if (andDestroy)
-                Destroy(gameObject);
+            {
+                destroyable.DestroySelf();
+            }
         }
 
         public void OnHold(Holder _holder)

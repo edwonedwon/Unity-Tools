@@ -71,13 +71,14 @@ namespace Edwon.Tools
         public void SpawnAndHold(string itemName)
         {
             if (debugLog){ Debug.Log("spawn and hold " + itemName); }
-            GameObject spawned = Spawn(itemName);
             if (holder == null) { Debug.Log("prefab with name: " + itemName + " is not in given prefab storage"); return; }
-            SpawnAndHold(spawned);            
+            GameObject spawned = itemPool.SpawnFromPool(itemName).gameObject;
+            holder.ReleaseAndHold(spawned);
         }
         
         public void SpawnAndHoldAndDestroyHeld(string itemName)
         {
+            if (debugLog){ Debug.Log("spawn and hold and destroy held " + itemName); }
             if (holder == null) { Debug.Log("holder is not set on Spawner " + name); return; }
             holder.DestroyHeld();
             SpawnAndHold(itemName);

@@ -6,11 +6,15 @@ using UnityEngine;
 
 namespace Edwon.Tools
 {
-    public class Item : MonoBehaviour
+    public interface IDestroyable
+    {
+        void DestroySelf();
+    }
+
+    public class Item : MonoBehaviour, IDestroyable
     {
         public string itemName;
         List<Renderer> renderers;
-        public bool useWithPool = true;
         public ItemPoolSO itemPoolSO;
 
         private void Awake() 
@@ -20,7 +24,7 @@ namespace Edwon.Tools
 
         public void OnPooled()
         {
-
+            
         }
 
         public void OnUnPooled()
@@ -30,7 +34,7 @@ namespace Edwon.Tools
 
         public void DestroySelf()
         {
-            if (useWithPool)
+            if (itemPoolSO != null)
                 itemPoolSO.ReturnToPool(this);
             else
                 Destroy(gameObject);
