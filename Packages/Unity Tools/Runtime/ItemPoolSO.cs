@@ -14,6 +14,14 @@ namespace Edwon.Tools
         [HideInInspector]
         public ItemPoolMB itemPoolMB;
 
+        public Item SpawnFromPool(string itemName, Vector3 position, Quaternion rotation)
+        {
+            Item spawned = SpawnFromPool(itemName);
+            spawned.transform.position = position;
+            spawned.transform.rotation = rotation;
+            return spawned;
+        }
+
         public Item SpawnFromPool(string itemName)
         {
             if (debugLog)
@@ -28,6 +36,8 @@ namespace Edwon.Tools
                     item.gameObject.SetActive(true);
                     item.OnUnPooled();
                     pool.Remove(item);
+                    active.Add(item);
+                    item.transform.parent = null;
                     break;
                 }
             }
@@ -46,6 +56,7 @@ namespace Edwon.Tools
             item.gameObject.transform.rotation = Quaternion.identity;
             item.gameObject.transform.parent = itemPoolMB.poolParent;
             item.gameObject.SetActive(false);
+            active.Remove(item);
             pool.Add(item);
         }
         
@@ -54,9 +65,9 @@ namespace Edwon.Tools
             if (debugLog)
                 Debug.Log("return all to pool");
 
-            for (int i = pool.Count-1; i >= 0; i--)
+            for (int i = active.Count-1; i >= 0; i--)
             {
-                ReturnToPool(pool[i]);
+                ReturnToPool(active[i]);
             }
         }
 

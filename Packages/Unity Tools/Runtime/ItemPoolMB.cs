@@ -28,6 +28,7 @@ namespace Edwon.Tools
         public void InitializePool()
         {
             itemPoolSO.pool = new List<Item>();
+            itemPoolSO.active = new List<Item>();
             foreach(ItemStorageSO.ItemSlot slot in itemPoolSO.itemStorage.itemSlots)
             {
                 for (int i = 0; i < slot.numberInPool; i++)
@@ -45,6 +46,13 @@ namespace Edwon.Tools
         void OnDisable()
         {
             itemPoolSO.ClearPool();
+        }
+
+        [InspectorButton("ReturnAllToPool")]
+        public bool returnAllToPool;
+        public void ReturnAllToPool()
+        {
+            itemPoolSO.ReturnAllToPool();
         }
     }
 }
