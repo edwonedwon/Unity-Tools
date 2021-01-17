@@ -12,7 +12,7 @@ namespace Edwon.Tools
         [ReadOnly]
         [SerializeField]
         bool isHeld;
-        public string gameObjectName {get;set;}
+        public GameObject GameObject {get;set;}
         public Holder holder {get; set;}
         [HideInInspector]
         public Holder holderLast {get; set;}
@@ -24,6 +24,7 @@ namespace Edwon.Tools
         
         void Awake()
         {
+            GameObject = gameObject;
             destroyable = GetComponent<IDestroyable>();
             colliders = GetComponentsInChildren<Collider>();
             
@@ -61,7 +62,7 @@ namespace Edwon.Tools
 
         public void OnHold(Holder _holder)
         {
-            gameObjectName = gameObject.name;
+            GameObject = gameObject;
 
             if (debugLog)
                 Debug.Log(gameObject.name + "OnHold " + gameObject.name + " To:" + _holder.name);

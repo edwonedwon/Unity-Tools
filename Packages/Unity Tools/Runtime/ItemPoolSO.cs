@@ -91,6 +91,58 @@ namespace Edwon.Tools
                 Debug.Log("clear pool");
 
             pool.Clear();
+            active.Clear();
         }
+
+        List<Item> filteredItems;
+        ItemDistanceComparer itemDistanceComparer;
+        public Item GetNearestItemOfTypeTo(Vector3 worldPoint, string itemName, Func<Item, bool> condition)
+        {
+            itemDistanceComparer.targetPosition = worldPoint;
+            filteredItems = active;
+            filteredItems.RemoveAll( item => ((item.itemName == itemName) && condition(item)));
+            filteredItems.Sort(itemDistanceComparer);
+            if (filteredItems.Count > 0)
+                return filteredItems[0];
+            else    
+                return null;
+        }
+
+        public Item GetNearestItemOfTypeTo(Vector3 worldPoint, string itemName)
+        {
+            itemDistanceComparer.targetPosition = worldPoint;
+            filteredItems = active;
+            filteredItems.RemoveAll(item => item.itemName == itemName);
+            filteredItems.Sort(itemDistanceComparer);
+            if (filteredItems.Count > 0)
+                return filteredItems[0];
+            else    
+                return null;
+        }
+
+        public Item GetNearestItemTo(Vector3 worldPoint)
+        {
+            // Debug.Log(items.Count);
+            itemDistanceComparer.targetPosition = worldPoint;
+            active.Sort(itemDistanceComparer);
+            if (active.Count > 0)
+                return active[0];
+            else    
+                return null;
+        }
+
+        class ItemDistanceComparer : IComparer<Item>
+        {
+            public Vector3 targetPosition;
+
+            public int Compare(Item a, Item b)
+            {
+                return Vector3.Distance(
+                    a.transform.position, targetPosition)
+                    .CompareTo(Vector3.Distance(
+                    b.transform.position, targetPosition));
+            }
+        }
+
     }
 }

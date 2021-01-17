@@ -6,7 +6,7 @@ namespace Edwon.Tools
 {
     public interface IHoldable
     {
-        string gameObjectName {get; set;}
+        GameObject GameObject {get; set;}
         Holder holder {get; set;}
         Holder holderLast {get; set;}
         void Release(bool andDestroy = false);
@@ -36,12 +36,12 @@ namespace Edwon.Tools
         void SetHeldNameDebugStrings()
         {
             if (held != null)
-                heldNameDebug = held.gameObjectName;
+                heldNameDebug = held.GameObject.name;
             else
                 heldNameDebug = "";
 
             if (heldLast != null)
-                heldLastNameDebug = heldLast.gameObjectName;
+                heldLastNameDebug = heldLast.GameObject.name;
             else
                 heldLastNameDebug = "";
         }

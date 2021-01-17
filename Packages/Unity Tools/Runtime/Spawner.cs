@@ -38,9 +38,9 @@ namespace Edwon.Tools
             }
         }
 
-        GameObject Spawn(GameObject toSpawn)
+        GameObject Spawn(GameObject prefab)
         {
-            return GameObject.Instantiate(toSpawn, spawnTransform.position, spawnTransform.rotation);
+            return GameObject.Instantiate(prefab, spawnTransform.position, spawnTransform.rotation);
         }
 
         GameObject Spawn(string itemName)
@@ -60,11 +60,11 @@ namespace Edwon.Tools
             SpawnAndHold(prefabToSpawn);
         }
 
-        public void SpawnAndHold(GameObject holdableToSpawn)
+        public void SpawnAndHold(GameObject prefab)
         {
             if (holder == null) { Debug.Log("holder is not set on Spawner " + name); return; }
 
-            GameObject spawned = Spawn(holdableToSpawn);
+            GameObject spawned = Spawn(prefab);
             holder.ReleaseAndHold(spawned);
         }
 
