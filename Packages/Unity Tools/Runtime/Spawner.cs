@@ -73,8 +73,9 @@ namespace Edwon.Tools
         {
             if (debugLog){ Debug.Log("SpawnAndHold " + itemName); }
             if (holder == null) { Debug.Log("hold is not set on Spawner " + name); return; }
-            GameObject spawned = itemPool.SpawnFromPool(itemName, holder.transform.position, holder.transform.rotation).gameObject;
-            holder.ReleaseAndHold(spawned);
+            GameObject spawned = Spawn(itemName);
+            if (spawned != null)
+                holder.ReleaseAndHold(spawned);
         }
         
         public void SpawnAndHoldAndDestroyHeld(string itemName)
