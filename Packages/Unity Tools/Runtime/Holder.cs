@@ -27,7 +27,6 @@ namespace Edwon.Tools
         string heldLastNameDebug;
         public Spawner spawner;
         public GameObject spawnAndHoldOnAwakePrefab;
-        public PrefabStorageStorageSO allPrefabs;
 
         void Update()
         {

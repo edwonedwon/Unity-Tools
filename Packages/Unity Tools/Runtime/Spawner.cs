@@ -13,7 +13,7 @@ namespace Edwon.Tools
         public Transform spawnTransform;
         public Holder holder; // only needed of spawn and hold is called
         public GameObject prefabToSpawn;
-        public PrefabStorageStorageSO allPrefabs;
+        public ItemStorageSO itemStorage;
 
         void Awake()
         {
@@ -66,7 +66,7 @@ namespace Edwon.Tools
         {
             if (debugLog)
                 Debug.Log("spawn and hold " + prefabName);
-            GameObject prefab = allPrefabs.GetPrefab(prefabName);
+            GameObject prefab = itemStorage.GetItemPrefab(prefabName);
             if (holder == null) { Debug.Log("prefab with name: " + prefabName + " is not in given prefab storage"); return; }
             SpawnAndHold(prefab);            
         }
@@ -79,9 +79,9 @@ namespace Edwon.Tools
             holder.ReleaseAndHold(spawned);
         }
         
-        public void SpawnAndHoldAndDestroyHeld(string prefabName)
+        public void SpawnAndHoldAndDestroyHeld(string itemName)
         {
-            GameObject prefab = allPrefabs.GetPrefab(prefabName);
+            GameObject prefab = itemStorage.GetItemPrefab(itemName);
             SpawnAndHoldAndDestroyHeld(prefab);
         }
 
