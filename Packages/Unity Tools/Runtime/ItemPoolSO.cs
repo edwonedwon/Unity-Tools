@@ -56,7 +56,7 @@ namespace Edwon.Tools
                 item.transform.parent = null;
                 break;
             }
-            if(item == null) {Debug.LogWarning("no item of type " + itemName + " found in item pool");};
+            if(item == null) {Debug.Log("no item of type " + itemName + " found in item pool");};
 
             return item;
         }
