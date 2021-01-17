@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 namespace Edwon.Tools
 {
@@ -13,6 +14,25 @@ namespace Edwon.Tools
         public List<Item> active;
         [HideInInspector]
         public ItemPoolMB itemPoolMB;
+
+        public void InitializePool()
+        {
+            itemDistanceComparer = new ItemDistanceComparer();
+            pool = new List<Item>();
+            active = new List<Item>();
+            foreach(ItemStorageSO.ItemSlot slot in itemStorage.itemSlots)
+            {
+                for (int i = 0; i < slot.numberInPool; i++)
+                {
+                    GameObject spawned = GameObject.Instantiate(slot.itemPrefab.gameObject, Vector3.zero, Quaternion.identity);
+                    spawned.transform.parent = itemPoolMB.poolParent;
+                    spawned.name = slot.itemPrefab.itemName;
+                    Item item = spawned.GetComponent<Item>();
+                    pool.Add(item);
+                    spawned.SetActive(false);
+                }
+            }
+        }
 
         public Item SpawnFromPool(string itemName, Vector3 position, Quaternion rotation)
         {
