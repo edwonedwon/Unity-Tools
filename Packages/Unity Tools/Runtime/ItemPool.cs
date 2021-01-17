@@ -5,9 +5,19 @@ using System.Linq;
 using System;
 using Edwon.Tools;
 
-public class Pool : MonoBehaviour
+// this interface is for other components that want to listen to pool events
+// on the same game object as the poolable
+public interface IPoolable
 {
-    public PoolSettingsSO settings;
+    string PoolableType {get;set;}
+    GameObject GameObject {get; set;}
+    void OnPooled();
+    void OnUnPooled();
+}
+
+public class ItemPool : MonoBehaviour
+{
+    public ItemStorageSO itemStorage;
     public List<IPoolable> pool;
     Transform poolParent;
     
@@ -25,13 +35,13 @@ public class Pool : MonoBehaviour
     void InitializePool()
     {
         pool = new List<IPoolable>();
-        foreach(PoolSettingsSO.Prefab prefab in settings.prefabs)
+        foreach(ItemStorageSO.ItemSlot slot in itemStorage.itemSlots)
         {
-            for (int i = 0; i < prefab.numberInPool; i++)
+            for (int i = 0; i < slot.numberInPool; i++)
             {
-                GameObject spawned = GameObject.Instantiate(prefab.prefab, Vector3.zero, Quaternion.identity);
+                GameObject spawned = GameObject.Instantiate(slot.itemPrefab.gameObject, Vector3.zero, Quaternion.identity);
                 spawned.transform.parent = poolParent;
-                spawned.name = prefab.poolableType;
+                spawned.name = slot.itemPrefab.itemName;
                 IPoolable poolable = spawned.GetComponent<IPoolable>();
                 pool.Add(poolable);
                 spawned.SetActive(false);
