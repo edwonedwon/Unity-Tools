@@ -16,14 +16,6 @@ namespace Edwon.Tools
 
         public Item SpawnFromPool(string itemName, Vector3 position, Quaternion rotation)
         {
-            Item spawned = SpawnFromPool(itemName);
-            spawned.transform.position = position;
-            spawned.transform.rotation = rotation;
-            return spawned;
-        }
-
-        public Item SpawnFromPool(string itemName)
-        {
             if (debugLog)
                 Debug.Log("try to spawn " + itemName + " from item pool");
 
@@ -33,6 +25,8 @@ namespace Edwon.Tools
                 if (pool[i].itemName == itemName)
                 {
                     item = pool[i];
+                    item.transform.position = position;
+                    item.transform.rotation = rotation;
                     item.gameObject.SetActive(true);
                     item.OnUnPooled();
                     pool.Remove(item);

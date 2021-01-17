@@ -72,7 +72,7 @@ namespace Edwon.Tools
         {
             if (debugLog){ Debug.Log("spawn and hold " + itemName); }
             if (holder == null) { Debug.Log("prefab with name: " + itemName + " is not in given prefab storage"); return; }
-            GameObject spawned = itemPool.SpawnFromPool(itemName).gameObject;
+            GameObject spawned = itemPool.SpawnFromPool(itemName, holder.transform.position, holder.transform.rotation).gameObject;
             holder.ReleaseAndHold(spawned);
         }
         
