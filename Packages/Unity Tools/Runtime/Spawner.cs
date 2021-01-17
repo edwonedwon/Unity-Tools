@@ -50,18 +50,19 @@ namespace Edwon.Tools
 
         public void SpawnSet()
         {
-            if (debugLog)
-                Debug.Log("SpawnSet: " + prefabToSpawn.name);
+            if (debugLog){ Debug.Log("SpawnSet: " + prefabToSpawn.name); }
             Spawn(prefabToSpawn);
         }
 
         public void SpawnAndHoldSet()
         {
+            if (debugLog){ Debug.Log("SpawnAndHoldSet: " + prefabToSpawn.name); }
             SpawnAndHold(prefabToSpawn);
         }
 
         public void SpawnAndHold(GameObject prefab)
         {
+            if (debugLog){ Debug.Log("SpawnAndHold " + prefab.name); }
             if (holder == null) { Debug.Log("holder is not set on Spawner " + name); return; }
 
             GameObject spawned = Spawn(prefab);
@@ -70,15 +71,15 @@ namespace Edwon.Tools
 
         public void SpawnAndHold(string itemName)
         {
-            if (debugLog){ Debug.Log("spawn and hold " + itemName); }
-            if (holder == null) { Debug.Log("prefab with name: " + itemName + " is not in given prefab storage"); return; }
+            if (debugLog){ Debug.Log("SpawnAndHold " + itemName); }
+            if (holder == null) { Debug.Log("hold is not set on Spawner " + name); return; }
             GameObject spawned = itemPool.SpawnFromPool(itemName, holder.transform.position, holder.transform.rotation).gameObject;
             holder.ReleaseAndHold(spawned);
         }
         
         public void SpawnAndHoldAndDestroyHeld(string itemName)
         {
-            if (debugLog){ Debug.Log("spawn and hold and destroy held " + itemName); }
+            if (debugLog){ Debug.Log("SpawnAndHoldAndDestroyHeld: " + itemName); }
             if (holder == null) { Debug.Log("holder is not set on Spawner " + name); return; }
             holder.DestroyHeld();
             SpawnAndHold(itemName);
@@ -86,6 +87,7 @@ namespace Edwon.Tools
 
         public void SpawnAndHoldAndDestroyHeld(GameObject holdableToSpawn)
         {
+            if (debugLog){ Debug.Log("SpawnAndHoldAndDestroyHeld: " + holdableToSpawn.name); }
             if (holder == null) { Debug.Log("holder is not set on Spawner " + name); return; }
 
             holder.DestroyHeld();

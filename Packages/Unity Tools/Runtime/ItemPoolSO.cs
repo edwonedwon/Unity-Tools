@@ -36,24 +36,25 @@ namespace Edwon.Tools
 
         public Item SpawnFromPool(string itemName, Vector3 position, Quaternion rotation)
         {
-            if (debugLog)
-                Debug.Log("try to spawn " + itemName + " from item pool");
+            if (debugLog){Debug.Log("SpawnFromPool: try to spawn " + itemName + " from item pool");};
 
             Item item = null;
             for(int i = 0; i < pool.Count; i++)
             {
-                if (pool[i].itemName == itemName)
-                {
-                    item = pool[i];
-                    item.transform.position = position;
-                    item.transform.rotation = rotation;
-                    item.gameObject.SetActive(true);
-                    item.OnUnPooled();
-                    pool.Remove(item);
-                    active.Add(item);
-                    item.transform.parent = null;
-                    break;
-                }
+                if (pool[i].itemName != itemName)
+                    continue;
+
+                item = pool[i];
+                item.transform.position = position;
+                item.transform.rotation = rotation;
+                item.gameObject.SetActive(true);
+                item.OnUnPooled();
+                pool.Remove(item);
+                if (debugLog){Debug.Log("SpawnFromPool: removed " + item.itemName + " from pool = " + pool.Count);};
+                active.Add(item);
+                if (debugLog){Debug.Log("SpawnFromPool: added " + item.itemName + " to active = " + active.Count);};
+                item.transform.parent = null;
+                break;
             }
             if(item == null) {Debug.LogWarning("no item of type " + itemName + " found in item pool");};
 
@@ -62,8 +63,7 @@ namespace Edwon.Tools
         
         public void ReturnToPool(Item item)
         {
-            if (debugLog)
-                Debug.Log("return " + item.gameObject.name + " to pool");
+            if (debugLog){Debug.Log("return " + item.gameObject.name + " to pool");};
 
             item.OnPooled();
             item.gameObject.transform.position = Vector3.zero;
@@ -71,7 +71,9 @@ namespace Edwon.Tools
             item.gameObject.transform.parent = itemPoolMB.poolParent;
             item.gameObject.SetActive(false);
             active.Remove(item);
+            if (debugLog){Debug.Log("ReturnToPool: removed " + item.itemName + " from active = " + active.Count);};
             pool.Add(item);
+            if (debugLog){Debug.Log("ReturnToPool: added " + item.itemName + " to pool = " + pool.Count);};
         }
         
         public void ReturnAllToPool()
@@ -122,9 +124,9 @@ namespace Edwon.Tools
 
         public Item GetNearestItemTo(Vector3 worldPoint)
         {
-            // Debug.Log(items.Count);
             itemDistanceComparer.targetPosition = worldPoint;
-            active.Sort(itemDistanceComparer);
+            filteredItems = active;
+            filteredItems.Sort(itemDistanceComparer);
             if (active.Count > 0)
                 return active[0];
             else    
