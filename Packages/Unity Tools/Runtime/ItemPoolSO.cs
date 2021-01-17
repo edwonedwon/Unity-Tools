@@ -28,12 +28,11 @@ namespace Edwon.Tools
                     item.gameObject.SetActive(true);
                     item.OnUnPooled();
                     pool.Remove(item);
-                }
-                else
-                {
-                    Debug.LogWarning("no item of type " + itemName + " found in item pool");
+                    break;
                 }
             }
+            if(item == null) {Debug.LogWarning("no item of type " + itemName + " found in item pool");};
+
             return item;
         }
         
