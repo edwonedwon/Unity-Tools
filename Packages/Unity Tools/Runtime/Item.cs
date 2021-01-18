@@ -16,6 +16,7 @@ namespace Edwon.Tools
     {
         public string itemName;
         List<Renderer> renderers;
+        List<IPoolable> poolables;
         public ItemPoolSO itemPoolSO;
         public UnityEvent onDestroySelf;
         public bool debugDraw = false;
@@ -23,16 +24,19 @@ namespace Edwon.Tools
         private void Awake() 
         {
             renderers = transform.GetComponentsInChildren<Renderer>().ToList();
+            poolables = transform.GetComponentsInChildren<IPoolable>().ToList();
         }
 
         public void OnPooled()
         {
-            
+            foreach(IPoolable poolable in poolables)
+                poolable.OnPooled();
         }
 
         public void OnUnPooled()
         {
-
+            foreach(IPoolable poolable in poolables)
+                poolable.OnUnPooled();
         }
 
         public void DestroySelf()

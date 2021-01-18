@@ -14,7 +14,6 @@ namespace  Edwon.Tools
 
         public void OnAfterDeserialize()
         {
-            Debug.Log("on after deserialize");
             runtimeValue = initialValue;
         }
     }

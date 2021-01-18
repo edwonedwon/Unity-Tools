@@ -5,6 +5,12 @@ using System;
 
 namespace Edwon.Tools
 {
+    public interface IPoolable
+    {
+        void OnPooled();
+        void OnUnPooled();
+    }
+
     [CreateAssetMenu(fileName = "Item Pool SO", menuName = "Scriptables/Item Pool SO")]
     public class ItemPoolSO : ScriptableObject
     {
