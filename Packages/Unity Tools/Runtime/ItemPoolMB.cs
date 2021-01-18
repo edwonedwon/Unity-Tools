@@ -12,6 +12,7 @@ namespace Edwon.Tools
         public ItemPoolSO itemPoolSO;
         [HideInInspector]
         public Transform poolParent;
+        public bool debugDraw = false;
         
         [Header("Debug")]
         public bool unfoldInHierarchy = false;
@@ -22,6 +23,13 @@ namespace Edwon.Tools
             poolParent = this.transform;
             itemPoolSO.InitializePool();
             if (unfoldInHierarchy){ Utils.UnfoldInEditorHierarchy(poolParent); }
+        }
+
+        void Update()
+        {
+            if (debugDraw)
+                foreach(Item item in itemPoolSO.active)
+                    item.debugDraw = true;
         }
         
         void OnDisable()

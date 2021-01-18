@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Edwon.Tools
 {
@@ -16,6 +17,8 @@ namespace Edwon.Tools
         public string itemName;
         List<Renderer> renderers;
         public ItemPoolSO itemPoolSO;
+        public UnityEvent onDestroySelf;
+        public bool debugDraw = false;
 
         private void Awake() 
         {
@@ -34,6 +37,8 @@ namespace Edwon.Tools
 
         public void DestroySelf()
         {
+            onDestroySelf.Invoke();
+            
             if (itemPoolSO != null)
                 itemPoolSO.ReturnToPool(this);
             else
@@ -42,6 +47,8 @@ namespace Edwon.Tools
 
         void OnDrawGizmos()
         {
+            if (!debugDraw)
+                return;
             if (!Application.isPlaying)
                 return;
             if (renderers == null)
@@ -59,7 +66,7 @@ namespace Edwon.Tools
             }
             Vector3 centerAverage = transform.TransformPoint(childCenters/renderers.Count); //center is average center of children
             Gizmos.color = Color.red;
-            Gizmos.DrawSphere(centerAverage, 0.01f);
+            // Gizmos.DrawSphere(centerAverage, 0.01f);
 
             //Now you have a center, calculate the bounds by creating a zero sized 'Bounds', 
             Bounds bounds = new Bounds(); 
