@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 namespace Edwon.Tools
 {
@@ -7,22 +8,22 @@ namespace Edwon.Tools
     [CreateAssetMenu(fileName = "Game Event Game Object", menuName = "Scriptables/Game Event Game Object")]
     public class GameEventGameObject : ScriptableObject
     {
-        private List<IGameEventGameObjectListener> listeners = new List<IGameEventGameObjectListener>();
+        private List<Action<GameObject>> listenerMethods = new List<Action<GameObject>>();
 
-        public void Raise(GameObject _gameObject)
+        public void Raise(GameObject go)
         {
-            for(int i = listeners.Count -1; i >= 0; i--)
-                listeners[i].OnEventRaised(this, _gameObject);
+            for(int i = 0; i < listenerMethods.Count; i++)
+                listenerMethods[i](go);
         }
 
-        public void RegisterListener(IGameEventGameObjectListener listener)
+        public void RegisterListener(Action<GameObject> listener)
         { 
-            listeners.Add(listener); 
+            listenerMethods.Add(listener); 
         }
 
-        public void UnregisterListener(IGameEventGameObjectListener listener)
+        public void UnegisterListener(Action<GameObject> listener)
         { 
-            listeners.Remove(listener); 
+            listenerMethods.Remove(listener); 
         }
     }
 }

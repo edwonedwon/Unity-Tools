@@ -4,17 +4,12 @@ using Edwon.Tools;
 
 namespace Edwon.Tools
 {   
-    public interface IGameEventStringListener
-    {
-        void OnEventRaised(GameEventString _event, string _string);
-    }
-
-    public class GameEventStringListener : MonoBehaviour, IGameEventStringListener
+    public class GameEventStringListener : MonoBehaviour
     {
         public GameEventString gameEvent;
         public UnityEventString response;
         
-        public void OnEventRaised(GameEventString _event, string _string)
+        public void OnEventRaised(string _string)
         { 
             response.Invoke(_string); 
         }
@@ -22,13 +17,13 @@ namespace Edwon.Tools
         private void OnEnable()
         { 
             if (gameEvent != null)
-                gameEvent.RegisterListener(this); 
+                gameEvent.RegisterListener(OnEventRaised); 
         }
 
         private void OnDisable()
         { 
             if (gameEvent != null)
-                gameEvent.UnregisterListener(this); 
+                gameEvent.UnregisterListener(OnEventRaised); 
         }
     }
 }
