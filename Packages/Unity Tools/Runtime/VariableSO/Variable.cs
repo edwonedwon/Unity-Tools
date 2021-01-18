@@ -3,7 +3,7 @@ using System;
 
 namespace  Edwon.Tools
 {
-    public class VariableSO<T> : ScriptableObject, ISerializationCallbackReceiver
+    public class Variable<T> : ScriptableObject, ISerializationCallbackReceiver
     {
         public T initialValue;
 
@@ -14,6 +14,7 @@ namespace  Edwon.Tools
 
         public void OnAfterDeserialize()
         {
+            Debug.Log("on after deserialize");
             runtimeValue = initialValue;
         }
     }

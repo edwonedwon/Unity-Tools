@@ -1,13 +1,14 @@
 using UnityEngine;
 using System;
 
-namespace Edwon.Tools
+namespace  Edwon.Tools
 {
-    [CreateAssetMenu(fileName = "Float Variable", menuName = "Scriptables/Float Variable")]
-    public class FloatVariableSO : VariableSO<float>
+    [Serializable]
+    [CreateAssetMenu(fileName = "Int Variable", menuName = "Scriptables/Int Variable")]
+    public class VariableInt : Variable<int>
     {
         public bool alwaysPositive;
-        new public float runtimeValue 
+        new public int runtimeValue 
         {
             get
             {

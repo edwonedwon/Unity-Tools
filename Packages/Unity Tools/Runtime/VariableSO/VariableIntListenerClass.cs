@@ -5,9 +5,9 @@ using UnityEngine.Events;
 
 namespace Edwon.Tools
 {
-    public class IntVariableSOListenerClass
+    public class VariableIntListenerClass
     {
-        public IntVariableSO variableSO;
+        public VariableInt variable;
         public int variableLast;
         public UnityEventInt onVariableChanged;
         public UnityEventInt onVariableIncreased;
@@ -15,14 +15,14 @@ namespace Edwon.Tools
         public UnityEvent onVariableZero;
         public bool debugLog = false;
 
-        public IntVariableSOListenerClass(IntVariableSO variableSO)
+        public VariableIntListenerClass(VariableInt variable)
         {
-            if (variableSO == null)
+            if (variable == null)
             {
-                Debug.Log("variableSO is null");
+                Debug.Log("variable is null");
                 return;
             }
-            this.variableSO = variableSO;
+            this.variable = variable;
             onVariableChanged = new UnityEventInt();
             onVariableIncreased = new UnityEventInt();
             onVariableChangedAboveZero = new UnityEventInt();
@@ -30,19 +30,19 @@ namespace Edwon.Tools
             Init();
         }
 
-        public IntVariableSOListenerClass(
-            IntVariableSO variableSO, 
+        public VariableIntListenerClass(
+            VariableInt variable, 
             ref UnityEventInt onVariableChanged,
             ref UnityEventInt onVariableIncreased,
             ref UnityEventInt onVariableChangedAboveZero,
             ref UnityEvent onVariableZero)
         {
-            if (variableSO == null)
+            if (variable == null)
             {
-                Debug.Log("variableSO is null");
+                Debug.Log("variable is null");
                 return;
             }
-            this.variableSO = variableSO;
+            this.variable = variable;
             this.onVariableChanged = onVariableChanged;
             this.onVariableIncreased = onVariableIncreased;
             this.onVariableChangedAboveZero = onVariableChangedAboveZero;
@@ -52,45 +52,45 @@ namespace Edwon.Tools
 
         void Init()
         {
-            variableLast = variableSO.runtimeValue;
-            onVariableChanged.Invoke(variableSO.runtimeValue);
+            variableLast = variable.runtimeValue;
+            onVariableChanged.Invoke(variable.runtimeValue);
             if (debugLog)
-                Debug.Log("INIT variabled changed to " + variableSO.runtimeValue);
+                Debug.Log("INIT variabled changed to " + variable.runtimeValue);
             ZeroOrNotZeroEvents();
         }
 
         public void Update() 
         {
-            if (variableSO == null)
+            if (variable == null)
                 return;
                 
-            if (!variableSO.runtimeValue.Equals(variableLast))
+            if (!variable.runtimeValue.Equals(variableLast))
             {
                 if (debugLog)
-                    Debug.Log("variabled changed to " + variableSO.runtimeValue);
-                onVariableChanged.Invoke(variableSO.runtimeValue);
+                    Debug.Log("variabled changed to " + variable.runtimeValue);
+                onVariableChanged.Invoke(variable.runtimeValue);
                 ZeroOrNotZeroEvents();
-                if (variableSO.runtimeValue > variableLast)
+                if (variable.runtimeValue > variableLast)
                 {
                     if (debugLog)
-                        Debug.Log("variabled changed to " + variableSO.runtimeValue);
-                    onVariableIncreased.Invoke(variableSO.runtimeValue);
+                        Debug.Log("variabled changed to " + variable.runtimeValue);
+                    onVariableIncreased.Invoke(variable.runtimeValue);
                 }
             }
 
-            variableLast = variableSO.runtimeValue;
+            variableLast = variable.runtimeValue;
         }
         
         public void ZeroOrNotZeroEvents()
         {
-            if (variableSO == null)
+            if (variable == null)
                 return;
 
-            if (variableSO.runtimeValue == 0) 
+            if (variable.runtimeValue == 0) 
                 onVariableZero.Invoke();
 
-            if (variableSO.runtimeValue > 0)
-                onVariableChangedAboveZero.Invoke(variableSO.runtimeValue);
+            if (variable.runtimeValue > 0)
+                onVariableChangedAboveZero.Invoke(variable.runtimeValue);
         }
     }
 }

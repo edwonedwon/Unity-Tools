@@ -5,15 +5,15 @@ using UnityEngine.Events;
 
 namespace Edwon.Tools
 {
-    public class VariableSOListenerClass<VariableSOType, VariableType, UnityEventType> 
-    where VariableSOType: VariableSO<VariableType>
+    public class VariableListenerClass<VariableSOType, VariableType, UnityEventType> 
+    where VariableSOType: Variable<VariableType>
     where UnityEventType : UnityEventEdwonBase<VariableType>
     {
         public VariableSOType variableSO;
         public VariableType variableLast;
         public UnityEventType onVariableChanged;
 
-        public VariableSOListenerClass(VariableSOType variableSO, UnityEventType onVariableChanged)
+        public VariableListenerClass(VariableSOType variableSO, UnityEventType onVariableChanged)
         {
             if (variableSO == null)
                 return;

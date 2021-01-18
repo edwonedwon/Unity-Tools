@@ -6,16 +6,16 @@ using UnityEngine.Serialization;
 
 namespace Edwon.Tools
 {
-    public class IntVariableSOListener : MonoBehaviour
+    public class VariableIntListener : MonoBehaviour
     {
         [SerializeField]
         [ReadOnly]
-        IntVariableSO variableSO;
+        VariableInt variableSO;
         public UnityEventInt onVariableChanged;
         public UnityEventInt onVariableIncreased;
         public UnityEventInt onVariableChangedAboveZero;
         public UnityEvent onVariableZero;
-        IntVariableSOListenerClass listener;
+        VariableIntListenerClass listener;
         public bool debugLog = false;
 
         private void Awake() 
@@ -28,7 +28,7 @@ namespace Edwon.Tools
 
         void InitListener()
         {
-            listener = new IntVariableSOListenerClass(
+            listener = new VariableIntListenerClass(
                 variableSO, 
                 ref onVariableChanged, 
                 ref onVariableIncreased, 
@@ -45,7 +45,7 @@ namespace Edwon.Tools
             listener.Update();   
         }
 
-        public void SetVariableSO(IntVariableSO variableSo)
+        public void SetVariableSO(VariableInt variableSo)
         {
             this.variableSO = variableSo;
             InitListener();

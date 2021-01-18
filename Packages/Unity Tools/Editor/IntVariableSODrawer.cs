@@ -8,8 +8,8 @@ using System.Reflection;
 
 namespace Edwon.Tools
 {
-    [CustomPropertyDrawer(typeof(IntVariableSO))]
-    public class IntVariableSODrawer : PropertyDrawer
+    [CustomPropertyDrawer(typeof(VariableInt))]
+    public class VariableIntDrawer : PropertyDrawer
     {
         int lineCount = 2;
         const int lineCountFoldout = 3;
@@ -24,10 +24,10 @@ namespace Edwon.Tools
             Rect mainPropertyRect = new Rect(position.x, position.y, position.width - previewPadding, lineHeight);
 			EditorGUI.PropertyField(mainPropertyRect, property, label);
             
-            IntVariableSO intVariableSO = null;
+            VariableInt intVariableSO = null;
 
             if (property.objectReferenceValue != null)
-                intVariableSO = EditorUtils.GetTargetObjectOfProperty(property) as IntVariableSO;
+                intVariableSO = EditorUtils.GetTargetObjectOfProperty(property) as VariableInt;
             
             if (intVariableSO == null)
             {

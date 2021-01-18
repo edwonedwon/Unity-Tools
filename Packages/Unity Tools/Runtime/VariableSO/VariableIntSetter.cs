@@ -5,9 +5,9 @@ using UnityEngine.Events;
 
 namespace Edwon.Tools
 {
-    public class IntVariableSOSetter : MonoBehaviour
+    public class VariableIntSetter : MonoBehaviour
     {
-        public IntVariableSO intVariableSO;
+        public VariableInt intVariableSO;
         public UnityEventInt onValueChangeSuccess;
         public UnityEventInt onValueChangeSuccessAboveZero;
         public UnityEventInt onValueChangeFail;

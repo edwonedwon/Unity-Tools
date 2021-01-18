@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace Edwon.Tools
 {
-    public class FloatVariableSOSetter : MonoBehaviour
+    public class VariableFloatSetter : MonoBehaviour
     {
-        public FloatVariableSO floatVariableSO;
+        public VariableFloat floatVariableSO;
 
         public void SetTo(float value)
         {
