@@ -15,6 +15,21 @@ namespace Edwon.Tools
         public UnityEvent onVariableZero;
         public bool debugLog = false;
 
+        public IntVariableSOListenerClass(IntVariableSO variableSO)
+        {
+            if (variableSO == null)
+            {
+                Debug.Log("variableSO is null");
+                return;
+            }
+            this.variableSO = variableSO;
+            onVariableChanged = new UnityEventInt();
+            onVariableIncreased = new UnityEventInt();
+            onVariableChangedAboveZero = new UnityEventInt();
+            onVariableZero = new UnityEvent();
+            Init();
+        }
+
         public IntVariableSOListenerClass(
             IntVariableSO variableSO, 
             ref UnityEventInt onVariableChanged,
@@ -23,8 +38,10 @@ namespace Edwon.Tools
             ref UnityEvent onVariableZero)
         {
             if (variableSO == null)
+            {
+                Debug.Log("variableSO is null");
                 return;
-
+            }
             this.variableSO = variableSO;
             this.onVariableChanged = onVariableChanged;
             this.onVariableIncreased = onVariableIncreased;
