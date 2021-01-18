@@ -12,13 +12,11 @@ namespace Edwon.Tools
 
         public void OnPooled()
         {
-            Debug.Log("OnPooled " + gameObject.name);
             onPooled.Invoke();    
         }
 
         public void OnUnPooled()
         {
-            Debug.Log("OnUnPooled " + gameObject.name);
             onUnPooled.Invoke();
         }
     }
