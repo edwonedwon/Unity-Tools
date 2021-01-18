@@ -101,8 +101,9 @@ namespace Edwon.Tools
         public Item GetNearestItemOfTypeTo(Vector3 worldPoint, string itemName, Func<Item, bool> condition)
         {
             itemDistanceComparer.targetPosition = worldPoint;
-            filteredItems = active;
-            filteredItems.RemoveAll( item => ((item.itemName == itemName) && condition(item)));
+            filteredItems = new List<Item>(active);
+            filteredItems.RemoveAll( item => item.itemName != itemName);
+            filteredItems.RemoveAll( item => condition(item));
             filteredItems.Sort(itemDistanceComparer);
             if (filteredItems.Count > 0)
                 return filteredItems[0];
