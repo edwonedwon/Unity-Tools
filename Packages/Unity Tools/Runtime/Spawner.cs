@@ -14,7 +14,6 @@ namespace Edwon.Tools
         public Holder holder; // only needed of spawn and hold is called
         public GameObject prefabToSpawn;
         public ItemStorageSO itemStorage;
-        public ItemPoolSO itemPool;
 
         void Awake()
         {
@@ -43,16 +42,6 @@ namespace Edwon.Tools
             return GameObject.Instantiate(prefab, spawnTransform.position, spawnTransform.rotation);
         }
 
-        GameObject Spawn(string itemName)
-        {
-            Item spawned = null;
-            spawned = itemPool.SpawnFromPool(itemName, spawnTransform.position, spawnTransform.rotation);
-            if (spawned != null)
-                return spawned.gameObject;
-            else
-                return null;
-        }
-
         public void SpawnSet()
         {
             if (debugLog){ Debug.Log("SpawnSet: " + prefabToSpawn.name); }
@@ -72,23 +61,6 @@ namespace Edwon.Tools
 
             GameObject spawned = Spawn(prefab);
             holder.ReleaseAndHold(spawned);
-        }
-
-        public void SpawnAndHold(string itemName)
-        {
-            if (debugLog){ Debug.Log("SpawnAndHold " + itemName); }
-            if (holder == null) { Debug.Log("hold is not set on Spawner " + name); return; }
-            GameObject spawned = Spawn(itemName);
-            if (spawned != null)
-                holder.ReleaseAndHold(spawned);
-        }
-        
-        public void SpawnAndHoldAndDestroyHeld(string itemName)
-        {
-            if (debugLog){ Debug.Log("SpawnAndHoldAndDestroyHeld: " + itemName); }
-            if (holder == null) { Debug.Log("holder is not set on Spawner " + name); return; }
-            holder.DestroyHeld();
-            SpawnAndHold(itemName);
         }
 
         public void SpawnAndHoldAndDestroyHeld(GameObject holdableToSpawn)
