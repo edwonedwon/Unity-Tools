@@ -9,7 +9,7 @@ namespace Edwon.Tools
         public bool debugLog;
         public enum SpawnOnAwakeOption { Dont, Spawn, SpawnAndHold };
         public SpawnOnAwakeOption spawnOnAwake = SpawnOnAwakeOption.Dont;
-        public Transform spawnTransform;
+        public Transform spawnPoint;
         public Holder holder; // only needed of spawn and hold is called
         public string setItemToSpawn;
         public ItemPoolSO itemPool;
@@ -22,8 +22,8 @@ namespace Edwon.Tools
             if (holder == null)
                 holder = GetComponent<Holder>();
 
-            if (spawnTransform == null)
-                spawnTransform = transform;
+            if (spawnPoint == null)
+                spawnPoint = transform;
             
             switch (spawnOnAwake)
             {
@@ -39,7 +39,7 @@ namespace Edwon.Tools
         GameObject Spawn(string itemName)
         {
             Item spawned = null;
-            spawned = itemPool.SpawnFromPool(itemName, spawnTransform.position, spawnTransform.rotation);
+            spawned = itemPool.SpawnFromPool(itemName, spawnPoint.position, spawnPoint.rotation);
             if (spawned != null)
                 return spawned.gameObject;
             else

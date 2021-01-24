@@ -10,7 +10,7 @@ namespace Edwon.Tools
         public bool debugLog;
         public enum SpawnOnAwakeOption { Dont, Spawn, SpawnAndHold };
         public SpawnOnAwakeOption spawnOnAwake = SpawnOnAwakeOption.Dont;
-        public Transform spawnTransform;
+        public Transform spawnPoint;
         public Holder holder; // only needed of spawn and hold is called
         public GameObject prefabToSpawn;
         public ItemStorageSO itemStorage;
@@ -23,8 +23,8 @@ namespace Edwon.Tools
             if (holder == null)
                 holder = GetComponent<Holder>();
 
-            if (spawnTransform == null)
-                spawnTransform = transform;
+            if (spawnPoint == null)
+                spawnPoint = transform;
             
             switch (spawnOnAwake)
             {
@@ -39,7 +39,7 @@ namespace Edwon.Tools
 
         GameObject Spawn(GameObject prefab)
         {
-            return GameObject.Instantiate(prefab, spawnTransform.position, spawnTransform.rotation);
+            return GameObject.Instantiate(prefab, spawnPoint.position, spawnPoint.rotation);
         }
 
         public void SpawnSet()
