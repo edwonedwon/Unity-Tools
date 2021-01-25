@@ -18,8 +18,9 @@ namespace Edwon.Tools
         public Holder holderLast {get; set;}
         public Rigidbody rigidbodyToHold;
         Collider[] colliders;
-        public bool setChildrenIsKinematicWhileHeld = false;
-        public bool disableCollidersWhileHeld = false;
+        public bool childrenKinematicWhileHeld = false;
+        public bool collidersDisabledWhileHeld = false;
+        public LayerMask collidersDontToggle;
         public IDestroyable destroyable;
         
         void Awake()
@@ -67,8 +68,8 @@ namespace Edwon.Tools
             if (debugLog)
                 Debug.Log(gameObject.name + "OnHold " + gameObject.name + " To:" + _holder.name);
             
-            if (disableCollidersWhileHeld)
-                ToggleColliders(false);
+            if (collidersDisabledWhileHeld)
+                Utils.ToggleColliders(colliders, false, collidersDontToggle);
 
             SetKinematic(true);
         }
@@ -78,15 +79,15 @@ namespace Edwon.Tools
             if (debugLog)
                 Debug.Log(gameObject.name + " OnRelease");
 
-            if (disableCollidersWhileHeld)
-                ToggleColliders(true);
+            if (collidersDisabledWhileHeld)
+                Utils.ToggleColliders(colliders, true, collidersDontToggle);
 
             SetKinematic(false);
         }
 
         public void SetKinematic(bool isKinematic)
         {
-            if (setChildrenIsKinematicWhileHeld)
+            if (childrenKinematicWhileHeld)
             {
                 Rigidbody[] rbs = rigidbodyToHold.GetComponentsInChildren<Rigidbody>();
                 foreach(Rigidbody rb in rbs)
@@ -98,12 +99,6 @@ namespace Edwon.Tools
             {
                 rigidbodyToHold.isKinematic = isKinematic;
             }
-        }
-
-        void ToggleColliders(bool toggle)
-        {
-            foreach(Collider c in colliders)
-                c.enabled = toggle;
         }
     }
 }
