@@ -12,11 +12,7 @@ namespace Edwon.Tools
         public ItemPoolSO itemPoolSO;
         [HideInInspector]
         public Transform poolParent;
-        public bool debugDraw = false;
         
-        [Header("Debug")]
-        public bool unfoldInHierarchy = false;
-
         void Awake()
         {
             itemPoolSO.itemPoolMB = this;
@@ -37,11 +33,26 @@ namespace Edwon.Tools
             itemPoolSO.ClearPool();
         }
 
+        [Header("Test")]
         [InspectorButton("ReturnAllToPool")]
         public bool returnAllToPool;
         public void ReturnAllToPool()
         {
             itemPoolSO.ReturnAllToPool();
         }
+        
+        [InspectorButton("SpawnTestItem")]
+        public bool spawnTestItem;
+        public void SpawnTestItem()
+        {
+            testSpawner.Spawn(testItemName);
+        }
+        public string testItemName;
+        public ItemPoolSpawner testSpawner;
+
+
+        [Header("Debug")]
+        public bool unfoldInHierarchy = false;
+        public bool debugDraw = false;
     }
 }

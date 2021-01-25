@@ -36,7 +36,7 @@ namespace Edwon.Tools
             }
         }
 
-        GameObject Spawn(string itemName)
+        public GameObject Spawn(string itemName)
         {
             Item spawned = null;
             spawned = itemPool.SpawnFromPool(itemName, spawnPoint.position, spawnPoint.rotation);
