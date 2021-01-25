@@ -231,12 +231,31 @@ namespace Edwon.Tools
             }
         }
 
+        public static void ToggleColliders(Collider[] components, bool toggle, LayerMask excludeChecked)
+        {
+            foreach(Collider c in components)
+            {
+                if (Utils.IsLayerIncluded(c.gameObject.layer, excludeChecked))
+                    continue;
+                else
+                    c.enabled = toggle;
+            }
+        }
+
         public static void UnfoldInEditorHierarchy(Transform transformParentToUnfold)
         {
             #if UNITY_EDITOR
             if (transformParentToUnfold.childCount > 0)
                 UnityEditor.EditorGUIUtility.PingObject(transformParentToUnfold.GetChild(0));
             #endif
+        }
+        
+        public static bool IsLayerIncluded(int layer, LayerMask layerMask)
+        {
+            if(((1<<layer) & layerMask) != 0)
+                return true;
+            else
+                return false;
         }
     }
 }
