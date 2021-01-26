@@ -9,7 +9,6 @@ namespace Edwon.Tools
     public class VariableIntListener : MonoBehaviour
     {
         [SerializeField]
-        [ReadOnly]
         VariableInt variableSO;
         public UnityEventInt onVariableChanged;
         public UnityEventInt onVariableIncreased;
