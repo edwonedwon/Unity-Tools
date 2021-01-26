@@ -31,29 +31,39 @@ namespace Edwon.Tools
                 itemScratch = collider.GetComponentInParent<Item>();
                 if (itemScratch != null)
                 {
+                    // is consumable filter
                     if (!itemScratch.consumable) // if not consumable dont consume it
                         return null;
 
+                    // name filter
                     if (!itemNameFilter.IsWhiteSpaceOnly()) // if name filter is not null
                         if (itemScratch.itemName != itemNameFilter) // if name filter doesn't match, don't consume it
                             return null;
 
-                    if (doNotConsumeIfHeld)
+                    bool canConsume = true;
+
+                    // isHeld filter
+                    bool isHeld = false;
+                    holdableScratch = itemScratch.GetComponent<IHoldable>();
+                    if (holdableScratch != null)
                     {
-                        holdableScratch = itemScratch.GetComponent<IHoldable>();
-                        if (holdableScratch == null) // if no holdable
-                            return itemScratch;
-                        else if (holdableScratch.holder == null) // else if item not being held
-                            return itemScratch;
+                        isHeld = holdableScratch.IsHeld;
+                        if (doNotConsumeIfHeld && isHeld)
+                            canConsume = false;
                     }
 
-                    if (doNotConsumeIfDragged)
+                    // isDragged filter
+                    bool isDragged = false;
+                    draggableScratch = itemScratch.GetComponent<IDraggable>();
+                    if (draggableScratch != null)
                     {
-                        draggableScratch = itemScratch.GetComponent<IDraggable>();
-                        if (!draggableScratch.IsDragged)
-                            return itemScratch;
+                        isDragged = draggableScratch.IsDragged;
+                        if (doNotConsumeIfDragged && isDragged)
+                            canConsume = false;
                     }
-                    // else item is currently being held so don't return it
+
+                    if (canConsume)
+                        return itemScratch;
                 }
             }
             return null;
