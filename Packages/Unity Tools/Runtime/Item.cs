@@ -15,6 +15,7 @@ namespace Edwon.Tools
     public class Item : MonoBehaviour, IDestroyable
     {
         public string itemName;
+        public bool consumable = false;
         public const string itemTag = "Item";
         List<Renderer> renderers;
         List<IPoolable> poolables;
