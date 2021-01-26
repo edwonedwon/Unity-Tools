@@ -15,6 +15,7 @@ namespace Edwon.Tools
     public class Item : MonoBehaviour, IDestroyable
     {
         public string itemName;
+        public const string itemTag = "Item";
         List<Renderer> renderers;
         List<IPoolable> poolables;
         public ItemPoolSO itemPoolSO;
@@ -23,6 +24,7 @@ namespace Edwon.Tools
 
         private void Awake() 
         {
+            gameObject.tag = itemTag;
             renderers = transform.GetComponentsInChildren<Renderer>().ToList();
             poolables = transform.GetComponentsInChildren<IPoolable>().ToList();
         }

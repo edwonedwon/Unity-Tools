@@ -21,6 +21,8 @@ namespace Edwon.Tools
     public class UnityEventVector3 : UnityEventEdwonBase<Vector3>{}
     [System.Serializable]
     public class UnityEventGameObject : UnityEventEdwonBase<GameObject>{}
+    [System.Serializable]
+    public class UnityEventItem : UnityEventEdwonBase<Item>{}
 
     public static class Utils
     {
