@@ -9,9 +9,14 @@ namespace Edwon.Tools
     public class ItemConsumer : MonoBehaviour, ITriggerReceiver
     {
         public string itemNameFilter;
+        public bool doNotConsumeIfHeld = true;
+        public bool doNotConsumeIfDragged = true;
         public UnityEventItem onReadyToConsume;
+
+        // SCRATCH
         Item itemScratch = null;
         IHoldable holdableScratch = null;
+        IDraggable draggableScratch = null;
 
         void OnReadyToConsume(Item itemToConsume)
         {
@@ -33,14 +38,20 @@ namespace Edwon.Tools
                         if (itemScratch.itemName != itemNameFilter) // if name filter doesn't match, don't consume it
                             return null;
 
-                    IHoldable holdableScratch = itemScratch.GetComponent<IHoldable>();
-                    if (holdableScratch == null) // if no holdable
+                    if (doNotConsumeIfHeld)
                     {
-                        return itemScratch;
+                        holdableScratch = itemScratch.GetComponent<IHoldable>();
+                        if (holdableScratch == null) // if no holdable
+                            return itemScratch;
+                        else if (holdableScratch.holder == null) // else if item not being held
+                            return itemScratch;
                     }
-                    else if (holdableScratch.holder == null) // else if item not being held
+
+                    if (doNotConsumeIfDragged)
                     {
-                        return itemScratch;
+                        draggableScratch = itemScratch.GetComponent<IDraggable>();
+                        if (!draggableScratch.IsDragged)
+                            return itemScratch;
                     }
                     // else item is currently being held so don't return it
                 }

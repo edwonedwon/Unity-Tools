@@ -9,13 +9,14 @@ namespace Edwon.Tools
         #pragma warning disable 0414
 
         public bool debugLog = false;
-        [ReadOnly]
-        [SerializeField]
-        bool isHeld;
         public GameObject GameObject {get;set;}
         public Holder holder {get; set;}
         [HideInInspector]
         public Holder holderLast {get; set;}
+        [SerializeField]
+        [ReadOnly]
+        bool isHeld;
+        public bool IsHeld {get{ return IsHeld;}}
         public Rigidbody rigidbodyToHold;
         Collider[] colliders;
         public bool childrenKinematicWhileHeld = false;

@@ -4,16 +4,6 @@ using UnityEngine;
 
 namespace Edwon.Tools 
 {
-    public interface IHoldable
-    {
-        GameObject GameObject {get; set;}
-        Holder holder {get; set;}
-        Holder holderLast {get; set;}
-        void Release(bool andDestroy = false);
-        void OnHold(Holder holder);
-        void OnRelease();
-    }
-
     // Holders can only hold one IHoldable at a time
     public class Holder : MonoBehaviour
     {
