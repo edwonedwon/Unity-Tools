@@ -9,8 +9,9 @@ namespace Edwon.Tools
     public class ItemConsumer : MonoBehaviour, ITriggerReceiver
     {
         public string itemNameFilter;
-        public bool doNotConsumeIfHeld = true;
-        public bool doNotConsumeIfDragged = true;
+        public bool doNotConsumeIfHeld = false;
+        public bool doNotConsumeIfDragged = false;
+        public bool onlyConsumeIfDragged = false;
         public UnityEventItem onReadyToConsume;
 
         // SCRATCH
@@ -40,7 +41,7 @@ namespace Edwon.Tools
                         if (itemScratch.itemName != itemNameFilter) // if name filter doesn't match, don't consume it
                             return null;
 
-                    bool canConsume = true;
+                    bool canConsume = false;
 
                     // isHeld filter
                     bool isHeld = false;
@@ -48,8 +49,8 @@ namespace Edwon.Tools
                     if (holdableScratch != null)
                     {
                         isHeld = holdableScratch.IsHeld;
-                        if (doNotConsumeIfHeld && isHeld)
-                            canConsume = false;
+                        if (doNotConsumeIfHeld && !isHeld)
+                            canConsume = true;
                     }
 
                     // isDragged filter
@@ -58,8 +59,10 @@ namespace Edwon.Tools
                     if (draggableScratch != null)
                     {
                         isDragged = draggableScratch.IsDragged;
-                        if (doNotConsumeIfDragged && isDragged)
-                            canConsume = false;
+                        if (doNotConsumeIfDragged && !isDragged)
+                            canConsume = true;
+                        if (onlyConsumeIfDragged && isDragged)
+                            canConsume = true;
                     }
 
                     if (canConsume)
