@@ -9,6 +9,7 @@ namespace Edwon.Tools
     {
         public IHoldable held;
         IHoldable heldLast;
+        public bool smoothMovement;
         [ReadOnly]
         [SerializeField]
         string heldNameDebug;
@@ -46,6 +47,7 @@ namespace Edwon.Tools
         {
             toHold.holder = this;
             held = toHold;
+            toHold.SmoothMovement = smoothMovement;
             toHold.OnHold(this);
         }
         

@@ -8,6 +8,7 @@ namespace Edwon.Tools
     {
         GameObject GameObject {get; set;}
         bool IsHeld {get;}
+        bool SmoothMovement {get; set;}
         Holder holder {get; set;}
         Holder holderLast {get; set;}
         void Release(bool andDestroy = false);

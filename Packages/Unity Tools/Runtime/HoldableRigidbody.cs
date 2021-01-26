@@ -19,10 +19,26 @@ namespace Edwon.Tools
         public bool IsHeld {get{ return IsHeld;}}
         public Rigidbody rigidbodyToHold;
         Collider[] colliders;
-        public bool childrenKinematicWhileHeld = false;
+        public bool isKinematicWhileHeld = false;
         public bool collidersDisabledWhileHeld = false;
         public LayerMask collidersDontToggle;
         public IDestroyable destroyable;
+        [Header("Smooth Movement")]
+        [SerializeField]
+        [ReadOnly]
+        bool smoothMovement;
+        public bool SmoothMovement 
+        {
+            get
+            {
+                return smoothMovement;
+            }
+            set
+            {
+                smoothMovement = value;
+            }
+        }
+        public float lerpTime = 0.95f;
         
         void Awake()
         {
@@ -46,10 +62,29 @@ namespace Edwon.Tools
 
         void FixedUpdate()
         {
-            if (holder != null)
-                rigidbodyToHold.MovePosition(holder.transform.position);
-
             SetIsHeld();
+
+            if (holder != null)
+                SetPosition();
+        }
+
+        void SetPosition()
+        {
+            Vector3 position;
+
+            if (SmoothMovement)
+            {
+                Vector3 targetPosition = holder.transform.position;
+                Vector3 currentPosition = transform.position;
+                Vector3 smoothPosition = Vector3.Lerp(currentPosition, targetPosition, lerpTime);
+                position = smoothPosition;
+            }
+            else
+            {
+                position = holder.transform.position;
+            }
+
+            rigidbodyToHold.MovePosition(position);
         }
 
         public void Release(bool andDestroy)
@@ -88,7 +123,7 @@ namespace Edwon.Tools
 
         public void SetKinematic(bool isKinematic)
         {
-            if (childrenKinematicWhileHeld)
+            if (isKinematicWhileHeld)
             {
                 Rigidbody[] rbs = rigidbodyToHold.GetComponentsInChildren<Rigidbody>();
                 foreach(Rigidbody rb in rbs)
