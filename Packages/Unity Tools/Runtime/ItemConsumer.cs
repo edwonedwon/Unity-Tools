@@ -10,8 +10,9 @@ namespace Edwon.Tools
     {
         public string itemNameFilter;
         [HideInInspector]
-        public Item itemReadyToConsume;
         public UnityEventItem onReadyToConsume;
+        Item itemScratch = null;
+        IHoldable holdableScratch = null;
 
         void OnReadyToConsume(Item itemToConsume)
         {
@@ -23,20 +24,20 @@ namespace Edwon.Tools
             if (collider.tag == Item.itemTag 
             || collider.transform.root.tag == Item.itemTag)
             {
-                Item item = collider.GetComponentInParent<Item>();
-                if (item != null)
+                itemScratch = collider.GetComponentInParent<Item>();
+                if (itemScratch != null)
                 {
-                    if (!item.consumable) // if not consumable dont consume it
+                    if (!itemScratch.consumable) // if not consumable dont consume it
                         return null;
 
-                    IHoldable holdable = item.GetComponent<IHoldable>();
-                    if (holdable == null) // if no holdable
+                    IHoldable holdableScratch = itemScratch.GetComponent<IHoldable>();
+                    if (holdableScratch == null) // if no holdable
                     {
-                        return item;
+                        return itemScratch;
                     }
-                    else if (holdable.holder == null) // else if item not being held
+                    else if (holdableScratch.holder == null) // else if item not being held
                     {
-                        return item;
+                        return itemScratch;
                     }
                     // else item is currently being held so don't return it
                 }
@@ -46,9 +47,9 @@ namespace Edwon.Tools
 
         public void OnTriggerEnter(Collider collider)
         {
-            itemReadyToConsume = GetItemFromCollider(collider);
-            if (itemReadyToConsume != null)
-                OnReadyToConsume(itemReadyToConsume);
+            itemScratch = GetItemFromCollider(collider);
+            if (itemScratch != null)
+                OnReadyToConsume(itemScratch);
         }
 
         public void OnTriggerStay(Collider collider) {}
