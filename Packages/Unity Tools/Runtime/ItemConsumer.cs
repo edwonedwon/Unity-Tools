@@ -9,7 +9,6 @@ namespace Edwon.Tools
     public class ItemConsumer : MonoBehaviour, ITriggerReceiver
     {
         public string itemNameFilter;
-        [HideInInspector]
         public UnityEventItem onReadyToConsume;
         Item itemScratch = null;
         IHoldable holdableScratch = null;
@@ -29,6 +28,10 @@ namespace Edwon.Tools
                 {
                     if (!itemScratch.consumable) // if not consumable dont consume it
                         return null;
+
+                    if (!itemNameFilter.IsWhiteSpaceOnly()) // if name filter is not null
+                        if (itemScratch.itemName != itemNameFilter) // if name filter doesn't match, don't consume it
+                            return null;
 
                     IHoldable holdableScratch = itemScratch.GetComponent<IHoldable>();
                     if (holdableScratch == null) // if no holdable
