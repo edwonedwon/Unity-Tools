@@ -45,6 +45,7 @@ namespace Edwon.Tools
             GameObject = gameObject;
             destroyable = GetComponent<IDestroyable>();
             colliders = GetComponentsInChildren<Collider>();
+            rigidbodyToHold.interpolation = RigidbodyInterpolation.Interpolate;
             
             if (rigidbodyToHold == null)
                 rigidbodyToHold = GetComponent<Rigidbody>();
@@ -60,15 +61,15 @@ namespace Edwon.Tools
                 isHeld = true;
         }
 
-        void FixedUpdate()
+        void LateUpdate()
         {
             SetIsHeld();
 
             if (holder != null)
-                SetPosition();
+                UpdatePosition();
         }
 
-        void SetPosition()
+        void UpdatePosition()
         {
             Vector3 position;
 
@@ -77,6 +78,7 @@ namespace Edwon.Tools
                 Vector3 targetPosition = holder.transform.position;
                 Vector3 currentPosition = transform.position;
                 Vector3 smoothPosition = Vector3.Lerp(currentPosition, targetPosition, lerpTime);
+                // Vector3 smoothPosition = Vector3.SmoothDamp(currentPosition, targetPosition, )
                 position = smoothPosition;
             }
             else
@@ -84,7 +86,10 @@ namespace Edwon.Tools
                 position = holder.transform.position;
             }
 
-            rigidbodyToHold.MovePosition(position);
+            if (isKinematicWhileHeld)
+                rigidbodyToHold.transform.position = position;
+            else
+                rigidbodyToHold.MovePosition(position);
         }
 
         public void Release(bool andDestroy)
@@ -107,7 +112,8 @@ namespace Edwon.Tools
             if (collidersDisabledWhileHeld)
                 Utils.ToggleColliders(colliders, false, collidersDontToggle);
 
-            SetKinematic(true);
+            if (isKinematicWhileHeld)
+                SetKinematic(true);
         }
 
         public void OnRelease()
