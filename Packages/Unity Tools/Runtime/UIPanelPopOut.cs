@@ -71,6 +71,14 @@ public class UIPanelPopOut : MonoBehaviour
         }
     }
 
+    public void CloseAfterDelay(float delay)
+    {
+        DOVirtual.DelayedCall(delay, ()=>
+        {
+            Close();
+        });
+    }
+
     [InspectorButton("Close")]
     public bool close;
     public void Close()
