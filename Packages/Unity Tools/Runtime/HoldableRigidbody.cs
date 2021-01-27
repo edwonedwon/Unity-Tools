@@ -16,7 +16,7 @@ namespace Edwon.Tools
         [SerializeField]
         [ReadOnly]
         bool isHeld;
-        public bool IsHeld {get{ return IsHeld;}}
+        public bool IsHeld {get{ return isHeld;}}
         public Rigidbody rigidbodyToHold;
         Collider[] colliders;
         public bool isKinematicWhileHeld = false;
