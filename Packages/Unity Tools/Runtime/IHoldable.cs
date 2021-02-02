@@ -6,7 +6,7 @@ namespace Edwon.Tools
 {
     public interface IHoldable
     {
-        GameObject GameObject {get; set;}
+        GameObject GameObject {get;}
         bool IsHeld {get;}
         bool SmoothMovement {get; set;}
         Holder holder {get; set;}
