@@ -6,6 +6,8 @@ using Edwon.Tools;
 
 namespace Edwon.Tools
 {
+    // if this class is paired with a LeanSelectable it will be dragged when selected
+    // otherwise the OnDrag events must be called manually
     public class DraggableRigidbody : MonoBehaviour, IDraggable
     {
         public enum MoveType{Kinematic, MovePositionLerp}
@@ -22,6 +24,7 @@ namespace Edwon.Tools
         Vector2 screenVelocity;
         Vector2 screenVelocitySmoothed;
         Vector2 screenPosLast;
+        LeanSelectable selectable;
 
         [Header("Throw")]
         public float throwForce = 0.1f;
@@ -36,11 +39,13 @@ namespace Edwon.Tools
         public float rotateTime;
 
         [Header("Debug")]
+        public bool debugLog;
         public bool debugDraw;
 
         void Awake()
         {
             GetPlayerComponents();
+            selectable = GetComponent<LeanSelectable>();
             throwVectorTF = camera.transform.Find("Throw Vector");
             if (mainRigidbody == null)
                 mainRigidbody = GetComponent<Rigidbody>();
@@ -58,6 +63,9 @@ namespace Edwon.Tools
 
         public void OnDragBegin(Vector2 screenPos)
         {   
+            if (debugLog)
+                Debug.Log("OnDragBegin: " + screenPos);
+
             if (mainRigidbody == null)
                 return;
 
@@ -78,6 +86,9 @@ namespace Edwon.Tools
 
         public void OnDragUpdate(Vector2 screenPos)
         {
+            if (debugLog)
+                Debug.Log("OnDragUpdate: " + screenPos);
+
             if (mainRigidbody == null)
                 return;
             
@@ -121,6 +132,9 @@ namespace Edwon.Tools
 
         public void OnDragEnd(Vector2 screenPos)
         {
+            if (debugLog)
+                Debug.Log("OnDragEnd: " + screenPos);
+
             if (mainRigidbody == null)
                 return;
 
@@ -141,12 +155,54 @@ namespace Edwon.Tools
             mainRigidbody.AddForce(throwForceVector);
         }
 
+		void OnSelect(LeanFinger finger)
+		{
+            OnDragBegin(finger);
+		}
+
+		void OnSelectUpdate(LeanFinger finger)
+		{
+            OnDragUpdate(finger);
+		}
+
+		void OnSelectUp(LeanFinger finger)
+		{
+            OnDragEnd(finger);
+		}
+
+        void OnDeselect()
+		{
+
+		}
+
         public Vector3 GetTargetPosition(Vector2 screenPos)
         {
             if (camera == null)
                 GetPlayerComponents();
 
             return camera.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, distanceFromCamera));
+        }
+
+        void OnEnable()
+        {
+            if (selectable != null)
+            {
+                selectable.OnSelect.AddListener(OnSelect);
+                selectable.OnSelectUpdate.AddListener(OnSelectUpdate);
+                selectable.OnSelectUp.AddListener(OnSelectUp);
+                selectable.OnDeselect.AddListener(OnDeselect);
+            }
+        }
+
+        void OnDisable()
+        {
+            if (selectable != null)
+            {
+                selectable.OnSelect.RemoveListener(OnSelect);
+                selectable.OnSelectUp.RemoveListener(OnSelectUp);
+                selectable.OnSelectUpdate.RemoveListener(OnSelectUpdate);
+                selectable.OnDeselect.RemoveListener(OnDeselect);
+            }
         }
     }
 }
