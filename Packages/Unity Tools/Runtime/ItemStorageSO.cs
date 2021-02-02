@@ -12,6 +12,7 @@ namespace Edwon.Tools
         {
             public Item itemPrefab;
             public int numberInPool;
+            public Sprite icon;
         }
 
         public List<ItemSlot> itemSlots;
@@ -24,6 +25,17 @@ namespace Edwon.Tools
                     return slot.itemPrefab.gameObject;
             }
             Debug.LogWarning("Item Prefab with itemName " + itemName + " was not found in storage");
+            return null;
+        }
+
+        public Sprite GetItemIcon(string itemName)
+        {
+            foreach (ItemSlot slot in itemSlots)
+            {
+                if (slot.itemPrefab.itemName == itemName)
+                    return slot.icon;
+            }
+            Debug.LogWarning("Item icon with itemName " + itemName + " was not found in storage");
             return null;
         }
     }
