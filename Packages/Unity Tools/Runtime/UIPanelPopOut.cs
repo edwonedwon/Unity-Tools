@@ -8,6 +8,7 @@ using System;
 
 public class UIPanelPopOut : MonoBehaviour
 {
+    bool isOpen = false;
     RectTransform rectTransform;
     public float openTime = .3f;
     public Ease openEase;
@@ -55,6 +56,11 @@ public class UIPanelPopOut : MonoBehaviour
     public bool open;
     public void Open()
     {
+        if (isOpen)
+            return;
+
+        isOpen = true;
+
         SetActions();
 
         float xStartValue = side == PanelFromSide.Left ? 0 : 1;
@@ -83,6 +89,11 @@ public class UIPanelPopOut : MonoBehaviour
     public bool close;
     public void Close()
     {
+        if (!isOpen)
+            return;
+
+        isOpen = false;
+        
         SetActions();
 
         float xEndValue = side == PanelFromSide.Left ? 0 : 1;
@@ -97,5 +108,6 @@ public class UIPanelPopOut : MonoBehaviour
             rectTransform = GetComponent<RectTransform>();
             setAnchor(xEndValue);
         }
+        
     }
 }
