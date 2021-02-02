@@ -8,14 +8,10 @@ namespace Edwon.Tools
     public class Holder : MonoBehaviour
     {
         public IHoldable held;
-        IHoldable heldLast;
         public bool smoothMovement;
         [ReadOnly]
         [SerializeField]
         string heldNameDebug;
-        [ReadOnly]
-        [SerializeField]
-        string heldLastNameDebug;
         public Spawner spawner;
         public GameObject spawnAndHoldOnAwakePrefab;
 
@@ -30,11 +26,6 @@ namespace Edwon.Tools
                 heldNameDebug = held.GameObject.name;
             else
                 heldNameDebug = "";
-
-            if (heldLast != null)
-                heldLastNameDebug = heldLast.GameObject.name;
-            else
-                heldLastNameDebug = "";
         }
 
         public void Hold(GameObject toHoldGO)
@@ -73,7 +64,6 @@ namespace Edwon.Tools
             held.OnRelease();
             held.holder = null;
             held.holderLast = this;
-            heldLast = held;
             held = null;
         }
 
@@ -82,10 +72,7 @@ namespace Edwon.Tools
         public void DestroyHeld()
         {
             if (held != null)
-            {
-                heldLast = held;
                 held.Release(true);
-            }
         }
     }
 }
