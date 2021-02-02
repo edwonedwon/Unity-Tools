@@ -9,7 +9,7 @@ namespace Edwon.Tools
         #pragma warning disable 0414
 
         public bool debugLog = false;
-        public GameObject GameObject {get;set;}
+        public GameObject GameObject {get{return gameObject;}}
         public Holder holder {get; set;}
         [HideInInspector]
         public Holder holderLast {get; set;}
@@ -42,7 +42,6 @@ namespace Edwon.Tools
         
         void Awake()
         {
-            GameObject = gameObject;
             destroyable = GetComponent<IDestroyable>();
             colliders = GetComponentsInChildren<Collider>();
             rigidbodyToHold.interpolation = RigidbodyInterpolation.Interpolate;
@@ -104,8 +103,6 @@ namespace Edwon.Tools
 
         public void OnHold(Holder _holder)
         {
-            GameObject = gameObject;
-
             if (debugLog)
                 Debug.Log(gameObject.name + "OnHold " + gameObject.name + " To:" + _holder.name);
             
