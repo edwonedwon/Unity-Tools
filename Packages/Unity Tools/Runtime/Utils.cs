@@ -212,15 +212,16 @@ namespace Edwon.Tools
         {
             if (!Application.isEditor) // if phone, play video at path
             {
-                // Debug.Log("playing video file at: " + path);
+                Debug.Log("playing video file at: " + path);
                 videoPlayer.source = VideoSource.Url;
                 videoPlayer.url =  "file://" + path;
                 videoPlayer.Play();
             }
             else // if editor play test video
             {
-                videoPlayer.source = VideoSource.VideoClip;
-                // videoPlayer.clip = VideoManager.Instance.testVideoClip;
+                Debug.Log("playing video file at: " + path);
+                videoPlayer.source = VideoSource.Url;
+                videoPlayer.url =  path;
                 videoPlayer.Play();
             }
         }
