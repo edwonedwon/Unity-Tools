@@ -7,17 +7,19 @@ namespace Edwon.Tools
     public class VariableFloatListener : MonoBehaviour 
     {
         public VariableFloat variableSO;
+        public UnityEventFloat onAwake;
         public UnityEventFloat onVariableChanged;
         VariableListenerClass<VariableFloat, float, UnityEventFloat> listener;
 
         private void Awake() 
         {
+            onAwake.Invoke(variableSO.runtimeValue);
             listener = new VariableListenerClass<VariableFloat, float, UnityEventFloat>(variableSO, onVariableChanged);
         }
 
         private void Update() 
         {
-            listener.Update();    
+            listener.Update();
         }
     }
 }
