@@ -7,11 +7,14 @@ namespace Edwon.Tools
     public class VariableFloat : Variable<float>
     {
         public bool alwaysPositive;
-        new public float runtimeValue 
+        [SerializeField]
+        [ReadOnly]
+        private float runtimeValue;
+        new public float RuntimeValue 
         {
             get
             {
-                return base.runtimeValue;
+                return runtimeValue;
             }
             set
             {
@@ -19,7 +22,7 @@ namespace Edwon.Tools
                     if (value < 0)
                         return;
 
-                base.runtimeValue = value;
+                runtimeValue = value;
             }
         }
     }

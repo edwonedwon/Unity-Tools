@@ -52,10 +52,10 @@ namespace Edwon.Tools
 
         void Init()
         {
-            variableLast = variable.runtimeValue;
-            onVariableChanged.Invoke(variable.runtimeValue);
+            variableLast = variable.RuntimeValue;
+            onVariableChanged.Invoke(variable.RuntimeValue);
             if (debugLog)
-                Debug.Log("INIT variabled changed to " + variable.runtimeValue);
+                Debug.Log("INIT variabled changed to " + variable.RuntimeValue);
             ZeroOrNotZeroEvents();
         }
 
@@ -64,21 +64,21 @@ namespace Edwon.Tools
             if (variable == null)
                 return;
                 
-            if (!variable.runtimeValue.Equals(variableLast))
+            if (!variable.RuntimeValue.Equals(variableLast))
             {
                 if (debugLog)
-                    Debug.Log("variabled changed to " + variable.runtimeValue);
-                onVariableChanged.Invoke(variable.runtimeValue);
+                    Debug.Log("variabled changed to " + variable.RuntimeValue);
+                onVariableChanged.Invoke(variable.RuntimeValue);
                 ZeroOrNotZeroEvents();
-                if (variable.runtimeValue > variableLast)
+                if (variable.RuntimeValue > variableLast)
                 {
                     if (debugLog)
-                        Debug.Log("variabled changed to " + variable.runtimeValue);
-                    onVariableIncreased.Invoke(variable.runtimeValue);
+                        Debug.Log("variabled changed to " + variable.RuntimeValue);
+                    onVariableIncreased.Invoke(variable.RuntimeValue);
                 }
             }
 
-            variableLast = variable.runtimeValue;
+            variableLast = variable.RuntimeValue;
         }
         
         public void ZeroOrNotZeroEvents()
@@ -86,11 +86,11 @@ namespace Edwon.Tools
             if (variable == null)
                 return;
 
-            if (variable.runtimeValue == 0) 
+            if (variable.RuntimeValue == 0) 
                 onVariableZero.Invoke();
 
-            if (variable.runtimeValue > 0)
-                onVariableChangedAboveZero.Invoke(variable.runtimeValue);
+            if (variable.RuntimeValue > 0)
+                onVariableChangedAboveZero.Invoke(variable.RuntimeValue);
         }
     }
 }

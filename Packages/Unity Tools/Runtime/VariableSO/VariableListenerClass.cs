@@ -18,10 +18,10 @@ namespace Edwon.Tools
             if (variableSO == null)
                 return;
 
-            variableLast = variableSO.runtimeValue;
+            variableLast = variableSO.RuntimeValue;
             this.variableSO = variableSO;
             this.onVariableChanged = onVariableChanged;
-            onVariableChanged.Invoke(variableSO.runtimeValue);
+            onVariableChanged.Invoke(variableSO.RuntimeValue);
         }
 
         public void Update() 
@@ -29,10 +29,10 @@ namespace Edwon.Tools
             if (variableSO == null)
                 return;
                 
-            if (!variableSO.runtimeValue.Equals(variableLast))
-                onVariableChanged.Invoke(variableSO.runtimeValue);
+            if (!variableSO.RuntimeValue.Equals(variableLast))
+                onVariableChanged.Invoke(variableSO.RuntimeValue);
 
-            variableLast = variableSO.runtimeValue;
+            variableLast = variableSO.RuntimeValue;
         }
     }
 }

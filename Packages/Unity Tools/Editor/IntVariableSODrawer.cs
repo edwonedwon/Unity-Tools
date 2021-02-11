@@ -39,7 +39,7 @@ namespace Edwon.Tools
             {
                 float previewX = position.x + position.width - previewPadding;
                 Rect previewRect = new Rect(previewX, position.y, previewPadding, lineHeight);
-                EditorGUI.LabelField(previewRect, intVariableSO.runtimeValue.ToString());
+                EditorGUI.LabelField(previewRect, intVariableSO.RuntimeValue.ToString());
             }
             var foldoutButtonRect = new Rect(position.x, position.y, EditorGUIUtility.labelWidth, EditorGUIUtility.singleLineHeight);
             var foldoutGuiContent = new GUIContent(property.displayName);
@@ -56,7 +56,7 @@ namespace Edwon.Tools
                 // runtime value
                 EditorGUI.PrefixLabel(foldoutRect, new GUIContent("Runtime Value"));
                 foldoutRect.x += foldoutRightX;
-                EditorGUI.LabelField(foldoutRect, intVariableSO.runtimeValue.ToString());
+                EditorGUI.LabelField(foldoutRect, intVariableSO.RuntimeValue.ToString());
                 
                 // initial value
                 foldoutRect.y += lineHeight;

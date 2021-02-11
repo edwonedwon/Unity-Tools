@@ -14,23 +14,23 @@ namespace Edwon.Tools
 
         public void SetTo(int value)
         {
-            intVariableSO.runtimeValue = value;
+            intVariableSO.RuntimeValue = value;
         }
 
         [InspectorButton("PlusOne")]
         public bool plusOne;
         public void PlusOne()
         {
-            intVariableSO.runtimeValue += 1;
+            intVariableSO.RuntimeValue += 1;
         }
 
         [InspectorButton("MinusOne")]
         public bool minusOne;
         public void MinusOne()
         {
-            int beforeValue = intVariableSO.runtimeValue;
-            intVariableSO.runtimeValue -= 1;
-            int newValue = intVariableSO.runtimeValue;
+            int beforeValue = intVariableSO.RuntimeValue;
+            intVariableSO.RuntimeValue -= 1;
+            int newValue = intVariableSO.RuntimeValue;
             if (newValue != beforeValue)
             {
                 onValueChangeSuccess.Invoke(newValue);             

@@ -8,11 +8,14 @@ namespace  Edwon.Tools
     public class VariableInt : Variable<int>
     {
         public bool alwaysPositive;
-        new public int runtimeValue 
+        [SerializeField]
+        [ReadOnly]
+        private int runtimeValue;
+        new public int RuntimeValue 
         {
             get
             {
-                return base.runtimeValue;
+                return runtimeValue;
             }
             set
             {
@@ -20,7 +23,7 @@ namespace  Edwon.Tools
                     if (value < 0)
                         return;
 
-                base.runtimeValue = value;
+                runtimeValue = value;
             }
         }
     }

@@ -6,15 +6,13 @@ namespace  Edwon.Tools
     public class Variable<T> : ScriptableObject, ISerializationCallbackReceiver
     {
         public T initialValue;
-
-        [NonSerialized]
-        public T runtimeValue;
+        public T RuntimeValue {get; set;}
 
         public void OnBeforeSerialize() {}
 
         public void OnAfterDeserialize()
         {
-            runtimeValue = initialValue;
+            RuntimeValue = initialValue;
         }
     }
 }

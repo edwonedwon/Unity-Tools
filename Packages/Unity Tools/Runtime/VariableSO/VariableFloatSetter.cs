@@ -10,21 +10,21 @@ namespace Edwon.Tools
 
         public void SetTo(float value)
         {
-            floatVariableSO.runtimeValue = value;
+            floatVariableSO.RuntimeValue = value;
         }
 
         [InspectorButton("PlusOne")]
         public bool plusOne;
         public void PlusOne()
         {
-            floatVariableSO.runtimeValue += 1;
+            floatVariableSO.RuntimeValue += 1;
         }
 
         [InspectorButton("MinusOne")]
         public bool minusOne;
         public void MinusOne()
         {
-            floatVariableSO.runtimeValue -= 1;
+            floatVariableSO.RuntimeValue -= 1;
         }
 
         [InspectorButton("DebugSetTo")]
