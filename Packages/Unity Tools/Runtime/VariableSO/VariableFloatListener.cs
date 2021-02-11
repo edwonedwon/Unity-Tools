@@ -13,7 +13,7 @@ namespace Edwon.Tools
 
         private void Awake() 
         {
-            onAwake.Invoke(variableSO.runtimeValue);
+            onAwake.Invoke(variableSO.RuntimeValue);
             listener = new VariableListenerClass<VariableFloat, float, UnityEventFloat>(variableSO, onVariableChanged);
         }
 
