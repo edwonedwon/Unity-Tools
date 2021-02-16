@@ -4,8 +4,16 @@ using UnityEngine;
 
 public class DebugLogger : MonoBehaviour
 {
+    public bool logOnAwake;
+    public string awakeMessage;
     public bool debugLog = true;
     public string extraMessage;
+
+    void Awake()
+    {
+        if (logOnAwake)
+            Debug.Log(awakeMessage);
+    }
 
     public void DebugLog(string message)
     {
