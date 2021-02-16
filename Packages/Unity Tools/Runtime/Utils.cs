@@ -260,5 +260,29 @@ namespace Edwon.Tools
             else
                 return false;
         }
+
+        public static bool EventHasTarget(UnityEvent e)
+        {
+            for (int i = 0; i < e.GetPersistentEventCount(); i++)
+            {
+                if (e.GetPersistentTarget(i) != null)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static bool EventHasTarget<T>(UnityEventEdwonBase<T> e)
+        {
+            for (int i = 0; i < e.GetPersistentEventCount(); i++)
+            {
+                if (e.GetPersistentTarget(i) != null)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }
