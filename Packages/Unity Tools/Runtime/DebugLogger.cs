@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class DebugLogger : MonoBehaviour
 {
-    public bool logOnAwake;
-    public string awakeMessage;
     public bool debugLog = true;
+    public bool logOnAwake = false;
+    public string awakeMessage;
     public string extraMessage;
 
     void Awake()
