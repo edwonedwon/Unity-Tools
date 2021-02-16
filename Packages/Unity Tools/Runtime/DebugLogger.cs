@@ -5,9 +5,9 @@ using UnityEngine;
 public class DebugLogger : MonoBehaviour
 {
     public bool debugLog = true;
+    public string extraMessage;
     public bool logOnAwake = false;
     public string awakeMessage;
-    public string extraMessage;
 
     void Awake()
     {
