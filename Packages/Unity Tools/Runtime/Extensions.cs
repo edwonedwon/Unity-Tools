@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Edwon.Tools 
 {
-    public static class ExtensionMethods
+    public static class Extensions
     {
         public static float Remap(this float value, float inputMin, float inputMax, float outputMin, float outputMax)
         {
@@ -161,10 +161,15 @@ namespace Edwon.Tools
         {
             obj.layer = newLayer;
 
-            foreach (Transform child in obj.GetComponentsInChildren<Transform>(true))
+            obj.GetComponentsInChildren<Transform>(true, Scratchpad.transforms);
+
+            //foreach (Transform child in obj.GetComponentsInChildren<Transform>(true))
+            for(int i=0; i<Scratchpad.transforms.Count; ++i)
             {
-                child.gameObject.layer = newLayer;
+                Scratchpad.transforms[i].gameObject.layer = newLayer;
             }
+
+            Scratchpad.transforms.Clear();
         }
 
         public static bool ContainsAny(this string value, params string[] strings)
@@ -194,6 +199,30 @@ namespace Edwon.Tools
                 }
             }
             return isWhiteSpaceOnly;
+        }
+
+        public static void LerpPhysicsRotation(this Rigidbody rb, Quaternion rotationToMatch, float strength = 1500) // target was Grabber
+        {
+            Quaternion RotationDelta = rotationToMatch * Quaternion.Inverse(rb.transform.rotation);
+
+            float angle = 0f;
+            Vector3 axis = Vector3.up;
+            RotationDelta.ToAngleAxis(out angle, out axis);
+
+            if (angle > 180)
+                angle -= 360;
+
+            Vector3 angularVelocity = (Time.fixedDeltaTime * angle * axis) * strength;
+            if (!System.Single.IsNaN(angularVelocity.x))
+            {
+                rb.angularVelocity = angularVelocity;
+            }
+        }
+
+        public static void LerpPhysicsPosition(this Rigidbody rb, Vector3 positionToMatch, float strength = 1500)
+        {
+            Vector3 PositionDelta = (positionToMatch - rb.transform.position);
+            rb.velocity = PositionDelta * strength * Time.fixedDeltaTime;
         }
     }
 }

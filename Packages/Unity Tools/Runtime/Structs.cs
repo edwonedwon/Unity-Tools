@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 
-namespace Edwon
+namespace Edwon.Tools
 {
     [System.Serializable]
 	public struct TransformLocalSettings

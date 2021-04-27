@@ -298,5 +298,85 @@ namespace Edwon.Tools
             }
             return false;
         }
+
+
+        public static Rigidbody AddGetRigidbody(Transform transform)
+		{
+			if (transform.GetComponent<Rigidbody>() == null)
+			{
+				return transform.gameObject.AddComponent<Rigidbody>();
+			}
+			else
+			{
+				return transform.GetComponent<Rigidbody>();
+			}
+		}
+
+		public static RigidBodySettings GetRigidbodySettings (Rigidbody rb)
+		{
+			RigidBodySettings settings = new RigidBodySettings();
+			settings.mass = rb.mass;
+			settings.drag = rb.drag;
+			settings.angularDrag = rb.angularDrag;
+			settings.gravity = rb.useGravity;
+			settings.kinematic = rb.isKinematic;
+			settings.interpolation = rb.interpolation;
+			settings.collisionDetection = rb.collisionDetectionMode;
+			settings.constraints = rb.constraints;
+			settings.sleepThreshold = rb.sleepThreshold;
+			return settings;
+		}
+
+		public static void SetRigidbodySettings(Rigidbody rb, RigidBodySettings settings)
+		{
+			rb.mass = settings.mass;
+			rb.drag = settings.drag;
+			rb.angularDrag = settings.angularDrag;
+			rb.useGravity = settings.gravity;
+			rb.isKinematic = settings.kinematic;
+			rb.interpolation = settings.interpolation;
+			rb.collisionDetectionMode = settings.collisionDetection;
+			rb.constraints = settings.constraints;
+			rb.sleepThreshold = settings.sleepThreshold;
+		}
+		
+		public static SpringSettings GetSpringSettings(SpringJoint spring)
+		{
+			SpringSettings settings = new SpringSettings();
+			settings.power = spring.spring;
+			settings.damper = spring.damper;
+			settings.tolerance = spring.tolerance;
+			settings.anchor = spring.anchor;
+			settings.connectedAnchor = spring.connectedAnchor;
+			settings.autoAnchor = spring.autoConfigureConnectedAnchor;
+			return settings;
+		}
+
+		public static void SetSpringSettings(SpringJoint spring, SpringSettings settings)
+		{
+			spring.spring = settings.power;
+			spring.damper = settings.damper;
+			spring.tolerance = settings.tolerance;
+			spring.anchor = settings.anchor;
+			spring.autoConfigureConnectedAnchor = settings.autoAnchor;
+			spring.connectedAnchor = settings.connectedAnchor;
+		}
+
+		public static TransformLocalSettings GetTransformLocalSettings(Transform tf)
+		{
+			TransformLocalSettings settings = new TransformLocalSettings();
+			settings.localPosition = tf.localPosition;
+			settings.localRotation = tf.localRotation;
+			settings.localScale = tf.localScale;
+
+			return settings;
+		}
+
+		public static void SetTransformLocalSettings(Transform tf, TransformLocalSettings settings)
+		{
+			tf.localPosition = settings.localPosition;
+			tf.localRotation = settings.localRotation;
+			tf.localScale = settings.localScale;
+		}
     }
 }
