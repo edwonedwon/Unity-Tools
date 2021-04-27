@@ -1,14 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Lean.Touch;
 using Edwon.Tools;
 
 namespace Edwon.Tools
 {
     // if this class is paired with a LeanSelectable it will be dragged when selected
     // otherwise the OnDrag events must be called manually
-    public class DraggableRigidbody : MonoBehaviour, IDraggable
+    public class DraggableRigidbody : MonoBehaviour, IDraggable, ISelectable
     {
         public enum MoveType{Kinematic, MovePositionLerp}
         public MoveType moveType;
@@ -24,7 +23,6 @@ namespace Edwon.Tools
         Vector2 screenVelocity;
         Vector2 screenVelocitySmoothed;
         Vector2 screenPosLast;
-        LeanSelectable selectable;
 
         [Header("Throw")]
         public float throwForce = 0.1f;
@@ -45,7 +43,6 @@ namespace Edwon.Tools
         void Awake()
         {
             GetPlayerComponents();
-            selectable = GetComponent<LeanSelectable>();
             throwVectorTF = camera.transform.Find("Throw Vector");
             if (mainRigidbody == null)
                 mainRigidbody = GetComponent<Rigidbody>();
@@ -54,11 +51,6 @@ namespace Edwon.Tools
         void GetPlayerComponents()
         {
             camera = Camera.main;
-        }
-
-        public void OnDragBegin(LeanFinger finger)
-        {
-            OnDragBegin(finger.ScreenPosition);
         }
 
         public void OnDragBegin(Vector2 screenPos)
@@ -77,11 +69,6 @@ namespace Edwon.Tools
             screenPosLast = Vector2.zero;
             
             OnDragUpdate(screenPos);
-        }
-
-        public void OnDragUpdate(LeanFinger finger)
-        {
-            OnDragUpdate(finger.ScreenPosition);
         }
 
         public void OnDragUpdate(Vector2 screenPos)
@@ -125,11 +112,6 @@ namespace Edwon.Tools
             screenPosLast = screenPos;
         }
 
-        public void OnDragEnd(LeanFinger finger)
-        {
-            OnDragEnd(finger.ScreenPosition);
-        }
-
         public void OnDragEnd(Vector2 screenPos)
         {
             if (debugLog)
@@ -155,22 +137,22 @@ namespace Edwon.Tools
             mainRigidbody.AddForce(throwForceVector);
         }
 
-		void OnSelect(LeanFinger finger)
+		public void OnSelect(Vector2 screenPos)
 		{
-            OnDragBegin(finger);
+            OnDragBegin(screenPos);
 		}
 
-		void OnSelectUpdate(LeanFinger finger)
+		public void OnSelectUpdate(Vector2 screenPos)
 		{
-            OnDragUpdate(finger);
+            OnDragUpdate(screenPos);
 		}
 
-		void OnSelectUp(LeanFinger finger)
+		public void OnSelectUp(Vector2 screenPos)
 		{
-            OnDragEnd(finger);
+            OnDragEnd(screenPos);
 		}
 
-        void OnDeselect()
+        public void OnDeselect()
 		{
 
 		}
@@ -181,28 +163,6 @@ namespace Edwon.Tools
                 GetPlayerComponents();
 
             return camera.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, distanceFromCamera));
-        }
-
-        void OnEnable()
-        {
-            if (selectable != null)
-            {
-                selectable.OnSelect.AddListener(OnSelect);
-                selectable.OnSelectUpdate.AddListener(OnSelectUpdate);
-                selectable.OnSelectUp.AddListener(OnSelectUp);
-                selectable.OnDeselect.AddListener(OnDeselect);
-            }
-        }
-
-        void OnDisable()
-        {
-            if (selectable != null)
-            {
-                selectable.OnSelect.RemoveListener(OnSelect);
-                selectable.OnSelectUp.RemoveListener(OnSelectUp);
-                selectable.OnSelectUpdate.RemoveListener(OnSelectUpdate);
-                selectable.OnDeselect.RemoveListener(OnDeselect);
-            }
         }
     }
 }
