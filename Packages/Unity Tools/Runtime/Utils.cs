@@ -6,6 +6,9 @@ using System;
 using UnityEngine.Video;
 using System.Linq;
 using UnityEngine.Events;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace Edwon.Tools 
 {
@@ -26,6 +29,11 @@ namespace Edwon.Tools
 
     public static class Utils
     {
+        public static bool CheckNear(Vector3 start, Vector3 target, float targetDistance)
+        {
+            return ((target - start).sqrMagnitude < targetDistance * targetDistance);
+        }
+
         public static Vector3 GetCenterPoint(List<Transform> gos)
         {
             if (gos.Count == 0)
@@ -273,6 +281,37 @@ namespace Edwon.Tools
                 return true;
             else
                 return false;
+        }
+
+        public static void EnableBuildDefine(bool enabled, string define)
+        {
+            #if UNITY_EDITOR
+            string defines = UnityEditor.PlayerSettings.GetScriptingDefineSymbolsForGroup(BuildTargetGroup.Standalone);
+            List<string> definesList = defines.Split(new char[] { ';' }).ToList<string>();
+            if (enabled)
+            {
+                // add define to defines
+                if (!definesList.Contains(define))
+                {
+                    definesList.Add(define);
+                }
+            }
+            else
+            {
+                // remove define from defines
+                for (int i = definesList.Count - 1; i >= 0; i--)
+                {
+                    if (definesList[i] == define)
+                    {
+                        definesList.RemoveAt(i);
+                    }
+                }
+            }
+
+            defines = String.Join(";", definesList.ToArray());
+
+            UnityEditor.PlayerSettings.SetScriptingDefineSymbolsForGroup(BuildTargetGroup.Standalone, defines);
+        #endif
         }
 
         public static bool EventHasTarget(UnityEvent e)
