@@ -26,6 +26,20 @@ namespace Edwon.Tools
 
     public static class Utils
     {
+        public static Vector3 GetCenterPoint(List<Transform> gos)
+        {
+            if (gos.Count == 0)
+                return Vector3.zero;
+
+            if (gos.Count == 1)
+                return gos[0].transform.position;
+
+            Bounds bounds = new Bounds(gos[0].transform.position, Vector3.zero);
+            for (var i = 1; i < gos.Count; i++)
+                bounds.Encapsulate(gos[i].transform.position);
+            return bounds.center;
+        }
+
         public static Vector3 QuickVector(float setAllDimensionsTo)
         {
             return new Vector3(setAllDimensionsTo, setAllDimensionsTo, setAllDimensionsTo);
