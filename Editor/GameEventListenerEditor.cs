@@ -13,6 +13,8 @@ namespace Edwon.Tools
         SerializedProperty gameEventProperty;
         SerializedProperty response;
         SerializedProperty responseBool;
+        SerializedProperty responseBoolTrue;
+        SerializedProperty responseBoolFalse;
         SerializedProperty responseInt;
         SerializedProperty responseFloat;
         SerializedProperty responseString;
@@ -23,6 +25,8 @@ namespace Edwon.Tools
             gameEventProperty = serializedObject.FindProperty("gameEvent");
             response = serializedObject.FindProperty("response");
             responseBool = serializedObject.FindProperty("responseBool");
+            responseBoolTrue = serializedObject.FindProperty("responseBoolTrue");
+            responseBoolFalse = serializedObject.FindProperty("responseBoolFalse");
             responseInt = serializedObject.FindProperty("responseInt");
             responseFloat = serializedObject.FindProperty("responseFloat");
             responseString = serializedObject.FindProperty("responseString");
@@ -62,6 +66,8 @@ namespace Edwon.Tools
                         case GameEvent.ParameterType.Bool:
                         {
                             EditorGUILayout.PropertyField(responseBool);
+                            EditorGUILayout.PropertyField(responseBoolTrue);
+                            EditorGUILayout.PropertyField(responseBoolFalse);
                         }
                         break;
                         case GameEvent.ParameterType.Int:

@@ -9,6 +9,8 @@ namespace Edwon.Tools
         public GameEvent gameEvent;
         public UnityEvent response;
         public UnityEventBool responseBool;
+        public UnityEvent responseBoolTrue;
+        public UnityEvent responseBoolFalse;
         public UnityEventInt responseInt;
         public UnityEventFloat responseFloat;
         public UnityEventString responseString;
@@ -72,6 +74,10 @@ namespace Edwon.Tools
         public void OnEventRaised(bool value)
         {
             responseBool.Invoke(value);
+            if (value)
+                responseBoolTrue.Invoke();
+            else
+                responseBoolFalse.Invoke();
         }
 
         public void OnEventRaised(int value)
