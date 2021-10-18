@@ -15,6 +15,8 @@ namespace Edwon.Tools
     public class UnityEventEdwonBase<T> : UnityEvent<T>{}
 
     [System.Serializable]
+    public class UnityEventBool : UnityEventEdwonBase<bool>{}
+    [System.Serializable]
     public class UnityEventInt : UnityEventEdwonBase<int>{}
     [System.Serializable]
     public class UnityEventFloat : UnityEventEdwonBase<float>{}

@@ -8,10 +8,13 @@ namespace Edwon.Tools
     [CreateAssetMenu(fileName = "Game Event", menuName = "Scriptables/Game Event")]
     public class GameEvent : ScriptableObject
     {
-        public enum ParameterType { None, String, GameObject }
+        public enum ParameterType { None, Bool, Int, Float, String, GameObject }
         public ParameterType parameterType;
 
         private List<Action> listeners = new List<Action>();
+        private List<Action<bool>> listenersBool = new List<Action<bool>>();
+        private List<Action<int>> listenersInt = new List<Action<int>>();
+        private List<Action<float>> listenersFloat = new List<Action<float>>();
         private List<Action<string>> listenersString = new List<Action<string>>();
         private List<Action<GameObject>> listenersGameObject = new List<Action<GameObject>>();
 
@@ -23,20 +26,44 @@ namespace Edwon.Tools
                 listeners[i]();
         }
 
-        public void Raise(string s)
+        public void Raise(bool value)
+        {
+            if (IsParameterTypeDifferent(ParameterType.String)) {return;};
+
+            for(int i = 0; i < listenersBool.Count; i++)
+                listenersBool[i](value);
+        }
+
+        public void Raise(int value)
+        {
+            if (IsParameterTypeDifferent(ParameterType.String)) {return;};
+
+            for(int i = 0; i < listenersInt.Count; i++)
+                listenersInt[i](value);
+        }
+
+        public void Raise(float value)
+        {
+            if (IsParameterTypeDifferent(ParameterType.String)) {return;};
+
+            for(int i = 0; i < listenersFloat.Count; i++)
+                listenersFloat[i](value);
+        }
+
+        public void Raise(string value)
         {
             if (IsParameterTypeDifferent(ParameterType.String)) {return;};
 
             for(int i = 0; i < listenersString.Count; i++)
-                listenersString[i](s);
+                listenersString[i](value);
         }
 
-        public void Raise(GameObject go)
+        public void Raise(GameObject value)
         {
             if (IsParameterTypeDifferent(ParameterType.GameObject)) {return;};
 
             for(int i = 0; i < listenersGameObject.Count; i++)
-                listenersGameObject[i](go);
+                listenersGameObject[i](value);
         }
 
         public void RegisterListener(Action listener)
@@ -50,6 +77,48 @@ namespace Edwon.Tools
             if (IsParameterTypeDifferent(ParameterType.None)) {return;};
 
             listeners.Remove(listener); 
+        }
+
+        public void RegisterListenerBool(Action<bool> listener)
+        { 
+            if (IsParameterTypeDifferent(ParameterType.Bool)) {return;};
+
+            listenersBool.Add(listener); 
+        }
+
+        public void UnregisterListenerBool(Action<bool> listener)
+        { 
+            if (IsParameterTypeDifferent(ParameterType.Bool)) {return;};
+
+            listenersBool.Remove(listener); 
+        }
+
+        public void RegisterListenerInt(Action<int> listener)
+        { 
+            if (IsParameterTypeDifferent(ParameterType.Int)) {return;};
+
+            listenersInt.Add(listener); 
+        }
+
+        public void UnregisterListenerInt(Action<int> listener)
+        { 
+            if (IsParameterTypeDifferent(ParameterType.Int)) {return;};
+
+            listenersInt.Remove(listener); 
+        }
+
+        public void RegisterListenerFloat(Action<float> listener)
+        { 
+            if (IsParameterTypeDifferent(ParameterType.Float)) {return;};
+
+            listenersFloat.Add(listener); 
+        }
+
+        public void UnregisterListenerFloat(Action<float> listener)
+        { 
+            if (IsParameterTypeDifferent(ParameterType.Float)) {return;};
+
+            listenersFloat.Remove(listener); 
         }
 
         public void RegisterListenerString(Action<string> listener)
