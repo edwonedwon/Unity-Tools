@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using DG.Tweening;
 using UnityEngine.UI;
 using System;
+#if EDWON_DOTWEEN
+using DG.Tweening;
+#endif
 
 public class UIPanelPopOut : MonoBehaviour
 {
@@ -45,11 +47,13 @@ public class UIPanelPopOut : MonoBehaviour
 
     void DoTweenTo(Action<float> onUpdate, float xStartValue, float xEndValue, float duration, UnityEvent onComplete)
     {
+        #if EDWON_DOTWEEN
         float tweenedValue = xStartValue;
         DOTween.To(() => tweenedValue, x => tweenedValue = x, xEndValue, openTime)
             .OnUpdate(() => onUpdate(tweenedValue))
             .SetEase(openEase)
             .OnComplete(() => onComplete.Invoke());
+        #endif
     }
 
     [InspectorButton("Open")]
