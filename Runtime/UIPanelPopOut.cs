@@ -13,9 +13,11 @@ public class UIPanelPopOut : MonoBehaviour
     bool isOpen = false;
     RectTransform rectTransform;
     public float openTime = .3f;
+    #if EDWON_DOTWEEN
     public Ease openEase;
-    public float closeTime = .7f;
     public Ease closeEase;
+    #endif
+    public float closeTime = .7f;
     public Button dragButton;
 
     public UnityEvent onOpenComplete;
@@ -83,10 +85,14 @@ public class UIPanelPopOut : MonoBehaviour
 
     public void CloseAfterDelay(float delay)
     {
+        #if EDWON_DOTWEEN
         DOVirtual.DelayedCall(delay, ()=>
         {
             Close();
         });
+        #else
+        Debug.LogWarning("the CloseAfterDelay only works if Dottween is installed and EDWON_DOTWEEN is set as a scripting define symbol in project settings");
+        #endif
     }
 
     [InspectorButton("Close")]
