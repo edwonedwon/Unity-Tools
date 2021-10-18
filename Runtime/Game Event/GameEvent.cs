@@ -28,7 +28,7 @@ namespace Edwon.Tools
 
         public void Raise(bool value)
         {
-            if (IsParameterTypeDifferent(ParameterType.String)) {return;};
+            if (IsParameterTypeDifferent(ParameterType.Bool)) {return;};
 
             for(int i = 0; i < listenersBool.Count; i++)
                 listenersBool[i](value);
@@ -36,7 +36,7 @@ namespace Edwon.Tools
 
         public void Raise(int value)
         {
-            if (IsParameterTypeDifferent(ParameterType.String)) {return;};
+            if (IsParameterTypeDifferent(ParameterType.Int)) {return;};
 
             for(int i = 0; i < listenersInt.Count; i++)
                 listenersInt[i](value);
@@ -44,7 +44,7 @@ namespace Edwon.Tools
 
         public void Raise(float value)
         {
-            if (IsParameterTypeDifferent(ParameterType.String)) {return;};
+            if (IsParameterTypeDifferent(ParameterType.Float)) {return;};
 
             for(int i = 0; i < listenersFloat.Count; i++)
                 listenersFloat[i](value);
