@@ -31,6 +31,7 @@ namespace Edwon.Tools
 
         bool IsIPhoneXGeneration()
         {
+            #if UNITY_IOS
             if (UnityEngine.iOS.Device.generation == UnityEngine.iOS.DeviceGeneration.iPhoneX 
             || UnityEngine.iOS.Device.generation == UnityEngine.iOS.DeviceGeneration.iPhoneXR
             || UnityEngine.iOS.Device.generation == UnityEngine.iOS.DeviceGeneration.iPhoneXS
@@ -42,6 +43,9 @@ namespace Edwon.Tools
             {
                 return false;
             }
+            #else
+                return false;
+            #endif
         }
     }
 }
