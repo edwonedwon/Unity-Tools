@@ -7,9 +7,13 @@ namespace Edwon.Tools
 {
     public class UniqueScriptableManager : MonoBehaviour
     {
-        public List<UniqueScriptable> duplicateOriginals;
-        public List<UniqueScriptable> uniqueScriptableOriginals = new List<UniqueScriptable>();
-        public List<IUniqueScriptableUser> uniqueScriptableUsers;
+        List<IUniqueScriptableUser> uniqueScriptableUsers;
+        [SerializeField]
+        [ReadOnly]
+        List<UniqueScriptable> duplicateOriginals;
+        [SerializeField]
+        [ReadOnly]
+        List<UniqueScriptable> uniqueScriptableOriginals = new List<UniqueScriptable>();
 
         void Awake()
         {
