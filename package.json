@@ -1,6 +1,6 @@
 {
   "name": "com.edwon.tools",
-  "version": "1.1.9",
+  "version": "1.2.0",
   "displayName": "Edwon Tools",
   "description": "edwon's tools and utilities for Unity",
   "unity": "2019.2",
@@ -30,6 +30,11 @@
       "displayName": "Spawner",
       "description": " ",
       "path": "Samples/Spawner"
+    },
+    {
+        "displayName": "Unique Scriptable",
+        "description": " ",
+        "path": "Samples/Unique Scriptable"
     }
   ]
 }
