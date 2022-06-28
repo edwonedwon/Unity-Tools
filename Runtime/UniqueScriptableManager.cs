@@ -5,6 +5,7 @@ using System.Linq;
 
 namespace Edwon.Tools
 {
+    [System.Serializable]
     public class UniqueScriptableInstance
     {
         public UniqueScriptable instance;
