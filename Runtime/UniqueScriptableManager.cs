@@ -5,12 +5,27 @@ using System.Linq;
 
 namespace Edwon.Tools
 {
+    public class UniqueScriptableInstance
+    {
+        public UniqueScriptable instance;
+        public UniqueScriptable asset;
+
+        public UniqueScriptableInstance(UniqueScriptable instance, UniqueScriptable asset)
+        {
+            this.instance = instance;
+            this.asset = asset;
+        }
+    }
+
     public class UniqueScriptableManager : MonoBehaviour
     {
         List<IUniqueScriptableUser> uniqueScriptableUsers;
         [SerializeField]
         [ReadOnly]
-        List<UniqueScriptable> assets;
+        List<UniqueScriptableInstance> instances = new List<UniqueScriptableInstance>();
+        [SerializeField]
+        [ReadOnly]
+        List<UniqueScriptable> assets = new List<UniqueScriptable>();
         [SerializeField]
         [ReadOnly]
         List<UniqueScriptable> assetsUnfiltered = new List<UniqueScriptable>();
@@ -26,15 +41,18 @@ namespace Edwon.Tools
             // filter assets
             assets = assetsUnfiltered.Distinct<UniqueScriptable>().ToList();
 
-            // set scriptables to instances
+            // make instances
             foreach(UniqueScriptable asset in assets)
             {
                 UniqueScriptable instance = Instantiate(asset);
-                instance.isInstance = true;;
-                foreach(IUniqueScriptableUser user in uniqueScriptableUsers)
-                {
-                    user.SetUniqueScriptables(instance, asset, assets);
-                }
+                instance.isInstance = true;
+                instances.Add(new UniqueScriptableInstance(instance, asset));
+            }
+
+            // set asset reference to instances on all IUniqueScriptableUsers
+            foreach(IUniqueScriptableUser user in uniqueScriptableUsers)
+            {
+                user.SetUniqueScriptables(instances);
             }
         }
     }
