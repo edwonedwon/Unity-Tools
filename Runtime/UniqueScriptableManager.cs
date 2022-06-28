@@ -21,7 +21,7 @@ namespace Edwon.Tools
             uniqueScriptableUsers = gameObject.GetComponents<IUniqueScriptableUser>().ToList();
             foreach(IUniqueScriptableUser user in uniqueScriptableUsers)
             {
-                foreach (UniqueScriptable original in user.GetUniqueScriptableOriginals())
+                foreach (UniqueScriptable original in user.GetUniqueScriptables())
                 {
                     uniqueScriptableOriginals.Add(original);
                 }
@@ -36,7 +36,7 @@ namespace Edwon.Tools
                 UniqueScriptable instance = Instantiate(duplicate);
                 foreach(IUniqueScriptableUser user in uniqueScriptableUsers)
                 {
-                    user.ReplaceUniqueScriptables(duplicate, instance);
+                    user.SetUniqueScriptables(duplicate, instance);
                 }
             }
         }
