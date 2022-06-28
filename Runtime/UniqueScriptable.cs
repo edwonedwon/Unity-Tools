@@ -16,6 +16,6 @@ namespace Edwon.Tools
     public interface IUniqueScriptableUser
     {
         public List<UniqueScriptable> GetUniqueScriptables();
-        public void SetUniqueScriptables(UniqueScriptable original, UniqueScriptable instance);
+        public void SetUniqueScriptables(UniqueScriptable instance, UniqueScriptable asset, List<UniqueScriptable> assets);
     }
 }

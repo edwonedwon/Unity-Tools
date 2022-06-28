@@ -27,13 +27,13 @@ namespace Edwon.Tools
             assets = assetsUnfiltered.Distinct<UniqueScriptable>().ToList();
 
             // set scriptables to instances
-            foreach(UniqueScriptable original in assets)
+            foreach(UniqueScriptable asset in assets)
             {
-                UniqueScriptable instance = Instantiate(original);
+                UniqueScriptable instance = Instantiate(asset);
                 instance.isInstance = true;;
                 foreach(IUniqueScriptableUser user in uniqueScriptableUsers)
                 {
-                    user.SetUniqueScriptables(original, instance);
+                    user.SetUniqueScriptables(instance, asset, assets);
                 }
             }
         }
