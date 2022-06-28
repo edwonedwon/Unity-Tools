@@ -8,7 +8,8 @@ namespace Edwon.Tools
 {
     public class UniqueScriptable : ScriptableObject
     {
-        
+        [NonSerialized]
+        public bool isInstance;
     }
 
     // an interface to 

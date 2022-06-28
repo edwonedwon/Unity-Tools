@@ -10,33 +10,30 @@ namespace Edwon.Tools
         List<IUniqueScriptableUser> uniqueScriptableUsers;
         [SerializeField]
         [ReadOnly]
-        List<UniqueScriptable> duplicateOriginals;
+        List<UniqueScriptable> assets;
         [SerializeField]
         [ReadOnly]
-        List<UniqueScriptable> uniqueScriptableOriginals = new List<UniqueScriptable>();
+        List<UniqueScriptable> assetsUnfiltered = new List<UniqueScriptable>();
 
         void Awake()
         {
-            // get all unique scriptable originals
+            // get asset scriptables
             uniqueScriptableUsers = gameObject.GetComponents<IUniqueScriptableUser>().ToList();
             foreach(IUniqueScriptableUser user in uniqueScriptableUsers)
-            {
                 foreach (UniqueScriptable original in user.GetUniqueScriptables())
-                {
-                    uniqueScriptableOriginals.Add(original);
-                }
-            }
+                    assetsUnfiltered.Add(original);
 
-            // find duplicate references to same scriptable
-            duplicateOriginals = uniqueScriptableOriginals.Distinct<UniqueScriptable>().ToList();
+            // filter assets
+            assets = assetsUnfiltered.Distinct<UniqueScriptable>().ToList();
 
-            // for each duplicate, replace with a new instance
-            foreach(UniqueScriptable duplicate in duplicateOriginals)
+            // set scriptables to instances
+            foreach(UniqueScriptable original in assets)
             {
-                UniqueScriptable instance = Instantiate(duplicate);
+                UniqueScriptable instance = Instantiate(original);
+                instance.isInstance = true;;
                 foreach(IUniqueScriptableUser user in uniqueScriptableUsers)
                 {
-                    user.SetUniqueScriptables(duplicate, instance);
+                    user.SetUniqueScriptables(original, instance);
                 }
             }
         }
