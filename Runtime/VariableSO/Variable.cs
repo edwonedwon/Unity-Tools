@@ -3,7 +3,7 @@ using System;
 
 namespace  Edwon.Tools
 {
-    public class Variable<T> : ScriptableObject, ISerializationCallbackReceiver
+    public class Variable<T> : UniqueScriptable, ISerializationCallbackReceiver
     {
         public T initialValue;
         public T RuntimeValue {get; set;}
