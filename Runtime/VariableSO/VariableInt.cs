@@ -1,9 +1,8 @@
 using UnityEngine;
 using System;
 
-namespace  Edwon.Tools
+namespace Edwon.Tools
 {
-    [Serializable]
     [CreateAssetMenu(fileName = "Variable Int", menuName = "Variables/Variable Int")]
     public class VariableInt : Variable<int>
     {
