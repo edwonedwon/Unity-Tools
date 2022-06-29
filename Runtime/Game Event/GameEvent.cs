@@ -157,7 +157,8 @@ namespace Edwon.Tools
             }
             else
             {
-                Debug.Log(name + "'s parameter type is not " + parameterType);
+                Debug.Log(name + "'s parameter type is not " + parameterType + "\n" +
+                "use RegisterListenerFloat or RegisterListenerString etc... instead of just RegisterListener");
                 return true;
             }
         }
