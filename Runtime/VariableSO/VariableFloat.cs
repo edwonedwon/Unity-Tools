@@ -3,7 +3,7 @@ using System;
 
 namespace Edwon.Tools
 {
-    [CreateAssetMenu(fileName = "Float Variable", menuName = "Scriptables/Float Variable")]
+    [CreateAssetMenu(fileName = "Variable Float", menuName = "Variables/Variable Float")]
     public class VariableFloat : Variable<float>
     {
         public bool alwaysPositive;

@@ -4,7 +4,7 @@ using System;
 namespace  Edwon.Tools
 {
     [Serializable]
-    [CreateAssetMenu(fileName = "Int Variable", menuName = "Scriptables/Int Variable")]
+    [CreateAssetMenu(fileName = "Variable Int", menuName = "Variables/Variable Int")]
     public class VariableInt : Variable<int>
     {
         public bool alwaysPositive;

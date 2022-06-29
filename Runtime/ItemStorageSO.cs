@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Edwon.Tools 
 {
-    [CreateAssetMenu(fileName = "Item Storage", menuName = "Scriptables/Item Storage")]
+    [CreateAssetMenu(fileName = "Item Storage", menuName = "Item Pool/Item Storage")]
     public class ItemStorageSO : ScriptableObject
     {
         [System.Serializable]

@@ -5,7 +5,7 @@ using System;
 namespace Edwon.Tools
 {
     [System.Serializable]
-    [CreateAssetMenu(fileName = "Game Event", menuName = "Scriptables/Game Event")]
+    [CreateAssetMenu(fileName = "Game Event", menuName = "Game Event")]
     public class GameEvent : ScriptableObject
     {
         public enum ParameterType { None, Bool, Int, Float, String, GameObject }

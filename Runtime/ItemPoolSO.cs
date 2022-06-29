@@ -11,7 +11,7 @@ namespace Edwon.Tools
         void OnUnPooled();
     }
 
-    [CreateAssetMenu(fileName = "Item Pool SO", menuName = "Scriptables/Item Pool SO")]
+    [CreateAssetMenu(fileName = "Item Pool SO", menuName = "Item Pool/Item Pool SO")]
     public class ItemPoolSO : ScriptableObject
     {
         public bool debugLog = false;
