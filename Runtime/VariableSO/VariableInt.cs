@@ -11,7 +11,7 @@ namespace  Edwon.Tools
         [SerializeField]
         [ReadOnly]
         private int runtimeValue;
-        new public int RuntimeValue 
+        override public int RuntimeValue 
         {
             get
             {

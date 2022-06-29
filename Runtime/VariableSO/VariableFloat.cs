@@ -10,7 +10,7 @@ namespace Edwon.Tools
         [SerializeField]
         [ReadOnly]
         private float runtimeValue;
-        new public float RuntimeValue 
+        override public float RuntimeValue 
         {
             get
             {

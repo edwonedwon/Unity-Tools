@@ -6,7 +6,7 @@ namespace  Edwon.Tools
     public class Variable<T> : UniqueScriptable, ISerializationCallbackReceiver
     {
         public T initialValue;
-        public T RuntimeValue {get; set;}
+        virtual public T RuntimeValue {get; set;}
 
         public void OnBeforeSerialize() {}
 
