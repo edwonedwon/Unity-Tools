@@ -19,8 +19,13 @@ namespace Edwon.Tools
             set
             {
                 if (alwaysPositive)
+                {
                     if (value < 0)
+                    {
+                        runtimeValue = 0;
                         return;
+                    }
+                }
 
                 runtimeValue = value;
             }
