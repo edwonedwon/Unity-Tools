@@ -27,6 +27,8 @@ namespace Edwon.Tools
     [System.Serializable]
     public class UnityEventGameObject : UnityEventEdwonBase<GameObject>{}
     [System.Serializable]
+    public class UnityEventScriptableObject : UnityEventEdwonBase<ScriptableObject>{}
+    [System.Serializable]
     public class UnityEventItem : UnityEventEdwonBase<Item>{}
 
     public static class Utils

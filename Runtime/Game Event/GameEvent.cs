@@ -8,7 +8,7 @@ namespace Edwon.Tools
     [CreateAssetMenu(fileName = "Game Event", menuName = "Game Event")]
     public class GameEvent : UniqueScriptable
     {
-        public enum ParameterType { None, Bool, Int, Float, String, GameObject }
+        public enum ParameterType { None, Bool, Int, Float, String, GameObject, ScriptableObject }
         public ParameterType parameterType;
 
         private List<Action> listeners = new List<Action>();
@@ -17,6 +17,7 @@ namespace Edwon.Tools
         private List<Action<float>> listenersFloat = new List<Action<float>>();
         private List<Action<string>> listenersString = new List<Action<string>>();
         private List<Action<GameObject>> listenersGameObject = new List<Action<GameObject>>();
+        private List<Action<ScriptableObject>> listenersScriptableObject = new List<Action<ScriptableObject>>();
 
         public void Raise()
         {
@@ -147,6 +148,20 @@ namespace Edwon.Tools
             if (IsParameterTypeDifferent(ParameterType.GameObject)) {return;};
 
             listenersGameObject.Remove(listener); 
+        }
+
+        public void RegisterListenerScriptableObject(Action<ScriptableObject> listener)
+        { 
+            if (IsParameterTypeDifferent(ParameterType.ScriptableObject)) {return;};
+
+            listenersScriptableObject.Add(listener); 
+        }
+
+        public void UnregisterListenerScriptableObject(Action<ScriptableObject> listener)
+        { 
+            if (IsParameterTypeDifferent(ParameterType.ScriptableObject)) {return;};
+
+            listenersScriptableObject.Remove(listener); 
         }
 
         public bool IsParameterTypeDifferent(ParameterType parameterType)

@@ -15,6 +15,7 @@ namespace Edwon.Tools
         public UnityEventFloat responseFloat;
         public UnityEventString responseString;
         public UnityEventGameObject responseGameObject;
+        public UnityEventScriptableObject responseScriptableObject;
 
         private void OnEnable()
         { 
@@ -37,6 +38,9 @@ namespace Edwon.Tools
                 break;
                 case GameEvent.ParameterType.GameObject:
                     gameEvent.RegisterListenerGameObject(OnEventRaised); 
+                break;
+                case GameEvent.ParameterType.ScriptableObject:
+                    gameEvent.RegisterListenerScriptableObject(OnEventRaised); 
                 break;
             }
         }
@@ -62,6 +66,9 @@ namespace Edwon.Tools
                 break;
                 case GameEvent.ParameterType.GameObject:
                     gameEvent.UnregisterListenerGameObject(OnEventRaised); 
+                break;
+                case GameEvent.ParameterType.ScriptableObject:
+                    gameEvent.UnregisterListenerScriptableObject(OnEventRaised); 
                 break;
             }
         }
@@ -98,6 +105,11 @@ namespace Edwon.Tools
         public void OnEventRaised(GameObject go)
         {
             responseGameObject.Invoke(go);
+        }
+        
+        public void OnEventRaised(ScriptableObject so)
+        {
+            responseScriptableObject.Invoke(so);
         }
     }
 }

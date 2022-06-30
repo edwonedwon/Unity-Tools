@@ -19,6 +19,7 @@ namespace Edwon.Tools
         SerializedProperty responseFloat;
         SerializedProperty responseString;
         SerializedProperty responseGameObject;
+        SerializedProperty responseScriptableObject;
 
         void OnEnable()
         {
@@ -31,6 +32,7 @@ namespace Edwon.Tools
             responseFloat = serializedObject.FindProperty("responseFloat");
             responseString = serializedObject.FindProperty("responseString");
             responseGameObject = serializedObject.FindProperty("responseGameObject");
+            responseScriptableObject = serializedObject.FindProperty("responseScriptableObject");
         }
 
         public override void OnInspectorGUI()
@@ -88,6 +90,11 @@ namespace Edwon.Tools
                         case GameEvent.ParameterType.GameObject:
                         {
                             EditorGUILayout.PropertyField(responseGameObject);
+                        }
+                        break;
+                        case GameEvent.ParameterType.ScriptableObject:
+                        {
+                            EditorGUILayout.PropertyField(responseScriptableObject);
                         }
                         break;
                     }
