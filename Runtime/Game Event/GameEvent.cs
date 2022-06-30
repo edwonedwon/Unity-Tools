@@ -67,6 +67,14 @@ namespace Edwon.Tools
                 listenersGameObject[i](value);
         }
 
+        public void Raise(ScriptableObject value)
+        {
+            if (IsParameterTypeDifferent(ParameterType.ScriptableObject)) {return;};
+
+            for(int i = 0; i < listenersScriptableObject.Count; i++)
+                listenersScriptableObject[i](value);
+        }
+
         public void RegisterListener(Action listener)
         { 
             if (IsParameterTypeDifferent(ParameterType.None)) {return;};
