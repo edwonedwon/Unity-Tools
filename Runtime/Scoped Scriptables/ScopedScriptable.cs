@@ -6,16 +6,16 @@ using System;
 
 namespace Edwon.Tools
 {
-    public class UniqueScriptable : ScriptableObject
+    public class ScopedScriptable : ScriptableObject
     {
         [NonSerialized]
         public bool isInstance;
     }
 
     // an interface to 
-    public interface IUniqueScriptableUser
+    public interface IScopedScriptableUser
     {
-        public List<UniqueScriptable> GetUniqueScriptables();
-        public void SetUniqueScriptables(List<UniqueScriptableInstance> instances);
+        public List<ScopedScriptable> GetScopedScriptables();
+        public void SetScopedScriptables(List<ScopedScriptableInstance> instances);
     }
 }

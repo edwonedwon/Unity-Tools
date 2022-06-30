@@ -6,7 +6,7 @@ namespace Edwon.Tools
 {
     [System.Serializable]
     [CreateAssetMenu(fileName = "Game Event", menuName = "Game Event")]
-    public class GameEvent : UniqueScriptable
+    public class GameEvent : ScopedScriptable
     {
         public enum ParameterType { None, Bool, Int, Float, String, GameObject, ScriptableObject }
         public ParameterType parameterType;
