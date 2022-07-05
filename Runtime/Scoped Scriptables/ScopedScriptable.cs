@@ -11,7 +11,7 @@ namespace Edwon.Tools
     // each scoped scriptable reference is made unique by the ScopedSciptablesEnforcer component
     public class ScopedScriptable : ScriptableObject
     {
-        GameObject owner;
+        public GameObject owner;
         [ReadOnly]
         public ScopedScriptable instance;
 
