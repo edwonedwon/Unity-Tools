@@ -18,9 +18,10 @@ namespace Edwon.Tools
         }
     }
 
+    [DefaultExecutionOrder(-3)]
     public class ScopedScriptablesEnforcer : MonoBehaviour
     {
-        List<IScopedScriptableUser> uniqueScriptableUsers;
+        // List<IScopedScriptableUser> uniqueScriptableUsers;
         [SerializeField]
         [ReadOnly]
         List<ScopedScriptableInstance> instances = new List<ScopedScriptableInstance>();
@@ -31,14 +32,11 @@ namespace Edwon.Tools
         [ReadOnly]
         List<ScopedScriptable> assetsUnfiltered = new List<ScopedScriptable>();
 
-        void Awake()
-        {
-            // get asset scriptables
-            uniqueScriptableUsers = gameObject.GetComponents<IScopedScriptableUser>().ToList();
-            foreach(IScopedScriptableUser user in uniqueScriptableUsers)
-                foreach (ScopedScriptable original in user.GetScopedScriptables())
-                    assetsUnfiltered.Add(original);
+        public delegate void SetScopedScriptableInstance(GameObject owner, List<ScopedScriptableInstance> instances);
+        public static event SetScopedScriptableInstance onSetScopedScriptableInstance;
 
+        void Start()
+        {
             // filter assets
             assets = assetsUnfiltered.Distinct<ScopedScriptable>().ToList();
 
@@ -46,15 +44,30 @@ namespace Edwon.Tools
             foreach(ScopedScriptable asset in assets)
             {
                 ScopedScriptable instance = Instantiate(asset);
-                instance.isInstance = true;
                 instances.Add(new ScopedScriptableInstance(instance, asset));
             }
 
             // set asset reference to instances on all IUniqueScriptableUsers
-            foreach(IScopedScriptableUser user in uniqueScriptableUsers)
+            if (onSetScopedScriptableInstance != null)
+                onSetScopedScriptableInstance(gameObject, instances);
+        }
+
+        void OnRegisterScopedScriptable(GameObject owner, ScopedScriptable asset)
+        {
+            if (owner == this.gameObject)
             {
-                user.SetScopedScriptables(instances);
+                assetsUnfiltered.Add(asset);
             }
+        }
+
+        void OnEnable()
+        {
+            ScopedScriptable.registerScopedScriptable += OnRegisterScopedScriptable;
+        }
+
+        void OnDisable()
+        {
+            ScopedScriptable.registerScopedScriptable -= OnRegisterScopedScriptable;
         }
     }
 }
