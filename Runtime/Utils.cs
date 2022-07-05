@@ -12,25 +12,6 @@ using UnityEditor;
 
 namespace Edwon.Tools 
 {
-    public class UnityEventEdwonBase<T> : UnityEvent<T>{}
-
-    [System.Serializable]
-    public class UnityEventBool : UnityEventEdwonBase<bool>{}
-    [System.Serializable]
-    public class UnityEventInt : UnityEventEdwonBase<int>{}
-    [System.Serializable]
-    public class UnityEventFloat : UnityEventEdwonBase<float>{}
-    [System.Serializable]
-    public class UnityEventString : UnityEventEdwonBase<string>{}
-    [System.Serializable]
-    public class UnityEventVector3 : UnityEventEdwonBase<Vector3>{}
-    [System.Serializable]
-    public class UnityEventGameObject : UnityEventEdwonBase<GameObject>{}
-    [System.Serializable]
-    public class UnityEventScriptableObject : UnityEventEdwonBase<ScriptableObject>{}
-    [System.Serializable]
-    public class UnityEventItem : UnityEventEdwonBase<Item>{}
-
     public static class Utils
     {
         public static bool CheckNear(Vector3 start, Vector3 target, float targetDistance)

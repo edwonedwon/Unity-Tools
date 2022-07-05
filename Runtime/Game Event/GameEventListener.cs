@@ -4,6 +4,26 @@ using Edwon.Tools;
 
 namespace Edwon.Tools
 {
+    public class UnityEventEdwonBase<T> : UnityEvent<T>{}
+    [System.Serializable]
+    public class UnityEventBool : UnityEventEdwonBase<bool>{}
+    [System.Serializable]
+    public class UnityEventInt : UnityEventEdwonBase<int>{}
+    [System.Serializable]
+    public class UnityEventFloat : UnityEventEdwonBase<float>{}
+    [System.Serializable]
+    public class UnityEventString : UnityEventEdwonBase<string>{}
+    [System.Serializable]
+    public class UnityEventVector3 : UnityEventEdwonBase<Vector3>{}
+    [System.Serializable]
+    public class UnityEventObject : UnityEventEdwonBase<System.Object>{}
+    [System.Serializable]
+    public class UnityEventGameObject : UnityEventEdwonBase<GameObject>{}
+    [System.Serializable]
+    public class UnityEventScriptableObject : UnityEventEdwonBase<ScriptableObject>{}
+    [System.Serializable]
+    public class UnityEventItem : UnityEventEdwonBase<Item>{}
+
     public class GameEventListener : MonoBehaviour
     {
         public GameEvent gameEvent;
@@ -14,6 +34,7 @@ namespace Edwon.Tools
         public UnityEventInt responseInt;
         public UnityEventFloat responseFloat;
         public UnityEventString responseString;
+        public UnityEventObject responseObject;
         public UnityEventGameObject responseGameObject;
         public UnityEventScriptableObject responseScriptableObject;
 
@@ -35,6 +56,9 @@ namespace Edwon.Tools
                 break;
                 case GameEvent.ParameterType.String:
                     gameEvent.RegisterListenerString(OnEventRaised);
+                break;
+                case GameEvent.ParameterType.Object:
+                    gameEvent.RegisterListenerObject(OnEventRaised); 
                 break;
                 case GameEvent.ParameterType.GameObject:
                     gameEvent.RegisterListenerGameObject(OnEventRaised); 
@@ -63,6 +87,9 @@ namespace Edwon.Tools
                 break;
                 case GameEvent.ParameterType.String:
                     gameEvent.UnregisterListenerString(OnEventRaised);
+                break;
+                case GameEvent.ParameterType.Object:
+                    gameEvent.UnregisterListenerObject(OnEventRaised); 
                 break;
                 case GameEvent.ParameterType.GameObject:
                     gameEvent.UnregisterListenerGameObject(OnEventRaised); 
@@ -100,6 +127,11 @@ namespace Edwon.Tools
         public void OnEventRaised(string s)
         {
             responseString.Invoke(s);
+        }
+
+        public void OnEventRaised(System.Object o)
+        {
+            responseObject.Invoke(o);
         }
 
         public void OnEventRaised(GameObject go)

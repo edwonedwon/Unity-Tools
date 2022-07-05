@@ -8,7 +8,7 @@ namespace Edwon.Tools
     [CreateAssetMenu(fileName = "Game Event", menuName = "Game Event")]
     public class GameEvent : ScopedScriptable
     {
-        public enum ParameterType { None, Bool, Int, Float, String, GameObject, ScriptableObject }
+        public enum ParameterType { None, Bool, Int, Float, String, Object, GameObject, ScriptableObject }
         public ParameterType parameterType;
 
         private List<Action> listeners = new List<Action>();
@@ -16,6 +16,7 @@ namespace Edwon.Tools
         private List<Action<int>> listenersInt = new List<Action<int>>();
         private List<Action<float>> listenersFloat = new List<Action<float>>();
         private List<Action<string>> listenersString = new List<Action<string>>();
+        private List<Action<System.Object>> listenersObject = new List<Action<System.Object>>();
         private List<Action<GameObject>> listenersGameObject = new List<Action<GameObject>>();
         private List<Action<ScriptableObject>> listenersScriptableObject = new List<Action<ScriptableObject>>();
 
@@ -57,6 +58,14 @@ namespace Edwon.Tools
 
             for(int i = 0; i < listenersString.Count; i++)
                 listenersString[i](value);
+        }
+
+        public void Raise(System.Object value)
+        {
+            if (IsParameterTypeDifferent(ParameterType.Object)) {return;};
+
+            for(int i = 0; i < listenersObject.Count; i++)
+                listenersObject[i](value);
         }
 
         public void Raise(GameObject value)
@@ -142,6 +151,20 @@ namespace Edwon.Tools
             if (IsParameterTypeDifferent(ParameterType.String)) {return;};
 
             listenersString.Remove(listener); 
+        }
+
+        public void RegisterListenerObject(Action<System.Object> listener)
+        { 
+            if (IsParameterTypeDifferent(ParameterType.Object)) {return;};
+
+            listenersObject.Add(listener); 
+        }
+
+        public void UnregisterListenerObject(Action<System.Object> listener)
+        { 
+            if (IsParameterTypeDifferent(ParameterType.Object)) {return;};
+
+            listenersObject.Remove(listener); 
         }
 
         public void RegisterListenerGameObject(Action<GameObject> listener)
