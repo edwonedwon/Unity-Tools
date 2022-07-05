@@ -8,7 +8,6 @@ namespace Edwon.Tools
 {
     public class ScopedScriptable : ScriptableObject
     {
-        [NonSerialized]
-        public bool isInstance;
+        
     }
 }

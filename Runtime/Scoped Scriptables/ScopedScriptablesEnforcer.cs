@@ -52,7 +52,6 @@ namespace Edwon.Tools
             foreach(ScopedScriptable asset in assets)
             {
                 ScopedScriptable instance = Instantiate(asset);
-                instance.isInstance = true;
                 instances.Add(new ScopedScriptableInstance(instance, asset));
             }
 
