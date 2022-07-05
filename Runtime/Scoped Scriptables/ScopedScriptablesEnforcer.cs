@@ -5,6 +5,12 @@ using System.Linq;
 
 namespace Edwon.Tools
 {
+    public interface IScopedScriptableUser
+    {
+        public List<ScopedScriptable> GetScopedScriptables();
+        public void SetScopedScriptables(List<ScopedScriptableInstance> instances);
+    }
+
     [System.Serializable]
     public class ScopedScriptableInstance
     {

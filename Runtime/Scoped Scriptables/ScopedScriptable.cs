@@ -11,11 +11,4 @@ namespace Edwon.Tools
         [NonSerialized]
         public bool isInstance;
     }
-
-    // an interface to 
-    public interface IScopedScriptableUser
-    {
-        public List<ScopedScriptable> GetScopedScriptables();
-        public void SetScopedScriptables(List<ScopedScriptableInstance> instances);
-    }
 }
