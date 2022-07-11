@@ -26,7 +26,8 @@ namespace Edwon.Tools
 
     public class ScopedScriptablesEnforcer : MonoBehaviour
     {
-        List<IScopedScriptableUser> uniqueScriptableUsers;
+        public List<GameObject> userGameObjects = new List<GameObject>();
+        List<IScopedScriptableUser> userComponents;
         [SerializeField]
         [ReadOnly]
         List<ScopedScriptableInstance> instances = new List<ScopedScriptableInstance>();
@@ -39,9 +40,12 @@ namespace Edwon.Tools
 
         void Awake()
         {
-            // get asset scriptables
-            uniqueScriptableUsers = gameObject.GetComponents<IScopedScriptableUser>().ToList();
-            foreach(IScopedScriptableUser user in uniqueScriptableUsers)
+            // get asset scriptables from users
+            if (userGameObjects.Count == 0)
+                userGameObjects.Add(gameObject);
+            foreach(var user in userGameObjects)
+                userComponents = user.GetComponents<IScopedScriptableUser>().ToList();
+            foreach(IScopedScriptableUser user in userComponents)
                 foreach (ScopedScriptable original in user.GetScopedScriptables())
                     assetsUnfiltered.Add(original);
 
@@ -56,7 +60,7 @@ namespace Edwon.Tools
             }
 
             // set asset reference to instances on all IUniqueScriptableUsers
-            foreach(IScopedScriptableUser user in uniqueScriptableUsers)
+            foreach(IScopedScriptableUser user in userComponents)
             {
                 user.SetScopedScriptables(instances);
             }
