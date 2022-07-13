@@ -65,5 +65,13 @@ namespace Edwon.Tools
                 user.SetScopedScriptables(instances);
             }
         }
+
+        void OnDestroy()
+        {
+            for (int i = instances.Count - 1; i >= 0; i--)
+            {
+                Destroy(instances[i].instance);
+            }
+        }
     }
 }
