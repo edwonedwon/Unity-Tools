@@ -9,7 +9,7 @@ namespace Edwon.Tools
         [SerializeField]
         [ReadOnly]
         private bool runtimeValue;
-        override public bool RuntimeValue 
+        override public bool RuntimeValue
         {
             get
             {
