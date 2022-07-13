@@ -55,6 +55,8 @@ namespace Edwon.Tools
             // make instances
             foreach(ScopedScriptable asset in assets)
             {
+                if (asset == null)
+                    Debug.Log("ScopedScriptable asset is null, probably a ScopedScriptable variable isn't set in the inspector somewhere");
                 ScopedScriptable instance = Instantiate(asset);
                 instances.Add(new ScopedScriptableInstance(instance, asset));
             }
