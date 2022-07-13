@@ -9,7 +9,7 @@ namespace Edwon.Tools
         public bool alwaysPositive;
         [SerializeField]
         [ReadOnly]
-        private int runtimeValue;
+        protected int runtimeValue;
         override public int RuntimeValue 
         {
             get
