@@ -87,7 +87,7 @@ namespace Edwon.Tools
             }
         }
 
-        public static void EnableChildColliders(this Transform parent, bool enabled, bool includeParent = true, List<Transform> exceptions = null)
+        public static void EnableColliders(this Transform parent, bool enabled, bool includeParent = true, List<Transform> exceptions = null)
         {
             Collider[] components = parent.GetComponentsInChildren<Collider>();
             foreach (Collider component in components)
