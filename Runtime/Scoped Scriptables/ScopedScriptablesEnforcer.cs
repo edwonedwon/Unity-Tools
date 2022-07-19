@@ -44,7 +44,7 @@ namespace Edwon.Tools
             if (userGameObjects.Count == 0)
                 userGameObjects.Add(gameObject);
             foreach(var user in userGameObjects)
-                userComponents = user.GetComponents<IScopedScriptableUser>().ToList();
+                userComponents = user.GetComponentsInChildren<IScopedScriptableUser>().ToList();
             foreach(IScopedScriptableUser user in userComponents)
                 foreach (ScopedScriptable original in user.GetScopedScriptables())
                     assetsUnfiltered.Add(original);
