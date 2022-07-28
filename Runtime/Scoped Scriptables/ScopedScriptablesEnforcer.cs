@@ -8,7 +8,7 @@ namespace Edwon.Tools
     public interface IScopedScriptableUser
     {
         public List<ScopedScriptable> GetScopedScriptables();
-        public void SetScopedScriptables(List<ScopedScriptableInstance> instances);
+        public void SetScopedScriptables(ScopedScriptablesEnforcer enforcer);
     }
 
     [System.Serializable]
@@ -64,8 +64,13 @@ namespace Edwon.Tools
             // set asset reference to instances on all IUniqueScriptableUsers
             foreach(IScopedScriptableUser user in userComponents)
             {
-                user.SetScopedScriptables(instances);
+                user.SetScopedScriptables(this);
             }
+        }
+
+        public T GetInstance<T>(T asset) where T : ScopedScriptable 
+        {
+            return instances.Find(x => x.asset == asset).instance as T;
         }
 
         void OnDestroy()
