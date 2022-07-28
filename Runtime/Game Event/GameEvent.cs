@@ -8,7 +8,7 @@ namespace Edwon.Tools
     [CreateAssetMenu(fileName = "Game Event", menuName = "Game Event")]
     public class GameEvent : ScopedScriptable
     {
-        public enum ParameterType { None, Bool, Int, Float, String, Object, GameObject, ScriptableObject }
+        public enum ParameterType { None, Bool, Int, Float, String, AudioClip, Object, GameObject, ScriptableObject }
         public ParameterType parameterType;
 
         private List<Action> listeners = new List<Action>();
@@ -16,6 +16,7 @@ namespace Edwon.Tools
         private List<Action<int>> listenersInt = new List<Action<int>>();
         private List<Action<float>> listenersFloat = new List<Action<float>>();
         private List<Action<string>> listenersString = new List<Action<string>>();
+        private List<Action<AudioClip>> listenersAudioClip = new List<Action<AudioClip>>();
         private List<Action<System.Object>> listenersObject = new List<Action<System.Object>>();
         private List<Action<GameObject>> listenersGameObject = new List<Action<GameObject>>();
         private List<Action<ScriptableObject>> listenersScriptableObject = new List<Action<ScriptableObject>>();
@@ -58,6 +59,14 @@ namespace Edwon.Tools
 
             for(int i = 0; i < listenersString.Count; i++)
                 listenersString[i](value);
+        }
+
+        public void Raise(AudioClip value)
+        {
+            if (IsParameterTypeDifferent(ParameterType.AudioClip)) {return;};
+
+            for(int i = 0; i < listenersAudioClip.Count; i++)
+                listenersAudioClip[i](value);
         }
 
         public void Raise(System.Object value)
@@ -151,6 +160,20 @@ namespace Edwon.Tools
             if (IsParameterTypeDifferent(ParameterType.String)) {return;};
 
             listenersString.Remove(listener); 
+        }
+
+        public void RegisterListenerAudioClip(Action<AudioClip> listener)
+        { 
+            if (IsParameterTypeDifferent(ParameterType.AudioClip)) {return;};
+
+            listenersAudioClip.Add(listener); 
+        }
+
+        public void UnregisterListenerAudioClip(Action<AudioClip> listener)
+        { 
+            if (IsParameterTypeDifferent(ParameterType.AudioClip)) {return;};
+
+            listenersAudioClip.Remove(listener); 
         }
 
         public void RegisterListenerObject(Action<System.Object> listener)
