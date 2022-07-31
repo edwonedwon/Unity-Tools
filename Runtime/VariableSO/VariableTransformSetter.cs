@@ -35,8 +35,11 @@ namespace Edwon.Tools
 
         public void SetScopedScriptables(ScopedScriptablesEnforcer enforcer) 
         { 
-            if (useAsScopedScriptable)
-                variableTransform = enforcer.GetInstance<VariableTransform>(variableTransform);
+            variableTransform = enforcer.GetInstance<VariableTransform>(variableTransform);
+            if (onEnableSetToThis || onAwakeSetToThis)
+            {
+                variableTransform.RuntimeValue = transform;
+            }
         }
     }
 }
