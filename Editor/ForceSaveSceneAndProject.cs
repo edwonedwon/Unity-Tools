@@ -9,7 +9,7 @@ public class ForceSaveSceneAndProject : MonoBehaviour
     static void FunctionForceSaveProyect()
     {
         EditorApplication.ExecuteMenuItem("File/Save Project");
-        Debug.Log("Saved project");
+        // Debug.Log("Saved project");
     }
 
     [MenuItem("File/Save Scene And Project %#&s")]
@@ -17,7 +17,7 @@ public class ForceSaveSceneAndProject : MonoBehaviour
     {
         EditorApplication.ExecuteMenuItem("File/Save");
         EditorApplication.ExecuteMenuItem("File/Save Project");
-        Debug.Log("Saved scene and project");
+        // Debug.Log("Saved scene and project");
     }
 }
 
