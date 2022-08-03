@@ -70,7 +70,18 @@ namespace Edwon.Tools
 
         public T GetInstance<T>(T asset) where T : ScopedScriptable 
         {
-            return instances.Find(x => x.asset == asset).instance as T;
+
+            // if asset is actually an instance, return it
+            if (instances.Find(x => x.instance == asset) != null)
+                return asset;
+
+            T returnable = instances.Find(x => x.asset == asset).instance as T;
+            if (returnable == null)
+            {
+                Debug.Log("no instance of type " + typeof(T).Name + " found");
+                return null;
+            }
+            return returnable;
         }
 
         void OnDestroy()
