@@ -323,7 +323,6 @@ namespace Edwon.Tools
             return false;
         }
 
-
         public static Rigidbody AddGetRigidbody(Transform transform)
 		{
 			if (transform.GetComponent<Rigidbody>() == null)

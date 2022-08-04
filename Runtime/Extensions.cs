@@ -201,9 +201,16 @@ namespace Edwon.Tools
             return isWhiteSpaceOnly;
         }
 
-        public static void LerpPhysicsRotation(this Rigidbody rb, Quaternion rotationToMatch, float strength = 1500) // target was Grabber
+        public static void MoveTowardsUsingVelocity(this Rigidbody rb, Vector3 positionToMatch, float strength = 1)
         {
-            Quaternion RotationDelta = rotationToMatch * Quaternion.Inverse(rb.transform.rotation);
+            strength *= 100;
+            Vector3 PositionDelta = (positionToMatch - rb.transform.position);
+            rb.velocity = PositionDelta * strength * Time.fixedDeltaTime;
+        }
+
+        public static void TurnTowardsUsingVelocity(this Rigidbody rb, Quaternion towardsRotation, float strength = 1)
+        {
+            Quaternion RotationDelta = towardsRotation * Quaternion.Inverse(rb.transform.rotation);
 
             float angle = 0f;
             Vector3 axis = Vector3.up;
@@ -219,10 +226,16 @@ namespace Edwon.Tools
             }
         }
 
-        public static void LerpPhysicsPosition(this Rigidbody rb, Vector3 positionToMatch, float strength = 1500)
+        public static void TurnTowardsUsingTorque(this Rigidbody rigidbody, Quaternion towardsRotation, float torqueForce = 1f, ForceMode forceMode = ForceMode.Force)
         {
-            Vector3 PositionDelta = (positionToMatch - rb.transform.position);
-            rb.velocity = PositionDelta * strength * Time.fixedDeltaTime;
+            Quaternion rotation = towardsRotation * Quaternion.Inverse(rigidbody.rotation);
+            rigidbody.AddTorque
+            (
+                rotation.x * torqueForce, 
+                rotation.y * torqueForce, 
+                rotation.z * torqueForce, 
+                ForceMode.VelocityChange
+            );
         }
     }
 }
