@@ -245,7 +245,7 @@ namespace Edwon.Tools
         {
             foreach(Collider c in components)
             {
-                if (Utils.IsLayerIncluded(c.gameObject.layer, excludeChecked))
+                if (Utils.Contains(c.gameObject.layer, excludeChecked))
                     continue;
                 else
                     c.enabled = toggle;
@@ -260,9 +260,17 @@ namespace Edwon.Tools
             #endif
         }
         
-        public static bool IsLayerIncluded(int layer, LayerMask layerMask)
+        public static bool Contains(this LayerMask layerMask, int layer)
         {
             if(((1<<layer) & layerMask) != 0)
+                return true;
+            else
+                return false;
+        }
+
+        public static bool Contains(this LayerMask layerMask, string layerName)
+        {
+            if(((1<<LayerMask.NameToLayer(layerName)) & layerMask) != 0)
                 return true;
             else
                 return false;
