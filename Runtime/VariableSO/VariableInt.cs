@@ -7,7 +7,7 @@ namespace Edwon.Tools
     [CreateAssetMenu(fileName = "Variable Int", menuName = "Variables/Variable Int")]
     public class VariableInt : Variable<int>
     {
-        [PropertyOrder(2)]
+        [PropertyOrder(1)]
         public bool alwaysPositive;
         protected int runtimeValue;
 

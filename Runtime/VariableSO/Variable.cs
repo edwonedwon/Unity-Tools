@@ -10,7 +10,7 @@ namespace  Edwon.Tools
         [ShowIf("@!UnityEngine.Application.isPlaying")]
         public T initialValue;
         [ShowInInspector]
-        [PropertyOrder(1)]
+        [PropertyOrder(0)]
         [ShowIf("@UnityEngine.Application.isPlaying")]
         virtual public T RuntimeValue {get; set;}
 
