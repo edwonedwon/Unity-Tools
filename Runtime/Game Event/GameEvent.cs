@@ -8,9 +8,10 @@ namespace Edwon.Tools
     [CreateAssetMenu(fileName = "Game Event", menuName = "Game Event")]
     public class GameEvent : ScopedScriptable
     {
-        public enum ParameterType { None, Bool, Int, Float, String, AudioClip, Object, GameObject, ScriptableObject }
+        public enum ParameterType { None, Bool, Int, Float, String, AudioClip, Object, ObjectReturnBool, GameObject, ScriptableObject }
         public ParameterType parameterType;
 
+        // events without returns
         private List<Action> listeners = new List<Action>();
         private List<Action<bool>> listenersBool = new List<Action<bool>>();
         private List<Action<int>> listenersInt = new List<Action<int>>();
@@ -20,10 +21,14 @@ namespace Edwon.Tools
         private List<Action<System.Object>> listenersObject = new List<Action<System.Object>>();
         private List<Action<GameObject>> listenersGameObject = new List<Action<GameObject>>();
         private List<Action<ScriptableObject>> listenersScriptableObject = new List<Action<ScriptableObject>>();
+        
+        // events with returns
+        public delegate bool ActionObjectReturnBool(System.Object obj);
+        public List<ActionObjectReturnBool> listenersObjectReturnBool;
 
         public void Raise()
         {
-            if (IsParameterTypeDifferent(ParameterType.None)) {return;};
+            if (IsParameterTypeDifferent(ParameterType.Object)) {return;};
                 
             for(int i = 0; i < listeners.Count; i++)
                 listeners[i]();
@@ -75,6 +80,19 @@ namespace Edwon.Tools
 
             for(int i = 0; i < listenersObject.Count; i++)
                 listenersObject[i](value);
+        }
+
+        public bool RaiseAndReturn(System.Object value)
+        {
+            if (IsParameterTypeDifferent(ParameterType.ObjectReturnBool)) {return false;};
+
+            // if any of the listeners returns true, this will return true
+            bool returnValue = false;
+            for(int i = 0; i < listenersObjectReturnBool.Count; i++)
+            {
+                returnValue = listenersObjectReturnBool[i](value);
+            }
+            return returnValue;
         }
 
         public void Raise(GameObject value)
@@ -188,6 +206,20 @@ namespace Edwon.Tools
             if (IsParameterTypeDifferent(ParameterType.Object)) {return;};
 
             listenersObject.Remove(listener); 
+        }
+
+        public void RegisterListenerObjectReturnBool(ActionObjectReturnBool listener)
+        { 
+            if (IsParameterTypeDifferent(ParameterType.ObjectReturnBool)) {return;};
+
+            listenersObjectReturnBool.Add(listener); 
+        }
+
+        public void UnregisterListenerObjectReturnBool(ActionObjectReturnBool listener)
+        { 
+            if (IsParameterTypeDifferent(ParameterType.ObjectReturnBool)) {return;};
+
+            listenersObjectReturnBool.Add(listener); 
         }
 
         public void RegisterListenerGameObject(Action<GameObject> listener)
