@@ -245,7 +245,7 @@ namespace Edwon.Tools
         {
             foreach(Collider c in components)
             {
-                if (Utils.Contains(c.gameObject.layer, excludeChecked))
+                if (c.gameObject.layer == excludeChecked)
                     continue;
                 else
                     c.enabled = toggle;
@@ -258,22 +258,6 @@ namespace Edwon.Tools
             if (transformParentToUnfold.childCount > 0)
                 UnityEditor.EditorGUIUtility.PingObject(transformParentToUnfold.GetChild(0));
             #endif
-        }
-        
-        public static bool Contains(this LayerMask layerMask, int layer)
-        {
-            if(((1<<layer) & layerMask) != 0)
-                return true;
-            else
-                return false;
-        }
-
-        public static bool Contains(this LayerMask layerMask, string layerName)
-        {
-            if(((1<<LayerMask.NameToLayer(layerName)) & layerMask) != 0)
-                return true;
-            else
-                return false;
         }
 
         public static void EnableBuildDefine(bool enabled, string define)

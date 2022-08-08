@@ -237,5 +237,26 @@ namespace Edwon.Tools
                 ForceMode.VelocityChange
             );
         }
+
+        public static bool Contains(this LayerMask layerMask, int layer)
+        {
+            if(((1<<layer) & layerMask) != 0)
+                return true;
+            else
+                return false;
+        }
+
+        public static bool Contains(this LayerMask layerMask, string layerName)
+        {
+            if(((1<<LayerMask.NameToLayer(layerName)) & layerMask) != 0)
+                return true;
+            else
+                return false;
+        }
+
+        public static void CopyListTo<T>(this List<T> from, ref List<T> to)
+        {
+            to = new List<T>(from);
+        }
     }
 }
