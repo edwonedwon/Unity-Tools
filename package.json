@@ -32,9 +32,9 @@
       "path": "Samples/Spawner"
     },
     {
-        "displayName": "Unique Scriptable",
+        "displayName": "Scoped Scriptable",
         "description": " ",
-        "path": "Samples/Unique Scriptable"
+        "path": "Samples/Scoped Scriptable"
     }
   ]
 }

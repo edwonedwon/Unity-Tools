@@ -27,7 +27,8 @@ namespace Edwon.Tools
     public class ScopedScriptablesEnforcer : MonoBehaviour
     {
         public List<GameObject> userGameObjects = new List<GameObject>();
-        List<IScopedScriptableUser> userComponents;
+        List<IScopedScriptableUser> userComponents = new List<IScopedScriptableUser>();
+        List<IScopedScriptableUser> userBlacklist = new List<IScopedScriptableUser>();
         [SerializeField]
         [ReadOnly]
         List<ScopedScriptableInstance> instances = new List<ScopedScriptableInstance>();
@@ -40,11 +41,31 @@ namespace Edwon.Tools
 
         void Awake()
         {
+            Init();
+        }
+
+        void Init()
+        {
+            userGameObjects.Clear();
+            userComponents.Clear();
+            assets.Clear();
+            assetsUnfiltered.Clear();
+            DestroyInstances();
+            instances.Clear();
+
             // get asset scriptables from users
             if (userGameObjects.Count == 0)
                 userGameObjects.Add(gameObject);
             foreach(var user in userGameObjects)
-                userComponents = user.GetComponentsInChildren<IScopedScriptableUser>(true).ToList();
+            {
+                var childUsers = user.GetComponentsInChildren<IScopedScriptableUser>(true).ToList();
+                for (int i = childUsers.Count-1; i>=0; i--)
+                {
+                    if (userBlacklist.Contains(childUsers[i]))
+                        childUsers.RemoveAt(i);
+                }
+                userComponents.AddRange(childUsers);
+            }
             foreach(IScopedScriptableUser user in userComponents)
                 foreach (ScopedScriptable original in user.GetScopedScriptables())
                     assetsUnfiltered.Add(original);
@@ -68,6 +89,14 @@ namespace Edwon.Tools
             }
         }
 
+        void DestroyInstances()
+        {
+            for (int i = instances.Count-1; i>=0; i--)
+            {
+                Destroy(instances[i].instance);
+            }
+        }
+
         public T GetInstance<T>(T asset) where T : ScopedScriptable 
         {
 
@@ -82,6 +111,19 @@ namespace Edwon.Tools
                 return null;
             }
             return returnable;
+        }
+
+        public void RegisterScopedScriptableUser(GameObject go)
+        {
+            userGameObjects.Add(go);
+            Init();
+        }
+
+        public void UnregisterScopedScriptableUser(IScopedScriptableUser user)
+        {
+            userBlacklist.Add(user);
+            Init();
+            userBlacklist.Clear();
         }
 
         void OnDestroy()
