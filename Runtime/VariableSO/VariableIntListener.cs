@@ -27,6 +27,8 @@ namespace Edwon.Tools
 
         void InitListener()
         {
+            if (variableSO == null)
+                Debug.Log("variableSO is null on VariableIntListener on: " + gameObject.name);
             listener = new VariableIntListenerClass(
                 variableSO, 
                 ref onVariableChanged, 
