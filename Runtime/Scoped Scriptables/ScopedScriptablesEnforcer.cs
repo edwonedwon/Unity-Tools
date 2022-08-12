@@ -64,7 +64,7 @@ namespace Edwon.Tools
             assets = assetsUnfiltered.Distinct<ScopedScriptable>().ToList();
 
             // make instances
-            instances = MakeInstances();
+            instances = MakeInstances(assets);
 
             // set asset reference to instance reference on all users
             SetScopedScriptablesInAllUsers();
@@ -96,17 +96,21 @@ namespace Edwon.Tools
             return returnable;
         }
 
-        List<ScopedScriptableInstance> MakeInstances()
+        List<ScopedScriptableInstance> MakeInstances(List<ScopedScriptable> assets)
         {
             List<ScopedScriptableInstance> returnable = new List<ScopedScriptableInstance>();
             foreach(ScopedScriptable asset in assets)
             {
                 if (asset == null)
                     Debug.Log("ScopedScriptable asset is null, probably a ScopedScriptable variable isn't set in the inspector somewhere");
-                ScopedScriptable instance = Instantiate(asset);
-                returnable.Add(new ScopedScriptableInstance(instance, asset));
+                returnable.Add(MakeInstance(asset));
             }
             return returnable;
+        }
+
+        ScopedScriptableInstance MakeInstance(ScopedScriptable asset)
+        {
+            return new ScopedScriptableInstance(Instantiate(asset), asset);
         }
 
         void DestroyInstances()
@@ -136,8 +140,17 @@ namespace Edwon.Tools
 
         public void RegisterScopedScriptableUser(IScopedScriptableUser user)
         {
+            // add this user
             users.Add(user);
-            List<ScopedScriptable> newScriptables = user.GetScopedScriptables();
+            // get all scoped scriptables unfiltered from this user
+            List<ScopedScriptable> assets = user.GetScopedScriptables();
+            // filter out duplicates
+            assets = assets.Distinct<ScopedScriptable>().ToList();
+            // make instances
+            foreach(var asset in assets)
+                instances.Add(MakeInstance(asset));
+            // set asset reference to instance reference on the user
+            user.SetScopedScriptables(this);
         }
 
         public void UnregisterScopedScriptableUser(IScopedScriptableUser user)
