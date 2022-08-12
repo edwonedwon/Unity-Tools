@@ -36,36 +36,26 @@ namespace Edwon.Tools
         [SerializeField]
         [ReadOnly]
         List<ScopedScriptable> assets = new List<ScopedScriptable>();
-        [SerializeField]
-        [ReadOnly]
-        List<ScopedScriptable> assetsUnfiltered = new List<ScopedScriptable>();
 
         void Awake()
         {
-            Init();
-        }
-
-        void Init()
-        {
+            // clear lists
             if (userGameObjects.Count == 0)
                 userGameObjects.Add(gameObject);
             users.Clear();
             assets.Clear();
-            assetsUnfiltered.Clear();
             DestroyInstances();
 
             // get child users of type IScopedScriptableUser
             users = GetChildUsers();
-
             // collect all the asset references from users
-            assetsUnfiltered = GetScopedScriptablesFromAllUsers();
-
+            assets = GetScopedScriptablesFromAllUsers();
             // filter out duplicates
-            assets = assetsUnfiltered.Distinct<ScopedScriptable>().ToList();
-
+            assets = assets.Distinct<ScopedScriptable>().ToList();
             // make instances
-            instances = MakeInstances(assets);
-
+            instances = MakeInstances(assets, true);
+            // filter out instance duplicates
+            instances = MakeInstancesDistinct(instances);
             // set asset reference to instance reference on all users
             SetScopedScriptablesInAllUsers();
         }
@@ -96,16 +86,28 @@ namespace Edwon.Tools
             return returnable;
         }
 
-        List<ScopedScriptableInstance> MakeInstances(List<ScopedScriptable> assets)
+        List<ScopedScriptableInstance> MakeInstances(List<ScopedScriptable> assets, bool checkForDuplicateInstances = true)
         {
-            List<ScopedScriptableInstance> returnable = new List<ScopedScriptableInstance>();
-            foreach(ScopedScriptable asset in assets)
+            List<ScopedScriptableInstance> instances = new List<ScopedScriptableInstance>();
+            foreach(var asset in assets)
             {
-                if (asset == null)
-                    Debug.Log("ScopedScriptable asset is null, probably a ScopedScriptable variable isn't set in the inspector somewhere");
-                returnable.Add(MakeInstance(asset));
+                if (checkForDuplicateInstances)
+                {
+                    // only make an instance if it doesn't exist already
+                    if (instances.Find(x => x.asset == asset) == null)
+                        instances.Add(MakeInstance(asset));
+                }
+                else
+                {
+                    instances.Add(MakeInstance(asset));
+                }
             }
-            return returnable;
+            return instances;
+        }
+
+        List<ScopedScriptableInstance> MakeInstancesDistinct(List<ScopedScriptableInstance> instances)
+        {
+            return instances.DistinctBy(x => x.instance).ToList();
         }
 
         ScopedScriptableInstance MakeInstance(ScopedScriptable asset)
@@ -129,13 +131,13 @@ namespace Edwon.Tools
             if (instances.Find(x => x.instance == asset) != null)
                 return asset;
 
-            T returnable = instances.Find(x => x.asset == asset).instance as T;
-            if (returnable == null)
+            T instance = instances.Find(x => x.asset == asset).instance as T;
+            if (instance == null)
             {
                 Debug.Log("no instance of type " + typeof(T).Name + " found");
                 return null;
             }
-            return returnable;
+            return instance;
         }
 
         public void RegisterScopedScriptableUser(IScopedScriptableUser user)
@@ -147,9 +149,10 @@ namespace Edwon.Tools
             // filter out duplicates
             assets = assets.Distinct<ScopedScriptable>().ToList();
             // make instances
-            foreach(var asset in assets)
-                instances.Add(MakeInstance(asset));
-            // set asset reference to instance reference on the user
+            instances = MakeInstances(assets, true);
+            // filter out instance duplicates
+            instances = MakeInstancesDistinct(instances);
+            // set scoped scriptables on the user to instances
             user.SetScopedScriptables(this);
         }
 
