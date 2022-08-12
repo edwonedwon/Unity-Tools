@@ -24,7 +24,7 @@ namespace Edwon.Tools
         
         // events with returns
         public delegate bool ActionObjectReturnBool(System.Object obj);
-        public List<ActionObjectReturnBool> listenersObjectReturnBool;
+        public List<ActionObjectReturnBool> listenersObjectReturnBool = new List<ActionObjectReturnBool>();
 
         public void Raise()
         {
