@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Sirenix.OdinInspector;
 
 namespace Edwon.Tools
 {
@@ -27,8 +28,8 @@ namespace Edwon.Tools
     public class ScopedScriptablesEnforcer : MonoBehaviour
     {
         public List<GameObject> userGameObjects = new List<GameObject>();
-        List<IScopedScriptableUser> userComponents = new List<IScopedScriptableUser>();
-        List<IScopedScriptableUser> userBlacklist = new List<IScopedScriptableUser>();
+        [ShowInInspector]
+        List<IScopedScriptableUser> users = new List<IScopedScriptableUser>();
         [SerializeField]
         [ReadOnly]
         List<ScopedScriptableInstance> instances = new List<ScopedScriptableInstance>();
@@ -46,47 +47,66 @@ namespace Edwon.Tools
 
         void Init()
         {
-            userGameObjects.Clear();
-            userComponents.Clear();
+            if (userGameObjects.Count == 0)
+                userGameObjects.Add(gameObject);
+            users.Clear();
             assets.Clear();
             assetsUnfiltered.Clear();
             DestroyInstances();
-            instances.Clear();
 
-            // get asset scriptables from users
-            if (userGameObjects.Count == 0)
-                userGameObjects.Add(gameObject);
-            foreach(var user in userGameObjects)
-            {
-                var childUsers = user.GetComponentsInChildren<IScopedScriptableUser>(true).ToList();
-                for (int i = childUsers.Count-1; i>=0; i--)
-                {
-                    if (userBlacklist.Contains(childUsers[i]))
-                        childUsers.RemoveAt(i);
-                }
-                userComponents.AddRange(childUsers);
-            }
-            foreach(IScopedScriptableUser user in userComponents)
-                foreach (ScopedScriptable original in user.GetScopedScriptables())
-                    assetsUnfiltered.Add(original);
+            // get child users of type IScopedScriptableUser
+            users = GetChildUsers();
 
-            // filter assets
+            // collect all the asset references from users
+            assetsUnfiltered = GetScopedScriptablesFromAllUsers();
+
+            // filter out duplicates
             assets = assetsUnfiltered.Distinct<ScopedScriptable>().ToList();
 
             // make instances
+            instances = MakeInstances();
+
+            // set asset reference to instance reference on all users
+            SetScopedScriptablesInAllUsers();
+        }
+
+        List<ScopedScriptable> GetScopedScriptablesFromAllUsers()
+        {
+            List<ScopedScriptable> returnable = new List<ScopedScriptable>();
+            foreach(IScopedScriptableUser user in users)
+                foreach (ScopedScriptable original in user.GetScopedScriptables())
+                    returnable.Add(original);
+            return returnable;
+        }
+
+        void SetScopedScriptablesInAllUsers()
+        {
+            foreach(IScopedScriptableUser user in users)
+                user.SetScopedScriptables(this);
+        }
+
+        List<IScopedScriptableUser> GetChildUsers()
+        {
+            List<IScopedScriptableUser> returnable = new List<IScopedScriptableUser>();
+            foreach(var user in userGameObjects)
+            {
+                var childUsers = user.GetComponentsInChildren<IScopedScriptableUser>(true).ToList();
+                returnable.AddRange(childUsers);
+            }
+            return returnable;
+        }
+
+        List<ScopedScriptableInstance> MakeInstances()
+        {
+            List<ScopedScriptableInstance> returnable = new List<ScopedScriptableInstance>();
             foreach(ScopedScriptable asset in assets)
             {
                 if (asset == null)
                     Debug.Log("ScopedScriptable asset is null, probably a ScopedScriptable variable isn't set in the inspector somewhere");
                 ScopedScriptable instance = Instantiate(asset);
-                instances.Add(new ScopedScriptableInstance(instance, asset));
+                returnable.Add(new ScopedScriptableInstance(instance, asset));
             }
-
-            // set asset reference to instances on all IUniqueScriptableUsers
-            foreach(IScopedScriptableUser user in userComponents)
-            {
-                user.SetScopedScriptables(this);
-            }
+            return returnable;
         }
 
         void DestroyInstances()
@@ -95,6 +115,7 @@ namespace Edwon.Tools
             {
                 Destroy(instances[i].instance);
             }
+            instances.Clear();
         }
 
         public T GetInstance<T>(T asset) where T : ScopedScriptable 
@@ -113,17 +134,15 @@ namespace Edwon.Tools
             return returnable;
         }
 
-        public void RegisterScopedScriptableUser(GameObject go)
+        public void RegisterScopedScriptableUser(IScopedScriptableUser user)
         {
-            userGameObjects.Add(go);
-            Init();
+            users.Add(user);
+            List<ScopedScriptable> newScriptables = user.GetScopedScriptables();
         }
 
         public void UnregisterScopedScriptableUser(IScopedScriptableUser user)
         {
-            userBlacklist.Add(user);
-            Init();
-            userBlacklist.Clear();
+            users.Remove(user);
         }
 
         void OnDestroy()
