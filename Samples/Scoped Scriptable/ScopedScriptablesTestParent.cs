@@ -18,11 +18,11 @@ public class ScopedScriptablesTestParent : MonoBehaviour, IScopedScriptableUser
         GameObject.Instantiate(childPrefab, transform);
     }
 
-
     [Button]
     void DestroyChild()
     {
-        GameObject.Destroy(transform.GetChild(0).gameObject);
+        if (transform.GetChild(0) != null)
+            GameObject.Destroy(transform.GetChild(0).gameObject);
     }
 
     public List<ScopedScriptable> GetScopedScriptables()

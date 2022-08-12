@@ -156,7 +156,6 @@ MonoBehaviour:
   userGameObjects: []
   instances: []
   assets: []
-  assetsUnfiltered: []
 --- !u!4 &475424342
 Transform:
   m_ObjectHideFlags: 0
@@ -181,8 +180,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 475424339}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c0616dfdcb35432d819ffe3ff5ba70c, type: 3}
+  m_Script: {fileID: 11500000, guid: f09d4dd086fec4802a10733e8dce951b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testBool: {fileID: 11400000, guid: 790446108b96a46a5a62f32705fdb900, type: 2}
-  childPrefab: {fileID: 5300246777828746114, guid: b3cceb19b22094964976a82c836448b3, type: 3}
+  testBool: {fileID: 11400000, guid: 0ba861594631f49ffac51cfd98b876fb, type: 2}
+  childPrefab: {fileID: 5300246777828746114, guid: c8e8f40a792694a46bed971baef86fc6, type: 3}

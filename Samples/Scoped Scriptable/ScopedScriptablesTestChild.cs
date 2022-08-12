@@ -13,7 +13,7 @@ public class ScopedScriptablesTestChild : MonoBehaviour, IScopedScriptableUser
     void Awake()
     {
         enforcer = GetComponentInParent<ScopedScriptablesEnforcer>();
-        enforcer.RegisterScopedScriptableUser(gameObject);
+        enforcer.RegisterScopedScriptableUser(this); // could be a c# event instead
     }
 
     void OnDestroy()
