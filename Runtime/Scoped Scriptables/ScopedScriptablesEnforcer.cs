@@ -70,8 +70,10 @@ namespace Edwon.Tools
 
         void SetScopedScriptablesInAllUsers()
         {
-            foreach(IScopedScriptableUser user in users)
-                user.SetScopedScriptables(this);
+            for (int i = 0; i < users.Count; i++)
+            {
+                users[i].SetScopedScriptables(this);
+            }
         }
 
         List<IScopedScriptableUser> GetChildUsers()
