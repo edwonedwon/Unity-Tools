@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1377456923744654482}
   - component: {fileID: 1302929295429318329}
   m_Layer: 0
-  m_Name: Test Scoped Scriptable
+  m_Name: Scoped Scriptable Example Child Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

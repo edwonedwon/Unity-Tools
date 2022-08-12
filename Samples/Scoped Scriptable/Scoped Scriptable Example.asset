@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d638a11f471864dc087a30549e1e55b0, type: 3}
-  m_Name: Test Scoped Scriptable
+  m_Name: Scoped Scriptable Example
   m_EditorClassIdentifier: 
   initialValue: 0
   runtimeValue: 0
