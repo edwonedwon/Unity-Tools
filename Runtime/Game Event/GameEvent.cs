@@ -111,139 +111,139 @@ namespace Edwon.Tools
                 listenersScriptableObject[i](value);
         }
 
-        public void RegisterListener(Action listener)
+        public void AddListener(Action listener)
         { 
             if (IsParameterTypeDifferent(ParameterType.None)) {return;};
             listeners.Add(listener); 
         }
 
-        public void UnregisterListener(Action listener)
+        public void RemoveListener(Action listener)
         { 
             if (IsParameterTypeDifferent(ParameterType.None)) {return;};
 
             listeners.Remove(listener); 
         }
 
-        public void RegisterListenerBool(Action<bool> listener)
+        public void AddListenerBool(Action<bool> listener)
         { 
             if (IsParameterTypeDifferent(ParameterType.Bool)) {return;};
 
             listenersBool.Add(listener); 
         }
 
-        public void UnregisterListenerBool(Action<bool> listener)
+        public void RemoveListenerBool(Action<bool> listener)
         { 
             if (IsParameterTypeDifferent(ParameterType.Bool)) {return;};
 
             listenersBool.Remove(listener); 
         }
 
-        public void RegisterListenerInt(Action<int> listener)
+        public void AddListenerInt(Action<int> listener)
         { 
             if (IsParameterTypeDifferent(ParameterType.Int)) {return;};
 
             listenersInt.Add(listener); 
         }
 
-        public void UnregisterListenerInt(Action<int> listener)
+        public void RemoveListenerInt(Action<int> listener)
         { 
             if (IsParameterTypeDifferent(ParameterType.Int)) {return;};
 
             listenersInt.Remove(listener); 
         }
 
-        public void RegisterListenerFloat(Action<float> listener)
+        public void AddListenerFloat(Action<float> listener)
         { 
             if (IsParameterTypeDifferent(ParameterType.Float)) {return;};
 
             listenersFloat.Add(listener); 
         }
 
-        public void UnregisterListenerFloat(Action<float> listener)
+        public void RemoveListenerFloat(Action<float> listener)
         { 
             if (IsParameterTypeDifferent(ParameterType.Float)) {return;};
 
             listenersFloat.Remove(listener); 
         }
 
-        public void RegisterListenerString(Action<string> listener)
+        public void AddListenerString(Action<string> listener)
         { 
             if (IsParameterTypeDifferent(ParameterType.String)) {return;};
 
             listenersString.Add(listener); 
         }
 
-        public void UnregisterListenerString(Action<string> listener)
+        public void RemoveListenerString(Action<string> listener)
         { 
             if (IsParameterTypeDifferent(ParameterType.String)) {return;};
 
             listenersString.Remove(listener); 
         }
 
-        public void RegisterListenerAudioClip(Action<AudioClip> listener)
+        public void AddListenerAudioClip(Action<AudioClip> listener)
         { 
             if (IsParameterTypeDifferent(ParameterType.AudioClip)) {return;};
 
             listenersAudioClip.Add(listener); 
         }
 
-        public void UnregisterListenerAudioClip(Action<AudioClip> listener)
+        public void RemoveListenerAudioClip(Action<AudioClip> listener)
         { 
             if (IsParameterTypeDifferent(ParameterType.AudioClip)) {return;};
 
             listenersAudioClip.Remove(listener); 
         }
 
-        public void RegisterListenerObject(Action<System.Object> listener)
+        public void AddListenerObject(Action<System.Object> listener)
         { 
             if (IsParameterTypeDifferent(ParameterType.Object)) {return;};
 
             listenersObject.Add(listener); 
         }
 
-        public void UnregisterListenerObject(Action<System.Object> listener)
+        public void RemoveListenerObject(Action<System.Object> listener)
         { 
             if (IsParameterTypeDifferent(ParameterType.Object)) {return;};
 
             listenersObject.Remove(listener); 
         }
 
-        public void RegisterListenerObjectReturnBool(ActionObjectReturnBool listener)
+        public void AddListenerObjectReturnBool(ActionObjectReturnBool listener)
         { 
             if (IsParameterTypeDifferent(ParameterType.ObjectReturnBool)) {return;};
 
             listenersObjectReturnBool.Add(listener); 
         }
 
-        public void UnregisterListenerObjectReturnBool(ActionObjectReturnBool listener)
+        public void RemoveListenerObjectReturnBool(ActionObjectReturnBool listener)
         { 
             if (IsParameterTypeDifferent(ParameterType.ObjectReturnBool)) {return;};
 
             listenersObjectReturnBool.Add(listener); 
         }
 
-        public void RegisterListenerGameObject(Action<GameObject> listener)
+        public void AddListenerGameObject(Action<GameObject> listener)
         { 
             if (IsParameterTypeDifferent(ParameterType.GameObject)) {return;};
 
             listenersGameObject.Add(listener); 
         }
 
-        public void UnregisterListenerGameObject(Action<GameObject> listener)
+        public void RemoveListenerGameObject(Action<GameObject> listener)
         { 
             if (IsParameterTypeDifferent(ParameterType.GameObject)) {return;};
 
             listenersGameObject.Remove(listener); 
         }
 
-        public void RegisterListenerScriptableObject(Action<ScriptableObject> listener)
+        public void AddListenerScriptableObject(Action<ScriptableObject> listener)
         { 
             if (IsParameterTypeDifferent(ParameterType.ScriptableObject)) {return;};
 
             listenersScriptableObject.Add(listener); 
         }
 
-        public void UnregisterListenerScriptableObject(Action<ScriptableObject> listener)
+        public void RemoveListenerScriptableObject(Action<ScriptableObject> listener)
         { 
             if (IsParameterTypeDifferent(ParameterType.ScriptableObject)) {return;};
 

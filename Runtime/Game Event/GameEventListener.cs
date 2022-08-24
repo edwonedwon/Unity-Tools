@@ -43,28 +43,28 @@ namespace Edwon.Tools
             switch(gameEvent.parameterType)
             {
                 case GameEvent.ParameterType.None:
-                    gameEvent.RegisterListener(OnEventRaised); 
+                    gameEvent.AddListener(OnEventRaised); 
                 break;
                 case GameEvent.ParameterType.Bool:
-                    gameEvent.RegisterListenerBool(OnEventRaised); 
+                    gameEvent.AddListenerBool(OnEventRaised); 
                 break;
                 case GameEvent.ParameterType.Int:
-                    gameEvent.RegisterListenerInt(OnEventRaised); 
+                    gameEvent.AddListenerInt(OnEventRaised); 
                 break;
                 case GameEvent.ParameterType.Float:
-                    gameEvent.RegisterListenerFloat(OnEventRaised); 
+                    gameEvent.AddListenerFloat(OnEventRaised); 
                 break;
                 case GameEvent.ParameterType.String:
-                    gameEvent.RegisterListenerString(OnEventRaised);
+                    gameEvent.AddListenerString(OnEventRaised);
                 break;
                 case GameEvent.ParameterType.Object:
-                    gameEvent.RegisterListenerObject(OnEventRaised); 
+                    gameEvent.AddListenerObject(OnEventRaised); 
                 break;
                 case GameEvent.ParameterType.GameObject:
-                    gameEvent.RegisterListenerGameObject(OnEventRaised); 
+                    gameEvent.AddListenerGameObject(OnEventRaised); 
                 break;
                 case GameEvent.ParameterType.ScriptableObject:
-                    gameEvent.RegisterListenerScriptableObject(OnEventRaised); 
+                    gameEvent.AddListenerScriptableObject(OnEventRaised); 
                 break;
             }
         }
@@ -74,28 +74,28 @@ namespace Edwon.Tools
             switch(gameEvent.parameterType)
             {
                 case GameEvent.ParameterType.None:
-                    gameEvent.UnregisterListener(OnEventRaised); 
+                    gameEvent.RemoveListener(OnEventRaised); 
                 break;
                 case GameEvent.ParameterType.Bool:
-                    gameEvent.UnregisterListenerBool(OnEventRaised); 
+                    gameEvent.RemoveListenerBool(OnEventRaised); 
                 break;
                 case GameEvent.ParameterType.Int:
-                    gameEvent.UnregisterListenerInt(OnEventRaised); 
+                    gameEvent.RemoveListenerInt(OnEventRaised); 
                 break;
                 case GameEvent.ParameterType.Float:
-                    gameEvent.UnregisterListenerFloat(OnEventRaised); 
+                    gameEvent.RemoveListenerFloat(OnEventRaised); 
                 break;
                 case GameEvent.ParameterType.String:
-                    gameEvent.UnregisterListenerString(OnEventRaised);
+                    gameEvent.RemoveListenerString(OnEventRaised);
                 break;
                 case GameEvent.ParameterType.Object:
-                    gameEvent.UnregisterListenerObject(OnEventRaised); 
+                    gameEvent.RemoveListenerObject(OnEventRaised); 
                 break;
                 case GameEvent.ParameterType.GameObject:
-                    gameEvent.UnregisterListenerGameObject(OnEventRaised); 
+                    gameEvent.RemoveListenerGameObject(OnEventRaised); 
                 break;
                 case GameEvent.ParameterType.ScriptableObject:
-                    gameEvent.UnregisterListenerScriptableObject(OnEventRaised); 
+                    gameEvent.RemoveListenerScriptableObject(OnEventRaised); 
                 break;
             }
         }
