@@ -28,7 +28,7 @@ namespace Edwon.Tools
 
         public void Raise()
         {
-            if (IsParameterTypeDifferent(ParameterType.Object)) {return;};
+            if (IsParameterTypeDifferent(ParameterType.None)) {return;};
                 
             for(int i = 0; i < listeners.Count; i++)
                 listeners[i]();
