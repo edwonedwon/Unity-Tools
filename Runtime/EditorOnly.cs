@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace  Edwon.Tools
 {
-    public class EditorTestObject : MonoBehaviour
+    public class EditorOnly : MonoBehaviour
     {
         void Awake()
         {
