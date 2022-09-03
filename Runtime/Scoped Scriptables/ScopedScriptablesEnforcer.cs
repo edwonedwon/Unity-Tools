@@ -8,8 +8,8 @@ namespace Edwon.Tools
 {
     public interface IScopedScriptableUser
     {
-        public List<ScopedScriptable> GetScopedScriptables();
-        public void SetScopedScriptables(ScopedScriptablesEnforcer enforcer);
+        List<ScopedScriptable> GetScopedScriptables();
+        void SetScopedScriptables(ScopedScriptablesEnforcer enforcer);
     }
 
     [System.Serializable]
