@@ -393,5 +393,16 @@ namespace Edwon.Tools
 			tf.localRotation = settings.localRotation;
 			tf.localScale = settings.localScale;
 		}
+
+        // example use
+        // copy into script and then add this to any property
+        // [OnInspectorGUI("@OdinForceUpdate")]
+        public static string OdinForceUpdate
+        {
+            get
+            {
+                return "@Sirenix.Utilities.Editor.GUIHelper.RequestRepaint()";
+            }
+        }
     }
 }
