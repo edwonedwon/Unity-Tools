@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Edwon.Tools;
+using Sirenix.OdinInspector;
 
 namespace Edwon.Tools
 {
