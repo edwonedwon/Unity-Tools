@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Sirenix.OdinInspector;
 
 namespace Edwon.Tools
 {
     public class VariableFloatListener : MonoBehaviour 
     {
+        [InlineEditor]
         public VariableFloat variableSO;
         public UnityEventFloat onAwake;
         public UnityEventFloat onVariableChanged;

@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
+using Sirenix.OdinInspector;
 
 namespace Edwon.Tools
 {
     public class VariableIntListener : MonoBehaviour
     {
         [SerializeField]
+        [InlineEditor]
         VariableInt variableSO;
-        public UnityEventInt onVariableChanged;
+        public UnityEventInt onVariableChangedInt;
+        public UnityEventString onVariableChangedString;
         public UnityEventInt onVariableIncreased;
         public UnityEventInt onVariableChangedAboveZero;
         public UnityEvent onVariableZero;
@@ -31,7 +34,8 @@ namespace Edwon.Tools
                 Debug.Log("variableSO is null on VariableIntListener on: " + gameObject.name);
             listener = new VariableIntListenerClass(
                 variableSO, 
-                ref onVariableChanged, 
+                ref onVariableChangedInt, 
+                ref onVariableChangedString,
                 ref onVariableIncreased, 
                 ref onVariableChangedAboveZero, 
                 ref onVariableZero);

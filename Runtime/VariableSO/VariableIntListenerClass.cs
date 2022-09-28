@@ -9,7 +9,8 @@ namespace Edwon.Tools
     {
         public VariableInt variable;
         public int variableLast;
-        public UnityEventInt onVariableChanged;
+        public UnityEventInt onVariableChangedInt;
+        public UnityEventString onVariableChangedString;
         public UnityEventInt onVariableIncreased;
         public UnityEventInt onVariableChangedAboveZero;
         public UnityEvent onVariableZero;
@@ -23,7 +24,8 @@ namespace Edwon.Tools
                 return;
             }
             this.variable = variable;
-            onVariableChanged = new UnityEventInt();
+            onVariableChangedInt = new UnityEventInt();
+            onVariableChangedString = new UnityEventString();
             onVariableIncreased = new UnityEventInt();
             onVariableChangedAboveZero = new UnityEventInt();
             onVariableZero = new UnityEvent();
@@ -32,7 +34,8 @@ namespace Edwon.Tools
 
         public VariableIntListenerClass(
             VariableInt variable, 
-            ref UnityEventInt onVariableChanged,
+            ref UnityEventInt onVariableChangedInt,
+            ref UnityEventString onVariableChangedString,
             ref UnityEventInt onVariableIncreased,
             ref UnityEventInt onVariableChangedAboveZero,
             ref UnityEvent onVariableZero)
@@ -43,7 +46,8 @@ namespace Edwon.Tools
                 return;
             }
             this.variable = variable;
-            this.onVariableChanged = onVariableChanged;
+            this.onVariableChangedInt = onVariableChangedInt;
+            this.onVariableChangedString = onVariableChangedString;
             this.onVariableIncreased = onVariableIncreased;
             this.onVariableChangedAboveZero = onVariableChangedAboveZero;
             this.onVariableZero = onVariableZero;
@@ -53,7 +57,8 @@ namespace Edwon.Tools
         void Init()
         {
             variableLast = variable.RuntimeValue;
-            onVariableChanged.Invoke(variable.RuntimeValue);
+            onVariableChangedInt.Invoke(variable.RuntimeValue);
+            onVariableChangedString.Invoke(variable.RuntimeValue.ToString());
             if (debugLog)
                 Debug.Log("INIT variabled changed to " + variable.RuntimeValue);
             ZeroOrNotZeroEvents();
@@ -68,7 +73,8 @@ namespace Edwon.Tools
             {
                 if (debugLog)
                     Debug.Log("variabled changed to " + variable.RuntimeValue);
-                onVariableChanged.Invoke(variable.RuntimeValue);
+                onVariableChangedInt.Invoke(variable.RuntimeValue);
+                onVariableChangedString.Invoke(variable.RuntimeValue.ToString());
                 ZeroOrNotZeroEvents();
                 if (variable.RuntimeValue > variableLast)
                 {
