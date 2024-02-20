@@ -8,7 +8,7 @@ namespace Edwon.Tools
     [CreateAssetMenu(fileName = "Game Event", menuName = "Game Event")]
     public class GameEvent : ScopedScriptable
     {
-        public enum ParameterType { None, Bool, Int, Float, String, AudioClip, Object, ObjectReturnBool, GameObject, ScriptableObject }
+        public enum ParameterType { None, Bool, Int, Float, String, AudioClip, AnimationClip, Object, ObjectReturnBool, GameObject, ScriptableObject }
         public ParameterType parameterType;
 
         // events without returns
@@ -18,6 +18,7 @@ namespace Edwon.Tools
         private List<Action<float>> listenersFloat = new List<Action<float>>();
         private List<Action<string>> listenersString = new List<Action<string>>();
         private List<Action<AudioClip>> listenersAudioClip = new List<Action<AudioClip>>();
+        private List<Action<AnimationClip>> listenersAnimationClip = new List<Action<AnimationClip>>();
         private List<Action<System.Object>> listenersObject = new List<Action<System.Object>>();
         private List<Action<GameObject>> listenersGameObject = new List<Action<GameObject>>();
         private List<Action<ScriptableObject>> listenersScriptableObject = new List<Action<ScriptableObject>>();
@@ -72,6 +73,14 @@ namespace Edwon.Tools
 
             for(int i = 0; i < listenersAudioClip.Count; i++)
                 listenersAudioClip[i](value);
+        }
+        
+        public void Raise(AnimationClip value)
+        {
+            if (IsParameterTypeDifferent(ParameterType.AnimationClip)) {return;};
+
+            for(int i = 0; i < listenersAnimationClip.Count; i++)
+                listenersAnimationClip[i](value);
         }
 
         public void Raise(System.Object value)
@@ -192,6 +201,20 @@ namespace Edwon.Tools
             if (IsParameterTypeDifferent(ParameterType.AudioClip)) {return;};
 
             listenersAudioClip.Remove(listener); 
+        }
+        
+        public void AddListenerAnimationClip(Action<AnimationClip> listener)
+        { 
+            if (IsParameterTypeDifferent(ParameterType.AnimationClip)) {return;};
+
+            listenersAnimationClip.Add(listener); 
+        }
+
+        public void RemoveListenerAnimationClip(Action<AnimationClip> listener)
+        { 
+            if (IsParameterTypeDifferent(ParameterType.AnimationClip)) {return;};
+
+            listenersAnimationClip.Remove(listener); 
         }
 
         public void AddListenerObject(Action<System.Object> listener)

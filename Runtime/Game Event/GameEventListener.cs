@@ -13,6 +13,8 @@ namespace Edwon.Tools
     public class UnityEventFloat : UnityEventEdwonBase<float>{}
     [System.Serializable]
     public class UnityEventString : UnityEventEdwonBase<string>{}
+    public class UnityEventAudioClip : UnityEventEdwonBase<AudioClip>{}
+    public class UnityEventAnimationClip : UnityEventEdwonBase<AnimationClip>{}
     [System.Serializable]
     public class UnityEventVector3 : UnityEventEdwonBase<Vector3>{}
     [System.Serializable]
@@ -34,6 +36,8 @@ namespace Edwon.Tools
         public UnityEventInt responseInt;
         public UnityEventFloat responseFloat;
         public UnityEventString responseString;
+        public UnityEventAudioClip responseAudioClip;
+        public UnityEventAnimationClip responseAnimationClip;
         public UnityEventObject responseObject;
         public UnityEventGameObject responseGameObject;
         public UnityEventScriptableObject responseScriptableObject;
@@ -56,6 +60,12 @@ namespace Edwon.Tools
                 break;
                 case GameEvent.ParameterType.String:
                     gameEvent.AddListenerString(OnEventRaised);
+                break;
+                case GameEvent.ParameterType.AudioClip:
+                    gameEvent.AddListenerAudioClip(OnEventRaised);
+                break;
+                case GameEvent.ParameterType.AnimationClip:
+                    gameEvent.AddListenerAnimationClip(OnEventRaised);
                 break;
                 case GameEvent.ParameterType.Object:
                     gameEvent.AddListenerObject(OnEventRaised); 
@@ -87,6 +97,12 @@ namespace Edwon.Tools
                 break;
                 case GameEvent.ParameterType.String:
                     gameEvent.RemoveListenerString(OnEventRaised);
+                break;
+                case GameEvent.ParameterType.AudioClip:
+                    gameEvent.RemoveListenerAudioClip(OnEventRaised);
+                break;
+                case GameEvent.ParameterType.AnimationClip:
+                    gameEvent.RemoveListenerAnimationClip(OnEventRaised);
                 break;
                 case GameEvent.ParameterType.Object:
                     gameEvent.RemoveListenerObject(OnEventRaised); 
@@ -127,6 +143,16 @@ namespace Edwon.Tools
         public void OnEventRaised(string s)
         {
             responseString.Invoke(s);
+        }
+        
+        public void OnEventRaised(AudioClip s)
+        {
+            responseAudioClip.Invoke(s);
+        }
+        
+        public void OnEventRaised(AnimationClip s)
+        {
+            responseAnimationClip.Invoke(s);
         }
 
         public void OnEventRaised(System.Object o)
