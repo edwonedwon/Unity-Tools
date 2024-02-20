@@ -13,7 +13,9 @@ namespace Edwon.Tools
     public class UnityEventFloat : UnityEventEdwonBase<float>{}
     [System.Serializable]
     public class UnityEventString : UnityEventEdwonBase<string>{}
+    [System.Serializable]
     public class UnityEventAudioClip : UnityEventEdwonBase<AudioClip>{}
+    [System.Serializable]
     public class UnityEventAnimationClip : UnityEventEdwonBase<AnimationClip>{}
     [System.Serializable]
     public class UnityEventVector3 : UnityEventEdwonBase<Vector3>{}
