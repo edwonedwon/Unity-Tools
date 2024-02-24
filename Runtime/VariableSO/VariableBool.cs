@@ -8,7 +8,6 @@ namespace Edwon.Tools
     public class VariableBool : Variable<bool>
     {
         [SerializeField]
-        [ReadOnly]
         protected bool runtimeValue;
         override public bool RuntimeValue
         {
