@@ -331,8 +331,8 @@ namespace Edwon.Tools
 		{
 			RigidBodySettings settings = new RigidBodySettings();
 			settings.mass = rb.mass;
-			settings.drag = rb.drag;
-			settings.angularDrag = rb.angularDrag;
+			settings.drag = rb.linearDamping;
+			settings.angularDrag = rb.angularDamping;
 			settings.gravity = rb.useGravity;
 			settings.kinematic = rb.isKinematic;
 			settings.interpolation = rb.interpolation;
@@ -345,8 +345,8 @@ namespace Edwon.Tools
 		public static void SetRigidbodySettings(Rigidbody rb, RigidBodySettings settings)
 		{
 			rb.mass = settings.mass;
-			rb.drag = settings.drag;
-			rb.angularDrag = settings.angularDrag;
+			rb.linearDamping = settings.drag;
+			rb.angularDamping = settings.angularDrag;
 			rb.useGravity = settings.gravity;
 			rb.isKinematic = settings.kinematic;
 			rb.interpolation = settings.interpolation;

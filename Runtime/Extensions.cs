@@ -205,7 +205,7 @@ namespace Edwon.Tools
         {
             strength *= 100;
             Vector3 PositionDelta = (positionToMatch - rb.transform.position);
-            rb.velocity = PositionDelta * strength * Time.fixedDeltaTime;
+            rb.linearVelocity = PositionDelta * strength * Time.fixedDeltaTime;
         }
 
         public static void TurnTowardsUsingVelocity(this Rigidbody rb, Quaternion towardsRotation, float strength = 1)
